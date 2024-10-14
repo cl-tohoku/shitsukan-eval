@@ -92,7 +92,7 @@ def perception_selection_ja(
     save_dir: str,
     task: str,
     sub_task: str,
-    sub_subtasks: Optional(list[str]) | None,
+    sub_subtasks: list[str] | None,
     lang: str,
     model_name: str,
 ) -> list[dict[str, Any]]:
@@ -121,7 +121,7 @@ def perception_selection_ja(
     >>> }
     >>> perception_selection_en(model, task_config, verbose=True, save_dir="results", task="perception", sub_task="selection", sub_subtask=None, lang="ja", model_name="gpt-4o")
     """
-    if sub_subtasks is not None:
+    if sub_subtasks is None:
         sub_subtask_list = ("choice2_ans1", "choice3_ans1", "choice4_ans1", "choice5_ans1", "random")
     else:
         sub_subtask_list = sub_subtasks
@@ -175,7 +175,7 @@ def perception_selection_ja(
 
             # Print the prompt and response if verbose mode is enabled
             if verbose:
-                tqdm.write(f"{text}{response}\n")
+                tqdm.write(f"{text}{simple_choice_extractors(response)}\n")
 
             # Add response and metadata to data
             data["zero_shot"] = text
@@ -193,10 +193,10 @@ def perception_selection_ja(
         save_results_as_jsonl(save_dir, tmp_data_list, task, sub_task, sub_subtask, lang, model_name)
 
     scores_list = get_eval_scores(new_data_list, sub_subtask_list)
+    display_string = "=" * 20 + " " * 2 + f"Model Name: {model_name}" + " " * 4 + f"Language: {lang}" + " " * 2 + "=" * 20 + "\n" + "-" * 20
+    print(display_string)
     for scores in scores_list:
-        display_string = (
-            "=" * 40 + f'Model Name: {scores["model_name"]}' + f'Sub-SubTask: {scores["sub_subtask"]}' + "-" * 20 + f'Accuracy: {scores["accuracy"]}' + "=" * 40
-        )
+        display_string = f'- Sub-SubTask: {scores["sub_subtask"]}\n' + f'- Accuracy: {scores["accuracy"]}\n' + "-" * 20
         print(display_string)
     save_eval_scores_as_jsonl(save_dir, scores_list, task, sub_task, lang, model_name)
 
