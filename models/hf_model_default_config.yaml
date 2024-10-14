@@ -1,0 +1,8 @@
+revision: "main"
+device: "cuda"
+dtype: "bfloat16"
+low_cpu_mem_usage: true
+batch_size: 1
+trust_remote_code: false
+device_map: {"": 0}
+use_cache: true

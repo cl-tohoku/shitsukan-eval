@@ -1,0 +1,8 @@
+dataset_path: data/perception/generation/perception_generation_ja.jsonl
+few_shot_path: data/perception/generation/few_shot_for_perception-generation_ja.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1

@@ -1,0 +1,22 @@
+subtask:
+  choice2_ans1:
+    dataset_path: data/perception/selection/choice2_ans1/perception_selection_choice2-ans1_en.jsonl
+    few_shot_path: data/perception/selection/choice2_ans1/few_shot_for_perception-selection-choice2-ans1_en.jsonl
+  choice3_ans1:
+    dataset_path: data/perception/selection/choice3_ans1/perception_selection_choice3-ans1_en.jsonl
+    few_shot_path: data/perception/selection/choice3_ans1/few_shot_for_perception-selection-choice3-ans1_en.jsonl
+  choice4_ans1:
+    dataset_path: data/perception/selection/choice4_ans1/perception_selection_choice4-ans1_en.jsonl
+    few_shot_path: data/perception/selection/choice4_ans1/few_shot_for_perception-selection-choice4-ans1_en.jsonl
+  choice5_ans1:
+    dataset_path: data/perception/selection/choice5_ans1/perception_selection_choice5-ans1_en.jsonl
+    few_shot_path: data/perception/selection/choice5_ans1/few_shot_for_perception-selection-choice5-ans1_en.jsonl
+  random:
+    dataset_path: data/perception/selection/random/perception_selection_random_en.jsonl
+    few_shot_path: data/perception/selection/random/few_shot_for_perception-selection-random_en.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1
