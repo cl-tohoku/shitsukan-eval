@@ -60,6 +60,9 @@ uv python install 3.11
 uv python pin 3.11
 uv sync --no-dev
 uv sync --dev --no-build-isolation
+
+# for developper
+# uv run pre-commit install
 ```
 
 ### 2. Data Preparation
