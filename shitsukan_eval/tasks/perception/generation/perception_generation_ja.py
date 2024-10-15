@@ -102,7 +102,7 @@ def perception_generation_ja(
         """
 
         # Construct the prompt using the object in the data
-        text = f'「{data["object"]}」という単語は、どのような質感を持っているように感じますか？\n回答: '
+        text = f'写真内にある「{data["object"]}」は、どのような質感を持っているように感じますか？\n回答: '
 
         # Generate the response using the model
         response = model.generate_response(
