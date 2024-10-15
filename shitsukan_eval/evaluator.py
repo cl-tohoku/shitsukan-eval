@@ -38,34 +38,28 @@ def task_and_lang_to_func(task: str, sub_task: str, lang: str):
     >>> func = task_and_lang_to_func("perception", "generation", "ja")
     >>> print(func)  # Outputs the corresponding function for perception generation in Japanese.
     """
-    if lang == "ja":
-        if task == "perception":
-            if sub_task == "generation":
-                return perception_generation_ja
-            elif sub_task == "selection":
-                return perception_selection_ja
-            else:
-                raise ValueError(f"Error! The selected sub-task ({sub_task}) doesn't exist.")
-        elif task == "commonsense":
-            pass  # Placeholder for future tasks
-        elif task == "taxonomic":
-            pass
-        else:
-            raise ValueError(f"Error! The selected task ({task}) doesn't exist.")
-    elif lang == "en":
-        if task == "perception":
-            if sub_task == "selection":
-                return perception_selection_en
-            else:
-                raise ValueError(f"Error! The selected sub-task ({sub_task}) doesn't exist.")
-        elif task == "commonsense":
-            pass
-        elif task == "taxonomic":
-            pass
-        else:
-            raise ValueError(f"Error! The selected task ({task}) doesn't exist.")
-    else:
-        raise ValueError(f"Error! The selected language ({lang}) doesn't exist.")
+    task_mapping = {
+        "ja": {
+            "perception": {
+                "generation": perception_generation_ja,
+                "selection": perception_selection_ja,
+            },
+            "commonsense": {},
+            "taxonomic": {},
+        },
+        "en": {
+            "perception": {
+                "selection": perception_selection_en,
+            },
+            "commonsense": {},
+            "taxonomic": {},
+        },
+    }
+
+    try:
+        return task_mapping[lang][task][sub_task]
+    except KeyError:
+        raise ValueError(f"Error! The selected combination of task ({task}), sub-task ({sub_task}), or language ({lang}) doesn't exist.") from None
 
 
 def task_and_lang_to_config(task: str, sub_task: str, lang: str) -> dict[str, Any]:
@@ -87,36 +81,29 @@ def task_and_lang_to_config(task: str, sub_task: str, lang: str) -> dict[str, An
     >>> config = task_and_lang_to_config("perception", "generation", "ja")
     >>> print(config)  # Outputs the task configuration for perception generation in Japanese.
     """
-    if lang == "ja":
-        if task == "perception":
-            if sub_task == "generation":
-                task_config = load_yaml("./shitsukan_eval/tasks/perception/generation/perception_generation_ja.yaml")
-            elif sub_task == "selection":
-                task_config = load_yaml("./shitsukan_eval/tasks/perception/selection/perception_selection_ja.yaml")
-            else:
-                raise ValueError(f"Error! The selected sub-task ({sub_task}) doesn't exist.")
-        elif task == "commonsense":
-            pass  # Placeholder for future tasks
-        elif task == "taxonomic":
-            pass
-        else:
-            raise ValueError(f"Error! The selected task ({task}) doesn't exist.")
-    elif lang == "en":
-        if task == "perception":
-            if sub_task == "selection":
-                task_config = load_yaml("./shitsukan_eval/tasks/perception/selection/perception_selection_en.yaml")
-            else:
-                raise ValueError(f"Error! The selected sub-task ({sub_task}) doesn't exist.")
-        elif task == "commonsense":
-            pass
-        elif task == "taxonomic":
-            pass
-        else:
-            raise ValueError(f"Error! The selected task ({task}) doesn't exist.")
-    else:
-        raise ValueError(f"Error! The selected language ({lang}) doesn't exist.")
+    config_mapping = {
+        "ja": {
+            "perception": {
+                "generation": "./shitsukan_eval/tasks/perception/generation/perception_generation_ja.yaml",
+                "selection": "./shitsukan_eval/tasks/perception/selection/perception_selection_ja.yaml",
+            },
+            "commonsense": {},
+            "taxonomic": {},
+        },
+        "en": {
+            "perception": {
+                "selection": "./shitsukan_eval/tasks/perception/selection/perception_selection_en.yaml",
+            },
+            "commonsense": {},
+            "taxonomic": {},
+        },
+    }
 
-    return task_config
+    try:
+        task_config_path = config_mapping[lang][task][sub_task]
+        return load_yaml(task_config_path)
+    except KeyError:
+        raise ValueError(f"Error! The selected combination of task ({task}), sub-task ({sub_task}), or language ({lang}) doesn't exist.") from None
 
 
 def evaluate(model_name: str, tasks: list[str], sub_tasks: list[str], lang: str, image_dir: str, save_dir: str, verbose: bool) -> None:
@@ -182,7 +169,7 @@ def evaluate(model_name: str, tasks: list[str], sub_tasks: list[str], lang: str,
         hf_model_config["trust_remote_code"] = True
         model = Molmo(pretrained=model_name, image_dir=image_dir, **hf_model_config)
     else:
-        raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
+        raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.") from None
 
     # Evaluate the model on the specified tasks and sub-tasks
     for task in tasks:
