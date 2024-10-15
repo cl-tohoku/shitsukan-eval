@@ -62,7 +62,7 @@ def save_results_as_jsonl(save_dir: str, results: list[dict[str, Any]], task: st
     >>> save_results_as_jsonl("output", results, "perception", "generation", None, "ja", "gpt-4")
     """
     save_dir = pathlib.Path(save_dir)
-    timestamp = pd.Timestamp.now().strftime("%Y-%m-%d--%H:%M:%S")
+    timestamp = pd.Timestamp.now().strftime("%Y-%m-%d-%H:%M:%S")
     if sub_subtask is not None:
         output_file = save_dir.joinpath(f"{task}/{sub_task}/{sub_subtask}/{task}_{sub_task}_{sub_subtask}_{lang}_{model_name}_{timestamp}.jsonl")
     else:
@@ -91,7 +91,7 @@ def save_eval_scores_as_jsonl(save_dir: str, scores: list[dict[str, Any]], task:
     >>> save_eval_scores_as_jsonl("output", scores, "perception", "generation", "ja", "gpt-4")
     """
     save_dir = pathlib.Path(save_dir)
-    timestamp = pd.Timestamp.now().strftime("%Y-%m-%d--%H:%M:%S")
+    timestamp = pd.Timestamp.now().strftime("%Y-%m-%d-%H:%M:%S")
     output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_name}_scores_{timestamp}.jsonl")
 
     pathlib.Path(output_file).parent.mkdir(parents=True, exist_ok=True)
