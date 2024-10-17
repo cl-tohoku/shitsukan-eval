@@ -17,7 +17,7 @@ We evaluate the alignment of Large Language Models (LLMs) and Large Vision-Langu
 We created a new dataset of *shitsukan* terms recalled by individuals in response to images of specified objects. We also designed benchmark tasks to evaluate the *shitsukan* recognition capabilities of LLMs and LVLMs.  
 
 
-####  List of models currently supported
+<h3>List of models currently supported</h3>
 
 <details>
 <summary><b>The currently supported API LLMs/LVLMs are as follows:</b></summary>
