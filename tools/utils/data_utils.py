@@ -45,7 +45,16 @@ def save_jsonl(filename: str, data_list: list[dict[str, Any]]) -> None:
             fo.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
-def save_results_as_jsonl(save_dir: str, results: list[dict[str, Any]], task: str, sub_task: str, sub_subtask: str | None, lang: str, model_name: str) -> None:
+def save_results_as_jsonl(
+    save_dir: str,
+    results: list[dict[str, Any]],
+    task: str,
+    sub_task: str,
+    sub_subtask: str | None,
+    lang: str,
+    model_type: str,
+    model_name: str,
+) -> None:
     """
     Save evaluation results as JSONL format based on the task structure.
 
@@ -56,16 +65,17 @@ def save_results_as_jsonl(save_dir: str, results: list[dict[str, Any]], task: st
         sub_task (str): Name of the sub-task.
         sub_subtask (Optional[str]): Name of the sub-subtask (optional).
         lang (str): Language of the evaluation.
+        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
         model_name (str): Name of the evaluated model.
 
     Example usage:
-    >>> save_results_as_jsonl("output", results, "perception", "generation", None, "ja", "gpt-4")
+    >>> save_results_as_jsonl("output", results, "perception", "generation", None, "ja", "api", "gpt-4")
     """
     save_dir = pathlib.Path(save_dir)
     if sub_subtask is not None:
-        output_file = save_dir.joinpath(f"{task}/{sub_task}/{sub_subtask}/{task}_{sub_task}_{sub_subtask}_{lang}_{model_name}.jsonl")
+        output_file = save_dir.joinpath(f"{task}/{sub_task}/{sub_subtask}/{task}_{sub_task}_{sub_subtask}_{lang}_{model_type}_{model_name}.jsonl")
     else:
-        output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_name}.jsonl")
+        output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}.jsonl")
 
     pathlib.Path(output_file).parent.mkdir(parents=True, exist_ok=True)
 
@@ -74,7 +84,15 @@ def save_results_as_jsonl(save_dir: str, results: list[dict[str, Any]], task: st
             fo.write(json.dumps(r, ensure_ascii=False) + "\n")
 
 
-def save_eval_scores_as_jsonl(save_dir: str, scores: list[dict[str, Any]], task: str, sub_task: str, lang: str, model_name: str) -> None:
+def save_eval_scores_as_jsonl(
+    save_dir: str,
+    scores: list[dict[str, Any]],
+    task: str,
+    sub_task: str,
+    lang: str,
+    model_type: str,
+    model_name: str,
+) -> None:
     """
     Save evaluation scores as JSONL format.
 
@@ -84,13 +102,14 @@ def save_eval_scores_as_jsonl(save_dir: str, scores: list[dict[str, Any]], task:
         task (str): Name of the task.
         sub_task (str): Name of the sub-task.
         lang (str): Language of the evaluation.
+        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
         model_name (str): Name of the evaluated model.
 
     Example usage:
-    >>> save_eval_scores_as_jsonl("output", scores, "perception", "generation", "ja", "gpt-4")
+    >>> save_eval_scores_as_jsonl("output", scores, "perception", "generation", "ja", "api", "gpt-4")
     """
     save_dir = pathlib.Path(save_dir)
-    output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_name}_scores.jsonl")
+    output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}_scores.jsonl")
 
     pathlib.Path(output_file).parent.mkdir(parents=True, exist_ok=True)
 
@@ -175,6 +194,26 @@ def convert_csv_to_jsonl(filename: str, output_dir: str) -> None:
     df.to_json(save_filename, orient="records", force_ascii=False, lines=True)
 
 
+def convert_tsv_to_jsonl(filename: str, output_dir: str) -> None:
+    """
+    Convert a TSV file to JSONL format.
+
+    Args:
+        filename (str): Path to the TSV file.
+        output_dir (str): Directory where the converted JSONL file will be saved.
+
+    Example usage:
+    >>> convert_tsv_to_jsonl("data.tsv", "output")
+    """
+    filename = pathlib.Path(filename)
+    output_dir = pathlib.Path(output_dir)
+    save_filename = output_dir.joinpath(filename.name + ".jsonl")
+    # load json file
+    df = pd.read_csv(filename, sep="\t")
+    # save as jsonl file
+    df.to_json(save_filename, orient="records", force_ascii=False, lines=True)
+
+
 def load_dataset(filename: str) -> list[dict[str, Any]]:
     """
     Load a dataset from a file (JSON, CSV, or JSONL format).
@@ -200,6 +239,11 @@ def load_dataset(filename: str) -> list[dict[str, Any]]:
         os.remove(str(tmp_save_filename))
     elif filename.suffix == ".csv":
         convert_csv_to_jsonl(str(filename), str(filename.parent))
+        tmp_save_filename = filename.parent.joinpath(filename.name + ".jsonl")
+        data_list = load_jsonl(str(tmp_save_filename))
+        os.remove(str(tmp_save_filename))
+    elif filename.suffix == ".tsv":
+        convert_tsv_to_jsonl(str(filename), str(filename.parent))
         tmp_save_filename = filename.parent.joinpath(filename.name + ".jsonl")
         data_list = load_jsonl(str(tmp_save_filename))
         os.remove(str(tmp_save_filename))
@@ -313,7 +357,7 @@ def simple_choice_extractors(answer: str) -> str:
     "-100"
     """
     predicted_answer = answer.strip()
-    pattern = re.compile(r"\({0,1}(-1|[0-4])[.,:;)]{0,1}")
+    pattern = re.compile(r"\({0,1}(-1|[0-5]|[A-B]|yes|no)[.,:;)]{0,1}")
     extracted_predicted_answer = pattern.match(predicted_answer)
 
     if extracted_predicted_answer:
