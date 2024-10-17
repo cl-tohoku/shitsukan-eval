@@ -158,8 +158,7 @@ uv run python -m shitsukan_eval \
 <br>
 
 > [!NOTE]
-> The configuration files for each task are located at <code>shitsukan_eval/tasks/{task}/{sub_task}/{task}_{sub_task}_{lang}.yaml.</code>  
-> If you want to modify the settings, please change them here.
+> The configuration files for each task are located at `shitsukan_eval/tasks/{task}/{sub_task}/{task}_{sub_task}_{lang}.yaml`.<br>If you want to modify the settings, please change them here.
 
 ## Citation
 
