@@ -12,7 +12,6 @@ wandb/
 hostfile/
 eval_results/
 inference_results/
-hf_models/
 archive/
 artifacts/
 data/
