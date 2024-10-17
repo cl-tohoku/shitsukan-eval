@@ -4,23 +4,38 @@ shitsukan-eval
 ===========================
 <h4>Evaluating Model (LLM / LVLM) Alignment with Human Perception</h4>
 
+[📄 Paper (Coming Soon)]() &nbsp;&nbsp;&nbsp;&nbsp; [🚀 Project Page]() &nbsp;&nbsp;&nbsp;&nbsp; [🤗 Data]()
+
 <img src="images/shitsukan-eval_overview.png" alt="shitsukan-eval" width="300px">
 
 <div align="left">
 
 <br>
 
-(🚧 Here: Add description for this repo 🚧)
+We evaluate the alignment of Large Language Models (LLMs) and Large Vision-Language Models (LVLMs) with human perception, focusing on the Japanese concept of *shitsukan*.  
+*Shitsukan* represents the sensory experience when perceiving objects, an inherently vague and highly subjective concept.  
+We created a new dataset of *shitsukan* terms recalled by individuals in response to images of specified objects. We also designed benchmark tasks to evaluate the *shitsukan* recognition capabilities of LLMs and LVLMs.  
+
+
+####  List of models currently supported
 
 <details>
-<summary><b>The currently supported LLMs are as follows:</b></summary>
+<summary><b>The currently supported API LLMs/LVLMs are as follows:</b></summary>
+<li><a href="https://platform.openai.com/docs/models/gpt-4o">GPT-4o</a></li>
 <li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
 
 <details>
-<summary><b>The currently supported LVLMs are as follows:</b></summary>
+<summary><b>The currently supported Huggingface LLMs are as follows:</b></summary>
+<li>(🚧 Here: Add description for this repo 🚧)</li>
+</details>
+
+<br>
+
+<details>
+<summary><b>The currently supported Huggingface LVLMs are as follows:</b></summary>
 <li><a href="https://arxiv.org/abs/2310.03744">LLaVA-1.5</a></li>
 <li><a href="https://arxiv.org/abs/2405.02246">Idefics2</a></li>
 <li><a href="https://llava-vl.github.io/blog/2024-01-30-llava-next/">LLaVA-NeXT (LLaVA-1.6)</a></li>
@@ -34,12 +49,28 @@ shitsukan-eval
 
 <br>
 
+<details>
+<summary><b>The currently supported vLLM LLMs are as follows:</b></summary>
+<li>(🚧 Here: Add description for this repo 🚧)</li>
+</details>
+
+<br>
+
+<details>
+<summary><b>The currently supported vLLM LVLMs are as follows:</b></summary>
+<li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
+<li>(🚧 Here: Add description for this repo 🚧)</li>
+</details>
+
+<br>
+
 This library is experimental and under active development.
 We plan to add some **breaking changes** in the future to improve the usability and performance of the library.
 
 # Table of Contents
 
 - [shitsukan-eval](#shitsukan-eval)
+      - [List of models currently supported](#list-of-models-currently-supported)
 - [Table of Contents](#table-of-contents)
   - [Usage](#usage)
     - [1. Build Environment](#1-build-environment)
@@ -88,8 +119,10 @@ git clone https://huggingface.co/datasets/<ANONYMOUS>/Shitsukan
 The following command evaluate the specified model on the specified tasks in shitsukan-eval.
 
 ```bash
-CUDA_VISIBLE_DEVICES=0 uv run python -m shitsukan_eval \
+export CUDA_VISIBLE_DEVICES=0
+uv run python -m shitsukan_eval \
     --model "<model_name_or_path>" \
+    --model-type "<model_type>" \
     --tasks "<task_name>" \
     --sub-tasks "<sub-task_name>" \
     --lang "<lang>" \
@@ -101,19 +134,23 @@ CUDA_VISIBLE_DEVICES=0 uv run python -m shitsukan_eval \
 <details>
 <summary><b>Explanation of the available arguments</b></summary>
 
-- `--model` (str): The name or path of the model to evaluate. (e.g., `"Qwen/Qwen2-VL-7B-Instruct"`)
-- `--tasks` (str): The task name to evaluate.
+- `--model` (`str`): The name or path of the model to evaluate. (e.g., `"Qwen/Qwen2-VL-7B-Instruct"`)
+- `--model-type` (`str`): The model type of the specified model.
+  - Model type that can be specified: `"api"`, `"hf"`, `"vllm"`
+- `--tasks` (`str`): The task name to evaluate.
   - Tasks that can be specified: `"perception"`, `"commonsense"`, `"taxonomic"`
-- `--sub-tasks` (List[str]): List of sub-tasks within the tasks.
-  - In case of `--tasks "perception"`, Sub-tasks that can be specified: `"generation"`, `"selection"`
-  - In case of `--tasks "commonsense"`, Sub-tasks that can be specified: `"hoge"`
-  - In case of `--tasks "taxonomic"`, Sub-tasks that can be specified: `"hoge"`
-- `--lang` (str): Language to use for the evaluation (default: `"ja"`).
+- `--sub-tasks` (`List[str]`): List of sub-tasks within the tasks.
+  - In case of `--tasks "perception" --language "ja"`, Sub-tasks that can be specified: `"generation"`, `"selection"`
+  - In case of `--tasks "perception" --language "en"`, Sub-tasks that can be specified: `"selection"`
+  - In case of `--tasks "commonsense" --language "ja"`, Sub-tasks that can be specified: `"generation"`, `"classification"`
+  - In case of `--tasks "commonsense" --language "en"`, Sub-tasks that can't be specified
+  - In case of `--tasks "taxonomic" --language "ja"`, Sub-tasks that can be specified: `"a_b_classification"`, `"yes_no_classification"`, `"multiple_choice_classification"`
+- `--lang` (`str`): Language to use for the evaluation (default: `"ja"`).
   - Language that can be specified: `"ja"`, `"en"`
-- `--image-dir` (Optional[str]): Directory where input images are stored (optional).
+- `--image-dir` (`Optional[str]`): Directory where input images are stored (optional).
   - If you specify `--image-dir="data"`, the evaluation script will reference the COCO 2017 images located at `data/images/coco2017/train2017/*.png` and `data/images/coco2017/val2017/*.png` during execution. If you have not prepared the COCO 2017 images, please download them in advance from [here](https://cocodataset.org/#download).
-- `--save-dir` (str): Directory where evaluation results will be saved.
-- `-v`, `--verbose`: If set, print detailed information during processing.
+- `--save-dir` (`str`): Directory where evaluation results will be saved.
+- `-v`, `--verbose` (`bool`): If set, print detailed information during processing.
 
 </details>
 
