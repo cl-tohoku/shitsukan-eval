@@ -21,7 +21,7 @@ except ImportError:
 DEFAULT_IMAGE_TOKEN = "<image>"
 
 
-class Idefics2:
+class Idefics2Hf:
     """
     Wrapper class for the Idefics2 model for conditional generation, supporting both text and image input.
 
@@ -40,7 +40,7 @@ class Idefics2:
         **kwargs: Additional unused keyword arguments.
 
     Example usage:
-    >>> model = Idefics2(pretrained="HuggingFaceM4/idefics2-8b", device_map={"": 0})
+    >>> model = Idefics2Hf(pretrained="HuggingFaceM4/idefics2-8b", device_map={"": 0})
     >>> text = "What is this picture?"
     >>> images = ["path_to_image.jpg"]
     >>> response = model.generate_response_with_image(text, images, gen_kwargs={})
@@ -190,7 +190,7 @@ class Idefics2:
             List[Dict[str, Any]]: List of system prompt messages.
 
         Example:
-        >>> prompt = Idefics2.create_system_prompt("You are a helpful assistant.")
+        >>> prompt = Idefics2Hf.create_system_prompt("You are a helpful assistant.")
         [{"role": "system", "content": [{"type": "text", "text": 'You are a helpful assistant.'}]
         """
         return [{"role": "system", "content": [{"type": "text", "text": system_prompt}]}]
@@ -208,7 +208,7 @@ class Idefics2:
 
         Example:
         >>> zero_shot = {"user": "Describe this image.", "images": ["image1.jpg"]}
-        >>> prompt = Idefics2.create_zero_shot_prompt(zero_shot)
+        >>> prompt = Idefics2Hf.create_zero_shot_prompt(zero_shot)
         """
         messages = []
         role = "user"
@@ -240,7 +240,7 @@ class Idefics2:
         >>> few_shot = [
                 {"user": "What is this?", "assistant": "This is a cat.", "images": ["image1.jpg"]}
             ]
-        >>> prompt = Idefics2.create_few_shot_prompt(few_shot)
+        >>> prompt = Idefics2Hf.create_few_shot_prompt(few_shot)
         """
         messages = []
         for shot_data in few_shot_data:
@@ -285,7 +285,7 @@ class Idefics2:
             ValueError: If the number of image tokens (`<image>`) in the text exceeds the number of provided images.
 
         Example usage:
-        >>> model = Idefics2()
+        >>> model = Idefics2Hf()
         >>> response = model.generate_response("Describe this image: <image>", ["image1.jpg"])
         >>> print(response)
         "This is an image of a beautiful sunset."
@@ -299,11 +299,11 @@ class Idefics2:
 
         # Add system-level prompt if provided
         if system_prompt:
-            message += Idefics2.create_system_prompt(system_prompt)
+            message += Idefics2Hf.create_system_prompt(system_prompt)
 
         # Add few-shot examples if provided
         if few_shot_data:
-            message += Idefics2.create_few_shot_prompt(few_shot_data)
+            message += Idefics2Hf.create_few_shot_prompt(few_shot_data)
 
         # Handle cases where images are provided
         if images is not None:
@@ -315,14 +315,14 @@ class Idefics2:
                 )
             elif img_token_num == len(images):
                 # Add the main user input (text and images)
-                message += Idefics2.create_zero_shot_prompt({"user": text, "images": None})
+                message += Idefics2Hf.create_zero_shot_prompt({"user": text, "images": None})
             else:
                 add_img_token_num = len(images) - img_token_num
                 # Add the main user input (text and images)
-                message += Idefics2.create_zero_shot_prompt({"user": text, "images": images[:add_img_token_num]})
+                message += Idefics2Hf.create_zero_shot_prompt({"user": text, "images": images[:add_img_token_num]})
         else:
             # Add the main user input (text)
-            message += Idefics2.create_zero_shot_prompt({"user": text, "images": None})
+            message += Idefics2Hf.create_zero_shot_prompt({"user": text, "images": None})
 
         # Apply chat template (model-specific preprocessing)
         prompt = self._processor.apply_chat_template(message, add_generation_prompt=True)

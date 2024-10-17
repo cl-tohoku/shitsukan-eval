@@ -1,0 +1,12 @@
+revision: "main"
+tokenizer_revision: "main"
+tokenizer_mode: "auto"
+trust_remote_code: false
+tensor_parallel_size: 1
+dtype: "bfloat16"
+seed: 42
+gpu_memory_utilization: 0.9
+swap_space: 4
+cpu_offload_gb: 0
+max_seq_len_to_capture: 8192
+limit_mm_per_prompt: {"image": 10, "video": 1}

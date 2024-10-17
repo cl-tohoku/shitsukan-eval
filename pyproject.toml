@@ -98,6 +98,7 @@ ignore = [
     "UP035",  # Checks for uses of deprecated imports based on the minimum supported Python version.
     "PLR0912",  # Too many branches
     "PLR0913",  # Too many arguments in function definition
+    "PLR0915",  # Too many statements in function
     "PLR2004",  # Magic value used in comparison
 ]
 

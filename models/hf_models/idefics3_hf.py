@@ -3,7 +3,7 @@ import pathlib
 from typing import Any
 
 import torch
-from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
+from transformers import AutoModelForVision2Seq, AutoProcessor
 from transformers.image_utils import load_image
 
 from tools.utils.data_utils import is_url, set_seed_all
@@ -18,35 +18,38 @@ try:
 except ImportError:
     best_fit_attn_implementation = "eager"
 
+DEFAULT_IMAGE_TOKEN = "<image>"
 
-class Qwen2VL:
+
+class Idefics3Hf:
     """
-    A wrapper class for the Qwen2-VL model for conditional generation with both text and images.
+    Wrapper class for the Idefics3 model for conditional generation, supporting both text and image input.
 
     Args:
-        pretrained (str): The name or path of the pretrained model.
-        revision (str): The revision of the model to use.
-        device (str): The device to run the model on (e.g., 'cuda', 'cpu').
-        dtype (Optional[Union[str, torch.dtype]]): The data type to use for the model.
+        pretrained (str): Pretrained model name or path.
+        revision (str): Model revision.
+        device (str): Device to run the model on (e.g., 'cuda', 'cpu').
+        dtype (Optional[Union[str, torch.dtype]]): Data type for the model.
         low_cpu_mem_usage (bool): Whether to use less CPU memory when loading the model.
-        batch_size (int): The batch size for generation.
+        batch_size (int): Batch size per GPU.
         trust_remote_code (Optional[bool]): Whether to trust remote code when loading the model.
-        attn_implementation (Optional[str]): The attention implementation to use.
+        attn_implementation (Optional[str]): Attention implementation to use (default is best_fit_attn_implementation).
         device_map (str): Device map for model parallelism.
-        use_cache (bool): Whether to cache model results.
+        use_cache (bool): Whether to use cache during generation.
+        do_image_splitting (bool): Whether to split images into smaller chunks.
+        **kwargs: Additional unused keyword arguments.
 
     Example usage:
-    >>> model = Qwen2VL(pretrained="Qwen/Qwen2-VL-7B-Instruct", device_map={"": 0})
-    >>> text = "Describe this image."
-    >>> images = ["image1.jpg"]
-    >>> response = model.generate_response(text, images)
+    >>> model = Idefics3Hf(pretrained="HuggingFaceM4/Idefics3-8B-Llama3", device_map={"": 0})
+    >>> text = "What is this picture?"
+    >>> images = ["path_to_image.jpg"]
+    >>> response = model.generate_response_with_image(text, images, gen_kwargs={})
     >>> print(response)
-    "This is an image of a beautiful sunset."
     """
 
     def __init__(
         self,
-        pretrained: str = "Qwen/Qwen2-VL-7B-Instruct",
+        pretrained: str = "HuggingFaceM4/Idefics3-8B-Llama3",
         image_dir: str = None,
         revision: str = "main",
         device: str = "cuda",
@@ -57,6 +60,7 @@ class Qwen2VL:
         attn_implementation: str | None = best_fit_attn_implementation,
         device_map: str = "",
         use_cache: bool = True,
+        do_image_splitting: bool = True,
         **kwargs,
     ) -> None:
         super().__init__()
@@ -70,7 +74,7 @@ class Qwen2VL:
             dtype = getattr(torch, dtype)
 
         # Load the model
-        self._model = Qwen2VLForConditionalGeneration.from_pretrained(
+        self._model = AutoModelForVision2Seq.from_pretrained(
             pretrained,
             revision=revision,
             torch_dtype=dtype,
@@ -82,6 +86,7 @@ class Qwen2VL:
         # Load the processor (tokenizer and image processing tools)
         self._processor = AutoProcessor.from_pretrained(
             pretrained,
+            do_image_splitting=do_image_splitting,
             revision=revision,
             trust_remote_code=trust_remote_code,
         )
@@ -116,7 +121,7 @@ class Qwen2VL:
     @property
     def eot_token_id(self):
         """
-        Returns the End of Text (EOT) token ID.
+        Returns the End of Text token ID.
         """
         return self.tokenizer.eos_token_id
 
@@ -185,7 +190,7 @@ class Qwen2VL:
             List[Dict[str, Any]]: List of system prompt messages.
 
         Example:
-        >>> prompt = Qwen2VL.create_system_prompt("You are a helpful assistant.")
+        >>> prompt = Idefics3Hf.create_system_prompt("You are a helpful assistant.")
         [{"role": "system", "content": [{"type": "text", "text": 'You are a helpful assistant.'}]
         """
         return [{"role": "system", "content": [{"type": "text", "text": system_prompt}]}]
@@ -203,7 +208,7 @@ class Qwen2VL:
 
         Example:
         >>> zero_shot = {"user": "Describe this image.", "images": ["image1.jpg"]}
-        >>> prompt = Qwen2VL.create_zero_shot_prompt(zero_shot)
+        >>> prompt = Idefics3Hf.create_zero_shot_prompt(zero_shot)
         """
         messages = []
         role = "user"
@@ -235,7 +240,7 @@ class Qwen2VL:
         >>> few_shot = [
                 {"user": "What is this?", "assistant": "This is a cat.", "images": ["image1.jpg"]}
             ]
-        >>> prompt = Qwen2VL.create_few_shot_prompt(few_shot)
+        >>> prompt = Idefics3Hf.create_few_shot_prompt(few_shot)
         """
         messages = []
         for shot_data in few_shot_data:
@@ -280,7 +285,7 @@ class Qwen2VL:
             ValueError: If the number of image tokens (`<image>`) in the text exceeds the number of provided images.
 
         Example usage:
-        >>> model = Qwen2VL()
+        >>> model = Idefics3Hf()
         >>> response = model.generate_response("Describe this image: <image>", ["image1.jpg"])
         >>> print(response)
         "This is an image of a beautiful sunset."
@@ -289,35 +294,38 @@ class Qwen2VL:
         # Initialize default generation arguments if not provided
         gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
 
-        # Handle cases where images are provided
-        if images is not None:
-            # Count the number of <image> tokens in the text
-            img_token_num = text.count("<image>")
-            if img_token_num > len(images):
-                raise ValueError(
-                    f"Error! The number of image tokens (img_token_num={img_token_num}) is greater than the number of input images (len(images)={len(images)})."
-                )
-
-            # Remove <image> tokens in the text
-            if "<image>" in text:
-                text = text.replace("<image>", "")
-
         # Initialize message list
         message = []
 
         # Add system-level prompt if provided
         if system_prompt:
-            message += Qwen2VL.create_system_prompt(system_prompt)
+            message += Idefics3Hf.create_system_prompt(system_prompt)
 
         # Add few-shot examples if provided
         if few_shot_data:
-            message += Qwen2VL.create_few_shot_prompt(few_shot_data)
+            message += Idefics3Hf.create_few_shot_prompt(few_shot_data)
 
-        # Add the main user input (text and images)
-        message += Qwen2VL.create_zero_shot_prompt({"user": text, "images": images})
+        # Handle cases where images are provided
+        if images is not None:
+            # Count the number of <image> tokens in the text
+            img_token_num = text.count(DEFAULT_IMAGE_TOKEN)
+            if img_token_num > len(images):
+                raise ValueError(
+                    f"Error! The number of image tokens (img_token_num={img_token_num}) is greater than the number of input images (len(images)={len(images)})."
+                )
+            elif img_token_num == len(images):
+                # Add the main user input (text and images)
+                message += Idefics3Hf.create_zero_shot_prompt({"user": text, "images": None})
+            else:
+                add_img_token_num = len(images) - img_token_num
+                # Add the main user input (text and images)
+                message += Idefics3Hf.create_zero_shot_prompt({"user": text, "images": images[:add_img_token_num]})
+        else:
+            # Add the main user input (text)
+            message += Idefics3Hf.create_zero_shot_prompt({"user": text, "images": None})
 
         # Apply chat template (model-specific preprocessing)
-        prompt = self._processor.apply_chat_template(message, tokenize=False, add_generation_prompt=True)
+        prompt = self._processor.apply_chat_template(message, add_generation_prompt=True)
 
         # Load images if provided, otherwise set visuals to None
         if images is not None:
@@ -334,12 +342,13 @@ class Qwen2VL:
             visuals = None
 
         # Process inputs (tokenize and prepare for model)
-        inputs = self._processor(text=prompt, images=visuals, padding=True, return_tensors="pt").to(self._device)
+        inputs = self._processor(text=prompt, images=visuals, padding=True, return_tensors="pt")
+        inputs = {k: v.to(self._device) for k, v in inputs.items()}
 
         # Set End of Text (EOS) token IDs
         eos_token_id = self._processor.tokenizer.eos_token_id
-        end_of_text_token_id = self._processor.tokenizer.convert_tokens_to_ids("<|endoftext|>")
-        eos_token_id_list = [eos_token_id, end_of_text_token_id]
+        end_of_utterance_token_id = self._processor.tokenizer.convert_tokens_to_ids("<end_of_utterance>")
+        eos_token_id_list = [eos_token_id, end_of_utterance_token_id]
 
         # Set default generation parameters if not provided
         gen_kwargs.setdefault("max_new_tokens", 1024)
@@ -348,7 +357,6 @@ class Qwen2VL:
         gen_kwargs.setdefault("top_p", 1.0 if gen_kwargs["do_sample"] else None)
         gen_kwargs.setdefault("num_beams", 1)
         gen_kwargs.setdefault("use_cache", self.use_cache)
-        gen_kwargs.setdefault("pad_token_id", self.tokenizer.pad_token_id)
         gen_kwargs.setdefault("eos_token_id", eos_token_id_list)
 
         # Generate the response using the model

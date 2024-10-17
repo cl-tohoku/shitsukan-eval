@@ -25,7 +25,7 @@ except ImportError:
 DEFAULT_IMAGE_TOKEN = "<|image|>"
 
 
-class Molmo:
+class MolmoHf:
     """
     A wrapper class for using the LlavaNext models from Hugging Face with conditional generation.
 
@@ -42,7 +42,7 @@ class Molmo:
         use_cache (bool): Whether to use cache during generation.
 
     Example usage:
-    >>> model = Molmo(pretrained="allenai/Molmo-7B-D-0924", device_map={"": 0})
+    >>> model = MolmoHf(pretrained="allenai/Molmo-7B-D-0924", device_map={"": 0})
     >>> text = "Describe this image: <image>"
     >>> images = ["image1.jpg"]
     >>> response = model.generate_response(text, images)
@@ -81,7 +81,7 @@ class Molmo:
             use_cache (bool): Whether to use cache during generation.
 
         Example:
-        >>> model = Molmo(pretrained="allenai/Molmo-7B-D-0924", device="cuda")
+        >>> model = MolmoHf(pretrained="allenai/Molmo-7B-D-0924", device="cuda")
         """
         super().__init__()
         # Handle unexpected kwargs
@@ -250,7 +250,7 @@ class Molmo:
             ValueError: If the number of image tokens (`<image>`) in the text exceeds the number of provided images.
 
         Example usage:
-        >>> model = Molmo(pretrained="allenai/Molmo-7B-D-0924")
+        >>> model = MolmoHf(pretrained="allenai/Molmo-7B-D-0924")
         >>> response = model.generate_response("Describe this image: <image>", ["image1.jpg"])
         >>> print(response)
         "This is an image of a beautiful sunset."
@@ -276,14 +276,14 @@ class Molmo:
 
         # Add system-level prompt if provided
         if system_prompt:
-            prompt += Molmo.create_system_prompt(system_prompt)
+            prompt += MolmoHf.create_system_prompt(system_prompt)
 
         # Add few-shot examples if provided
         if few_shot_data:
-            prompt += Molmo.create_few_shot_prompt(few_shot_data)
+            prompt += MolmoHf.create_few_shot_prompt(few_shot_data)
 
         # Add the main user input (text and images)
-        prompt += Molmo.create_zero_shot_prompt({"user": text, "images": images})
+        prompt += MolmoHf.create_zero_shot_prompt({"user": text, "images": images})
 
         # Load images if provided, otherwise set visuals to None
         if images is not None:
