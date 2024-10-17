@@ -2,9 +2,9 @@
 
 shitsukan-eval
 ===========================
-<h4>Evaluating Model (LLM / LVLM) Alignment with Human Perception</h4>
+<h3>Evaluating Model (LLM / LVLM) Alignment with Human Perception</h3>
 
-[📄 Paper (Coming Soon)]() &nbsp;&nbsp;&nbsp;&nbsp; [🚀 Project Page]() &nbsp;&nbsp;&nbsp;&nbsp; [🤗 Data]()
+[📄 Paper (Coming Soon)]() &nbsp;&nbsp;|&nbsp;&nbsp; [🚀 Project Page]() &nbsp;&nbsp;|&nbsp;&nbsp; [🤗 Data]()
 
 <img src="images/shitsukan-eval_overview.png" alt="shitsukan-eval" width="300px">
 
@@ -156,7 +156,7 @@ uv run python -m shitsukan_eval \
 
 <br>
 
-> [!NOTE]
+> [!NOTE]  
 > The configuration files for each task are located at `shitsukan_eval/tasks/{task}/{sub_task}/{task}_{sub_task}_{lang}.yaml`.  
 > If you want to modify the settings, please change them here.
 
