@@ -4,7 +4,7 @@ shitsukan-eval
 ===========================
 <h3>Evaluating Model (LLM / LVLM) Alignment with Human Perception</h3>
 
-[📄 Paper (Coming Soon)]() &nbsp;&nbsp;|&nbsp;&nbsp; [🚀 Project Page]() &nbsp;&nbsp;|&nbsp;&nbsp; [🤗 Data]()
+[📄 Paper (Coming Soon)]() &nbsp;&nbsp;|&nbsp;&nbsp; [🚀 Project Page]() &nbsp;&nbsp;|&nbsp;&nbsp; [🤗 Dataset]()
 
 <img src="images/shitsukan-eval_overview.png" alt="shitsukan-eval" width="300px">
 
@@ -14,10 +14,24 @@ shitsukan-eval
 
 We evaluate the alignment of Large Language Models (LLMs) and Large Vision-Language Models (LVLMs) with human perception, focusing on the Japanese concept of *shitsukan*.  
 *Shitsukan* represents the sensory experience when perceiving objects, an inherently vague and highly subjective concept.  
-We created a new dataset of *shitsukan* terms recalled by individuals in response to images of specified objects. We also designed benchmark tasks to evaluate the *shitsukan* recognition capabilities of LLMs and LVLMs.  
+We created a new dataset of *shitsukan* terms recalled by individuals in response to images of specified objects. We also designed benchmark tasks to evaluate the *shitsukan* recognition capabilities of LLMs and LVLMs.
 
+<br>
 
-<h3>List of models currently supported</h3>
+This library is experimental and under active development.
+We plan to add some **breaking changes** in the future to improve the usability and performance of the library.
+
+# Table of Contents
+
+- [Supported Models](#supported-models)
+- [Usage](#usage)
+  - [1. Build Environment](#1-build-environment)
+  - [2. Data Preparation](#2-data-preparation)
+  - [3. Run Evaluation](#3-run-evaluation)
+- [Citation](#citation)
+- [Acknowledgement](#acknowledgement)
+
+## Supported Models
 
 <details>
 <summary><b>The currently supported API LLMs/LVLMs are as follows:</b></summary>
@@ -61,23 +75,6 @@ We created a new dataset of *shitsukan* terms recalled by individuals in respons
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
 <li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
-
-<br>
-
-This library is experimental and under active development.
-We plan to add some **breaking changes** in the future to improve the usability and performance of the library.
-
-# Table of Contents
-
-- [shitsukan-eval](#shitsukan-eval)
-      - [List of models currently supported](#list-of-models-currently-supported)
-- [Table of Contents](#table-of-contents)
-  - [Usage](#usage)
-    - [1. Build Environment](#1-build-environment)
-    - [2. Data Preparation](#2-data-preparation)
-    - [3. Run Evaluation](#3-run-evaluation)
-  - [Citation](#citation)
-  - [Acknowledgement](#acknowledgement)
 
 ## Usage
 
