@@ -12,6 +12,7 @@ def parse_eval_args() -> argparse.Namespace:
 
     Command-line arguments:
         --model (str): The name or path of the model to evaluate.
+        --model-type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
         --tasks (List[str]): List of tasks to evaluate.
         --sub-tasks (List[str]): List of sub-tasks within the tasks.
         --lang (str): Language to use for the evaluation (default: "ja").
@@ -30,6 +31,12 @@ def parse_eval_args() -> argparse.Namespace:
         required=True,
         type=str,
         help="Name or path of the model to evaluate.",
+    )
+    parser.add_argument(
+        "--model-type",
+        required=True,
+        choices=["hf", "vllm", "api"],
+        help="The type of the model (availabel choices: ['hf', 'vllm', 'api']).",
     )
     parser.add_argument(
         "--tasks",
@@ -88,6 +95,7 @@ def main(args: argparse.Namespace | None = None) -> None:
     Example usage from command line:
     uv run python shitsukan_eval.py \
         --model "gpt-4o" \
+        --model-type "api" \
         --tasks "perception" \
         --sub-tasks "generation" \
         --lang "ja" \
@@ -104,6 +112,7 @@ def main(args: argparse.Namespace | None = None) -> None:
     # Run the evaluation using the provided arguments
     evaluate(
         model_name=args.model,
+        model_type=args.model_type,
         tasks=args.tasks,
         sub_tasks=args.sub_tasks,
         lang=args.lang,

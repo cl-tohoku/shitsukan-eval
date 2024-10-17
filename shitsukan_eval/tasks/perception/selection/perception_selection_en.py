@@ -4,7 +4,13 @@ from typing import Any, Dict, List, Optional
 from sklearn.metrics import accuracy_score
 from tqdm import tqdm
 
-from tools.utils.data_utils import load_dataset, save_eval_scores_as_jsonl, save_results_as_jsonl, set_seed_all, simple_choice_extractors
+from tools.utils.data_utils import (
+    load_dataset,
+    save_eval_scores_as_jsonl,
+    save_results_as_jsonl,
+    set_seed_all,
+    simple_choice_extractors,
+)
 
 # Set a global random seed
 set_seed_all(42)
@@ -78,7 +84,13 @@ def get_eval_scores(data_list: list[dict[str, Any]], sub_subtask_list: list[str]
 
         eval_score = compute_metrics(gold_list, pred_list)
         eval_score.update(
-            {"task": data["task"], "sub_task": data["sub_task"], "sub_subtask": sub_subtask, "lang": data["lang"], "model_name": data["model_name"]}
+            {
+                "task": data["task"],
+                "sub_task": data["sub_task"],
+                "sub_subtask": sub_subtask,
+                "lang": data["lang"],
+                "model_name": data["model_name"],
+            }
         )
         eval_score_list.append(eval_score)
 
@@ -94,6 +106,7 @@ def perception_selection_en(
     sub_task: str,
     sub_subtasks: list[str] | None,
     lang: str,
+    model_type: str,
     model_name: str,
 ) -> list[dict[str, Any]]:
     """
@@ -109,6 +122,7 @@ def perception_selection_en(
         sub_task (str): The sub-task name (e.g., 'selection').
         sub_subtasks (Optional(List[str]): The sub-subtask name list.
         lang (str): The language of the task (e.g., 'en').
+        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
         model_name (str): The name of the model being evaluated.
 
     Returns:
@@ -122,7 +136,13 @@ def perception_selection_en(
     >>> perception_selection_en(model, task_config, verbose=True, save_dir="results", task="perception", sub_task="selection", sub_subtask=None, lang="en", model_name="gpt-4o")
     """
     if sub_subtasks is None:
-        sub_subtask_list = ("choice2_ans1", "choice3_ans1", "choice4_ans1", "choice5_ans1", "random")
+        sub_subtask_list = (
+            "choice2_ans1",
+            "choice3_ans1",
+            "choice4_ans1",
+            "choice5_ans1",
+            "random",
+        )
     else:
         sub_subtask_list = sub_subtasks
     new_data_list = []
@@ -136,7 +156,7 @@ def perception_selection_en(
 
         # Iterate through the dataset and generate model responses
         for data in tqdm(data_list, desc=f"Processing sub-task {sub_subtask}", leave=False):
-            """ (Example)
+            """(Example)
             data (Dict[str, Any]):
             {
                 'image_id': '286376',
@@ -190,14 +210,23 @@ def perception_selection_en(
             tmp_data_list.append(data)
 
         new_data_list.extend(tmp_data_list)
-        save_results_as_jsonl(save_dir, tmp_data_list, task, sub_task, sub_subtask, lang, model_name)
+        save_results_as_jsonl(
+            save_dir,
+            tmp_data_list,
+            task,
+            sub_task,
+            sub_subtask,
+            lang,
+            model_type,
+            model_name,
+        )
 
     scores_list = get_eval_scores(new_data_list, sub_subtask_list)
-    display_string = "=" * 20 + " " * 2 + f"Model Name: {model_name}" + " " * 4 + f"Language: {lang}" + " " * 2 + "=" * 20 + "\n" + "-" * 20
+    display_string = "=" * 20 + " " * 2 + f"Model Name: {model_name}" + " " * 4 + f"Language: {lang}" + " " * 2 + "=" * 20 + "\n" + "-" * 40
     print(display_string)
     for scores in scores_list:
-        display_string = f'- Sub-SubTask: {scores["sub_subtask"]}\n' + f'- Accuracy: {scores["accuracy"]}\n' + "-" * 20
+        display_string = f'- Sub-SubTask: {scores["sub_subtask"]}\n' + f'- Accuracy: {scores["accuracy"]}\n' + "-" * 40
         print(display_string)
-    save_eval_scores_as_jsonl(save_dir, scores_list, task, sub_task, lang, model_name)
+    save_eval_scores_as_jsonl(save_dir, scores_list, task, sub_task, lang, model_type, model_name)
 
     return new_data_list

@@ -1,0 +1,8 @@
+dataset_path: data/taxonomic/yes_no_classification/taxonomic_yes-no_classification_ja.jsonl
+few_shot_path: data/taxonomic/yes_no_classification/few_shot_for_taxonomic_yes-no_classification_ja.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1

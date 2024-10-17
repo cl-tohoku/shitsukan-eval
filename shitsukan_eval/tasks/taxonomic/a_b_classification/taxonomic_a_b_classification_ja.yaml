@@ -1,0 +1,8 @@
+dataset_path: data/taxonomic/a_b_classification/taxonomic_a-b_classification_ja.jsonl
+few_shot_path: data/taxonomic/a_b_classification/few_shot_for_taxonomic_a-b_classification_ja.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1

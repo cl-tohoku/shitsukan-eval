@@ -1,0 +1,19 @@
+subtask:
+  choice2_ans1:
+    dataset_path: data/taxonomic/multiple_choice_classification/choice2_ans1/taxonomic_multiple-choice_classification_choice2-ans1_ja.jsonl
+    few_shot_path: data/taxonomic/multiple_choice_classification/choice2_ans1/few_shot_for_taxonomic_multiple-choice_classification_choice2-ans1_ja.jsonl
+  choice3_ans1:
+    dataset_path: data/taxonomic/multiple_choice_classification/choice3_ans1/taxonomic_multiple-choice_classification_choice3-ans1_ja.jsonl
+    few_shot_path: data/taxonomic/multiple_choice_classification/choice3_ans1/few_shot_for_taxonomic_multiple-choice_classification_choice3-ans1_ja.jsonl
+  choice4_ans1:
+    dataset_path: data/taxonomic/multiple_choice_classification/choice4_ans1/taxonomic_multiple-choice_classification_choice4-ans1_ja.jsonl
+    few_shot_path: data/taxonomic/multiple_choice_classification/choice4_ans1/few_shot_for_taxonomic_multiple-choice_classification_choice4-ans1_ja.jsonl
+  choice5_ans1:
+    dataset_path: data/taxonomic/multiple_choice_classification/choice5_ans1/taxonomic_multiple-choice_classification_choice5-ans1_ja.jsonl
+    few_shot_path: data/taxonomic/multiple_choice_classification/choice5_ans1/few_shot_for_taxonomic_multiple-choice_classification_choice5-ans1_ja.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1

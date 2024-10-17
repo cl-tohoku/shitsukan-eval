@@ -9,20 +9,20 @@ from tools.utils.data_utils import load_dataset, set_seed_all
 set_seed_all(42)
 
 # Task description for generating perceptual responses in Japanese
-TASK_DESCRIPTION_FOR_PERCEPTION_GENERATION_JA = (
-    "本タスクは「画像」に写っている「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n"
+TASK_DESCRIPTION_FOR_COMMONSENSE_GENERATION_JA = (
+    "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n"
     "質感とは、下記のようなものを指します。\n"
     "・物性（光沢感・透明感など）\n"
     "・状態（乾燥・凍結など）\n"
     "・印象（美しい・醜いなど）\n\n"
-    "提示された「画像」に写っている「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n"
+    "提示された「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n"
     "回答は質感を表す表現を3個「,」で分けて書いてください。\n"
     "その際、3個とも出来るだけ違う観点の表現にしてください。\n"
     "また、似た表現（きらきら・きらんきらんなど）にならないようにしてください。"
 )
 
 
-def perception_generation_ja(
+def commonsense_generation_ja(
     model,
     task_config: dict[str, Any],
     verbose: bool = False,
@@ -34,7 +34,7 @@ def perception_generation_ja(
     model_name: str = None,
 ) -> list[dict[str, Any]]:
     """
-    Performs a perception generation task by prompting the model with object-related questions
+    Performs a commonsense generation task by prompting the model with object-related questions
     and recording its responses. The model is tasked with generating descriptions of perceived
     textures associated with given words (e.g., objects).
 
@@ -59,16 +59,14 @@ def perception_generation_ja(
     >>>     "few_shot_path": "data/few_shot.jsonl",
     >>>     "generation_kwargs": {"max_new_tokens": 50}
     >>> }
-    >>> perception_generation_ja(model, task_config, verbose=True)
+    >>> commonsense_generation_ja(model, task_config, verbose=True)
     [
         {
-            'image_id': '71',
-            'image': ['images/coco/train2017/000000000071.jpg'],
             'object': 'レール',
             'shitsukan_list': ['硬い', 'キラキラ', '固い', '古い', '冷たい', 'ザラザラ'],
             'zero_shot': '「レール」という単語は、どのような質感を持っているように感じますか？\n回答: ',
             'original_response': 'スムーズ, 軽快, 風を切る',
-            'task': 'perception',
+            'task': 'commonsense',
             'sub_task': 'generation',
             'lang': 'ja',
             'model_name': 'gpt-4o'
@@ -92,9 +90,6 @@ def perception_generation_ja(
         """ (Example)
         data (dict):
         {
-            'image_id': '71',
-            'image': ['images/coco/train2017/000000000071.jpg'],
-            'image_url': ['http://images.cocodataset.org/train2017/000000000071.jpg'],
             'object': 'レール',
             'shitsukan_list': ['硬い', 'キラキラ', '固い', '古い', '冷たい', 'ザラザラ']
         }
@@ -106,8 +101,8 @@ def perception_generation_ja(
         # Generate the response using the model
         response = model.generate_response(
             text=text,
-            images=data["image"],  # Load the corresponding image for context
-            system_prompt=TASK_DESCRIPTION_FOR_PERCEPTION_GENERATION_JA,  # Task-specific instructions
+            images=None,
+            system_prompt=TASK_DESCRIPTION_FOR_COMMONSENSE_GENERATION_JA,  # Task-specific instructions
             few_shot_data=few_shot_list,  # Few-shot examples for better generation
             gen_kwargs=task_config["generation_kwargs"],  # Generation parameters
         )

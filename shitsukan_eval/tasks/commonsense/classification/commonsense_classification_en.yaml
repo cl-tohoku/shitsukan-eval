@@ -1,0 +1,8 @@
+dataset_path: data/commonsense/classification/commonsense_classification_en.jsonl
+few_shot_path: data/commonsense/classification/few_shot_for_commonsense-classification_en.jsonl
+generation_kwargs:
+  max_new_tokens: 1024
+  do_sample: true
+  temperature: 0.01
+  top_p: 1.0
+  num_beams: 1
