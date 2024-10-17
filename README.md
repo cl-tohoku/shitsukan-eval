@@ -145,6 +145,7 @@ uv run python -m shitsukan_eval \
   - In case of `--tasks "commonsense" --language "ja"`, Sub-tasks that can be specified: `"generation"`, `"classification"`
   - In case of `--tasks "commonsense" --language "en"`, Sub-tasks that can't be specified
   - In case of `--tasks "taxonomic" --language "ja"`, Sub-tasks that can be specified: `"a_b_classification"`, `"yes_no_classification"`, `"multiple_choice_classification"`
+  - In case of `--tasks "taxonomic" --language "en"`, Sub-tasks that can't be specified
 - `--lang` (`str`): Language to use for the evaluation (default: `"ja"`).
   - Language that can be specified: `"ja"`, `"en"`
 - `--image-dir` (`Optional[str]`): Directory where input images are stored (optional).
@@ -154,12 +155,10 @@ uv run python -m shitsukan_eval \
 
 </details>
 
-<br>
 
-> [!NOTE]  
-> The configuration files for each task are located at `shitsukan_eval/tasks/{task}/{sub_task}/{task}_{sub_task}_{lang}.yaml`.
+> [!NOTE]
+> The configuration files for each task are located at `shitsukan_eval/tasks/{task}/{sub_task}/{task}_{sub_task}_{lang}.yaml`.  
 > If you want to modify the settings, please change them here.
-
 
 ## Citation
 
