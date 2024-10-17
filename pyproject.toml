@@ -47,7 +47,8 @@ dependencies = [
     "pytest-mock>=3.14.0",
     "tiktoken>=0.7.0",
     "tabulate>=0.9.0",
-    "vllm >=0.6.2; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "vllm >=0.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "qwen-vl-utils >=0.0.8; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "mistral-common >=1.4.4; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "opencv-contrib-python>=4.10.0.84",
 ]
@@ -62,6 +63,7 @@ find-links = [
 ]
 dev-dependencies = [
     "flash-attn >=2.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "jupyterlab>=4.2.5",
     "mypy>=1.11.2",
     "pre-commit>=3.8.0",
     "ruff>=0.6.6",
