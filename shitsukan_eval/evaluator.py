@@ -4,15 +4,21 @@ from typing import Any
 
 # api models
 from models.api_models.gpt4o import GPT4o
+from models.hf_models.gemma2_instruct_hf import Gemma2InstructHf
 
 # huggingface models
 from models.hf_models.idefics2_hf import Idefics2Hf
 from models.hf_models.idefics3_hf import Idefics3Hf
+from models.hf_models.llama2_instruct_hf import Llama2InstructHf
+from models.hf_models.llama3_instruct_hf import Llama3InstructHf
 from models.hf_models.llama3_vision_instruct_hf import MllamaInstructHf
 from models.hf_models.llava_hf import LlavaHf
 from models.hf_models.llava_next_hf import LlavaNextHf
 from models.hf_models.llava_onevision_hf import LlavaOnevisionHf
+from models.hf_models.llm_jp_3_instruct_hf import LlmJp3InstructHf
 from models.hf_models.molmo_hf import MolmoHf
+from models.hf_models.qwen2_5_instruct_hf import Qwen25InstructHf
+from models.hf_models.qwen2_instruct_hf import Qwen2InstructHf
 from models.hf_models.qwen2_vl_hf import Qwen2VLHf
 
 # vllm models
@@ -189,6 +195,8 @@ def load_hf_models(model_name: str, image_dir: str):
             # Force eager attention for Mllama because MllamaForConditionalGeneration does not support Flash Attention 2.0 yet.
             hf_model_config["attn_implementation"] = "eager"
             model = MllamaInstructHf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
     elif "llava" in model_name_lower:
         if "1.5" in model_name_lower or "v1.5" in model_name_lower:
             model = LlavaHf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
@@ -196,6 +204,8 @@ def load_hf_models(model_name: str, image_dir: str):
             model = LlavaNextHf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
         elif "onevision" in model_name_lower:
             model = LlavaOnevisionHf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
     elif "idefics2" in model_name_lower:
         model = Idefics2Hf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
     elif "idefics3" in model_name_lower:
@@ -210,6 +220,33 @@ def load_hf_models(model_name: str, image_dir: str):
         hf_model_config["attn_implementation"] = "eager"
         hf_model_config["trust_remote_code"] = True
         model = MolmoHf(pretrained=model_name, image_dir=image_dir, **hf_model_config)
+    elif "llama-3" in model_name_lower:
+        if "instruct" in model_name_lower:
+            model = Llama3InstructHf(pretrained=model_name, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
+    elif "llama-2" in model_name_lower:
+        if "chat" in model_name_lower or "instruct" in model_name_lower:
+            model = Llama2InstructHf(pretrained=model_name, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
+    elif "gemma-2" in model_name_lower:
+        model = Gemma2InstructHf(pretrained=model_name, **hf_model_config)
+    elif "qwen2.5" in model_name_lower:
+        if "instruct" in model_name_lower:
+            model = Qwen25InstructHf(pretrained=model_name, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
+    elif "qwen2" in model_name_lower:
+        if "instruct" in model_name_lower:
+            model = Qwen2InstructHf(pretrained=model_name, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
+    elif "llm-jp-3" in model_name_lower:
+        if "instruct" in model_name_lower:
+            model = LlmJp3InstructHf(pretrained=model_name, **hf_model_config)
+        else:
+            raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
     else:
         raise ValueError(f"Error! The selected model ({model_name}) doesn't exist.")
 
