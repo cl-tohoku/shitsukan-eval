@@ -43,6 +43,13 @@ We plan to add some **breaking changes** in the future to improve the usability 
 
 <details>
 <summary><b>The currently supported Huggingface LLMs are as follows:</b></summary>
+<li><a href="https://arxiv.org/abs/2307.09288">Llama 2</a></li>
+<li><a href="https://note.com/elyza/n/na405acaca130">ELYZA-japanese-Llama-2</a></li>
+<li><a href="https://arxiv.org/abs/2407.10671">Qwen 2</a></li>
+<li><a href="https://arxiv.org/abs/2407.21783">Llama 3</a></li>
+<li><a href="https://swallow-llm.github.io/llama3-swallow.ja.html">Llama-3-Swallow</a></li>
+<li><a href="https://qwen2.org/qwen2-5/">Qwen 2.5</a></li>
+<li><a href="https://llmc.nii.ac.jp/topics/post-707/">LLM-jp-3</a></li>
 <li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
