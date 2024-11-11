@@ -31,6 +31,7 @@ def commonsense_generation_ja(
     sub_task: str = None,
     sub_subtasks: str = None,
     lang: str = None,
+    model_type: str = None,
     model_name: str = None,
 ) -> list[dict[str, Any]]:
     """
@@ -47,6 +48,7 @@ def commonsense_generation_ja(
         sub_task (Optional[str]): Sub-task name for metadata purposes.
         sub_subtasks (Optional[str]): Sub-subtask name for metadata purposes.
         lang (Optional[str]): Language of the task (e.g., 'ja').
+        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
         model_name (Optional[str]): Name of the model being evaluated.
 
     Returns:

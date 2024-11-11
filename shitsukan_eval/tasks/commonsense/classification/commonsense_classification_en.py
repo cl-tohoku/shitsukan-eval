@@ -24,7 +24,7 @@ TASK_DESCRIPTION_FOR_COMMONSENSE_CLASSIFICATION_EN = (
     "- Condition (dry, frozen, etc.)\n"
     "- Impression (beautiful, ugly, etc.)\n\n"
     "Are the following combinations of objects and essence natural and common?\n"
-    '* If the word indicated does not correspond to a essence, please select "5". not a shitsukan term at all".'
+    '* If the word indicated does not correspond to a essence, please select "5. not a shitsukan term at all".'
 )
 
 
