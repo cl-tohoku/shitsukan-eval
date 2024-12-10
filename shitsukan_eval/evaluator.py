@@ -336,7 +336,7 @@ def evaluate(
     >>>     tasks=["perception"],
     >>>     sub_tasks=["generation"],
     >>>     lang="ja",
-    >>>     image_dir="data/images",
+    >>>     image_dir="data",
     >>>     save_dir="outputs",
     >>>     verbose=True
     >>> )
