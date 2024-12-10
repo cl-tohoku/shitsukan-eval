@@ -1,4 +1,5 @@
 import pathlib
+import re
 from typing import Any, Dict, List, Optional
 
 from sklearn.metrics import accuracy_score
@@ -71,6 +72,7 @@ def get_eval_scores(data_list: list[dict[str, Any]], sub_subtask_list: list[str]
     [{'accuracy': 0.94, 'task': 'perception', 'sub_task': 'selection', 'sub_subtask': 'choice2_ans1', 'lang': 'ja', 'model_name': 'gpt-4'}, ...]
     """
     eval_score_list = []
+    pattern = re.compile(r"\({0,1}([A-B]|yes|no)[.,:;)]{0,1}")
     for sub_subtask in sub_subtask_list:
         gold_list = []
         pred_list = []
@@ -80,7 +82,10 @@ def get_eval_scores(data_list: list[dict[str, Any]], sub_subtask_list: list[str]
                     gold_list.append(int(data["correct_ids"][0]))
                 else:
                     gold_list.append(-1)
-                pred_list.append(int(data["response"]))
+                if pattern.match(data["response"]):
+                    pred_list.append(-100)
+                else:
+                    pred_list.append(int(data["response"]))
 
         eval_score = compute_metrics(gold_list, pred_list)
         eval_score.update(
