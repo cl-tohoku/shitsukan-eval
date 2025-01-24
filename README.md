@@ -168,13 +168,25 @@ uv run python -m shitsukan_eval \
 ## Citation
 
 ```bibtex
-@software{
-author = {Anonymous},
-month = {Aug},
-title = {{shitsukan-eval}},
-url = {https://github.com/<<ADD>>},
-version = {0.1.0},
-year = {2024}
+@inproceedings{shiono-etal-2025-evaluating,
+    title = "Evaluating Model Alignment with Human Perception: A Study on Shitsukan in {LLM}s and {LVLM}s",
+    author = "Shiono, Daiki  and
+      Brassard, Ana  and
+      Ishizuki, Yukiko  and
+      Suzuki, Jun",
+    editor = "Rambow, Owen  and
+      Wanner, Leo  and
+      Apidianaki, Marianna  and
+      Al-Khalifa, Hend  and
+      Eugenio, Barbara Di  and
+      Schockaert, Steven",
+    booktitle = "Proceedings of the 31st International Conference on Computational Linguistics",
+    month = jan,
+    year = "2025",
+    address = "Abu Dhabi, UAE",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2025.coling-main.757/",
+    pages = "11428--11444",
 }
 ```
 
