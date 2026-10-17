@@ -1,0 +1,73 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "質感語: つるつる\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 高性能\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: ふわふわ\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": null,
+ "error": {
+  "type": "KeyError",
+  "message": "'A'"
+ },
+ "stdout": [
+  "質感語: つるつる",
+  "解答: A",
+  "",
+  "質感語: 高性能",
+  "解答: yes",
+  "",
+  "質感語: ふわふわ",
+  "解答: no",
+  ""
+ ],
+ "files": {},
+ "contents_by_digest": {
+  "e5028ddfc2e725b5": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する英単語 (\"yes\" もしくは \"no\") を使って解答してください。",
+  "cbbe711f400eaa26": [
+   {
+    "user": "質感語: つやつや\n解答: ",
+    "assistant": "yes",
+    "images": null
+   }
+  ]
+ }
+}

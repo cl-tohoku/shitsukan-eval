@@ -1,0 +1,68 @@
+{
+ "events": [
+  {
+   "call": "LLM",
+   "kwargs": {
+    "model": "Qwen/Qwen2-VL-7B-Instruct",
+    "tokenizer": "Qwen/Qwen2-VL-7B-Instruct",
+    "revision": "main",
+    "tokenizer_revision": "main",
+    "tokenizer_mode": "auto",
+    "trust_remote_code": false,
+    "tensor_parallel_size": 1,
+    "dtype": "torch.bfloat16",
+    "quantization": null,
+    "seed": 42,
+    "gpu_memory_utilization": 0.9,
+    "swap_space": 4,
+    "cpu_offload_gb": 0,
+    "enforce_eager": null,
+    "max_context_len_to_capture": null,
+    "max_seq_len_to_capture": 8192,
+    "limit_mm_per_prompt": {
+     "image": 10,
+     "video": 1
+    }
+   },
+   "rng": null
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "result": {
+  "class": "Qwen2VLVllm",
+  "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+  "image_dir": "<tmp>/image_root",
+  "device_map": "<absent>",
+  "use_cache": "<absent>",
+  "batch_size_per_gpu": "<absent>",
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "AttributeError": "'Qwen2VLVllm' object has no attribute 'config'"
+  },
+  "tokenizer": {
+   "tokenizer": "Qwen/Qwen2-VL-7B-Instruct"
+  },
+  "model": {
+   "object": "LLM"
+  },
+  "eot_token_id": 2,
+  "batch_size": {
+   "AttributeError": "'Qwen2VLVllm' object has no attribute 'batch_size_per_gpu'"
+  },
+  "device": {
+   "AttributeError": "'Qwen2VLVllm' object has no attribute 'device'"
+  }
+ },
+ "error": null,
+ "stdout": []
+}

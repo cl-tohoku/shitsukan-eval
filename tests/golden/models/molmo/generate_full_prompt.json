@@ -1,0 +1,137 @@
+{
+ "events": [
+  {
+   "call": "load_image",
+   "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+  },
+  {
+   "call": "load_image",
+   "image": "http://images.example.com/train2017/000000000002.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "Choose the texture word.\n\nWord: apple\nTexture choice: 0:smooth, 1:dry\nAnswer: \n0\n\nWord: horn <image>\nTexture choice: 0:rough, 1:prickly\nAnswer: \n1\n\nWord: skateboard \nTexture choice: 0:smooth, 1:youthful\nAnswer: ",
+   "images": [
+    {
+     "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+    },
+    {
+     "image": "http://images.example.com/train2017/000000000002.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": null
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "result": " 1 ",
+ "error": null,
+ "stdout": []
+}

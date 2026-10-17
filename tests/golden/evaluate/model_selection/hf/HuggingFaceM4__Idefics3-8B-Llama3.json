@@ -1,0 +1,36 @@
+{
+ "selected": "Idefics3Hf",
+ "error": null,
+ "events": [
+  {
+   "call": "AutoModelForVision2Seq.from_pretrained",
+   "pretrained": "HuggingFaceM4/Idefics3-8B-Llama3",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "HuggingFaceM4/Idefics3-8B-Llama3"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "HuggingFaceM4/Idefics3-8B-Llama3",
+   "args": [],
+   "kwargs": {
+    "do_image_splitting": true,
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "stdout": []
+}

@@ -1,0 +1,35 @@
+{
+ "selected": "Qwen2VLHf",
+ "error": null,
+ "events": [
+  {
+   "call": "Qwen2VLForConditionalGeneration.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2-VL-7B-Instruct"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "stdout": []
+}

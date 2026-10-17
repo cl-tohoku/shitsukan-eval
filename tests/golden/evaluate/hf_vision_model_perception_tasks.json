@@ -1,0 +1,1879 @@
+{
+ "events": [
+  {
+   "call": "AutoConfig.from_pretrained",
+   "pretrained": "llava-hf/llava-1.5-7b-hf",
+   "args": [],
+   "kwargs": {}
+  },
+  {
+   "call": "LlavaForConditionalGeneration.from_pretrained",
+   "pretrained": "llava-hf/llava-1.5-7b-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "llava-hf/llava-1.5-7b-hf"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "llava-hf/llava-1.5-7b-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false,
+    "patch_size": 16,
+    "vision_feature_select_strategy": "full"
+   }
+  },
+  {
+   "call": "Tokenizer.padding_side.set",
+   "side": "left"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 1>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 2>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 3>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 4>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 3,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 5>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 4,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 6>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 5,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 7>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 6,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 8>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 7,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。\nただし、該当する選択肢がない場合は\"-1\"と答えてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 9>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 8,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。\nただし、該当する選択肢がない場合は\"-1\"と答えてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 10>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 9,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "本タスクは「画像」に写っている「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n提示された「画像」に写っている「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n回答は質感を表す表現を3個「,」で分けて書いてください。\nその際、3個とも出来るだけ違う観点の表現にしてください。\nまた、似た表現（きらきら・きらんきらんなど）にならないようにしてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "【例】\n「馬」という単語は、どのような質感を持っているように感じますか？"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "回答: つやつや, 温かい, 柔らかい"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "「りんご」という単語は、どのような質感を持っているように感じますか？\n回答: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 11>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 10,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "本タスクは「画像」に写っている「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n提示された「画像」に写っている「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n回答は質感を表す表現を3個「,」で分けて書いてください。\nその際、3個とも出来るだけ違う観点の表現にしてください。\nまた、似た表現（きらきら・きらんきらんなど）にならないようにしてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "【例】\n「馬」という単語は、どのような質感を持っているように感じますか？"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "回答: つやつや, 温かい, 柔らかい"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "「スケートボード」という単語は、どのような質感を持っているように感じますか？\n回答: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 12>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda:0)",
+    "torch.bfloat16"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 11,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら",
+  "Answer: 1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら",
+  "Answer: 1",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 1",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "Answer: 1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "Answer: 1",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "Answer: 1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "Answer: 1",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 1",
+  "",
+  "====================  Model Name: llava-1.5-7b-hf    Language: ja  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: random",
+  "- Accuracy: 0",
+  "----------------------------------------",
+  "「りんご」という単語は、どのような質感を持っているように感じますか？",
+  "回答: かたい, つめたい, ひかる",
+  "",
+  "「スケートボード」という単語は、どのような質感を持っているように感じますか？",
+  "回答: かたい, つめたい, ひかる",
+  ""
+ ],
+ "files": {
+  "perception/generation/perception_generation_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"shitsukan_list\": [\"かたい\", \"つめたい\"], \"zero_shot\": \"「りんご」という単語は、どのような質感を持っているように感じますか？\\n回答: \", \"original_response\": \"かたい, つめたい, ひかる\", \"task\": \"perception\", \"sub_task\": \"generation\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"shitsukan_list\": [\"かたい\", \"つめたい\"], \"zero_shot\": \"「スケートボード」という単語は、どのような質感を持っているように感じますか？\\n回答: \", \"original_response\": \"かたい, つめたい, ひかる\", \"task\": \"perception\", \"sub_task\": \"generation\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/choice2_ans1/perception_selection_choice2_ans1_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/choice3_ans1/perception_selection_choice3_ans1_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/choice4_ans1/perception_selection_choice4_ans1_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/choice5_ans1/perception_selection_choice5_ans1_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/perception_selection_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/perception_selection_ja_hf_llava-1.5-7b-hf_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ],
+  "perception/selection/random/perception_selection_random_ja_hf_llava-1.5-7b-hf.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"llava-1.5-7b-hf\"}"
+  ]
+ }
+}

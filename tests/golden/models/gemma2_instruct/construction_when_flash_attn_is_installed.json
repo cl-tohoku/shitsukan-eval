@@ -1,0 +1,64 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "google/gemma-2-9b-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "google/gemma-2-9b-it"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "google/gemma-2-9b-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  }
+ ],
+ "result": {
+  "class": "Gemma2InstructHf",
+  "pretrained": "google/gemma-2-9b-it",
+  "image_dir": "<absent>",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "google/gemma-2-9b-it"
+  },
+  "tokenizer": {
+   "tokenizer": "google/gemma-2-9b-it"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:google/gemma-2-9b-it"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

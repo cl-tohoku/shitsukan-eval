@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (meta-llama/Meta-Llama-3.1-8B-Instruct) doesn't support vllm."
+ },
+ "events": [],
+ "stdout": []
+}

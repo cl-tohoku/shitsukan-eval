@@ -1,0 +1,126 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "Combinations:\napple: smooth\n\nChoices:\n1. completely natural\n2. generally possible but not common\n3. possible but not common\n4. unnatural\n5. not a shitsukan term at all\n\nAnswer: ",
+   "images": null,
+   "system_prompt": "4e61f8d8cbed08af",
+   "few_shot_data": "731971d944a49c14",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Combinations:\nskateboard: rough\n\nChoices:\n1. completely natural\n2. generally possible but not common\n3. possible but not common\n4. unnatural\n5. not a shitsukan term at all\n\nAnswer: ",
+   "images": null,
+   "system_prompt": "4e61f8d8cbed08af",
+   "few_shot_data": "731971d944a49c14",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Combinations:\napple: fluffy\n\nChoices:\n1. completely natural\n2. generally possible but not common\n3. possible but not common\n4. unnatural\n5. not a shitsukan term at all\n\nAnswer: ",
+   "images": null,
+   "system_prompt": "4e61f8d8cbed08af",
+   "few_shot_data": "731971d944a49c14",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Combinations:\nskateboard: hard\n\nChoices:\n1. completely natural\n2. generally possible but not common\n3. possible but not common\n4. unnatural\n5. not a shitsukan term at all\n\nAnswer: ",
+   "images": null,
+   "system_prompt": "4e61f8d8cbed08af",
+   "few_shot_data": "731971d944a49c14",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": null,
+ "error": {
+  "type": "ValueError",
+  "message": "invalid literal for int() with base 10: 'yes'"
+ },
+ "stdout": [
+  "Combinations:",
+  "apple: smooth",
+  "",
+  "Choices:",
+  "1. completely natural",
+  "2. generally possible but not common",
+  "3. possible but not common",
+  "4. unnatural",
+  "5. not a shitsukan term at all",
+  "",
+  "Answer: yes",
+  "",
+  "Combinations:",
+  "skateboard: rough",
+  "",
+  "Choices:",
+  "1. completely natural",
+  "2. generally possible but not common",
+  "3. possible but not common",
+  "4. unnatural",
+  "5. not a shitsukan term at all",
+  "",
+  "Answer: 1",
+  "",
+  "Combinations:",
+  "apple: fluffy",
+  "",
+  "Choices:",
+  "1. completely natural",
+  "2. generally possible but not common",
+  "3. possible but not common",
+  "4. unnatural",
+  "5. not a shitsukan term at all",
+  "",
+  "Answer: 1",
+  "",
+  "Combinations:",
+  "skateboard: hard",
+  "",
+  "Choices:",
+  "1. completely natural",
+  "2. generally possible but not common",
+  "3. possible but not common",
+  "4. unnatural",
+  "5. not a shitsukan term at all",
+  "",
+  "Answer: 1",
+  ""
+ ],
+ "files": {},
+ "contents_by_digest": {
+  "4e61f8d8cbed08af": "For this task, you will be asked to describe the shitsukan terms that is evoked by the impression of the object, rather than the shitsukan of the image itself.\nThe essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\n\nAre the following combinations of objects and essence natural and common?\n* If the word indicated does not correspond to a essence, please select \"5. not a shitsukan term at all\".",
+  "731971d944a49c14": [
+   {
+    "user": "Combinations:\napple: smooth\n\nAnswer: ",
+    "assistant": "1",
+    "images": null
+   }
+  ]
+ }
+}

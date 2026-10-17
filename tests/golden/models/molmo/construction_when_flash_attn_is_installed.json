@@ -1,0 +1,56 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "auto",
+    "device_map": "auto",
+    "trust_remote_code": true,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "allenai/Molmo-7B-D-0924"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": true
+   }
+  }
+ ],
+ "result": {
+  "class": "MolmoHf",
+  "pretrained": "allenai/Molmo-7B-D-0924",
+  "image_dir": "<tmp>/image_root",
+  "device_map": "auto",
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "allenai/Molmo-7B-D-0924"
+  },
+  "tokenizer": {
+   "tokenizer": "allenai/Molmo-7B-D-0924"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:allenai/Molmo-7B-D-0924"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

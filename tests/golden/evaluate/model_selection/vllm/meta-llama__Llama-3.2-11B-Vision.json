@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "UnboundLocalError",
+  "message": "cannot access local variable 'model' where it is not associated with a value"
+ },
+ "events": [],
+ "stdout": []
+}

@@ -1,0 +1,247 @@
+{
+ "events": [
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+  },
+  {
+   "call": "load_image",
+   "image": "http://images.example.com/train2017/000000000002.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "Choose the texture word."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:dry\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": "images/few_shot.jpg",
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: horn <image>\nTexture choice: 0:rough, 1:prickly\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "1"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "image",
+       "image": {
+        "image": "http://images.example.com/train2017/000000000002.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard \nTexture choice: 0:smooth, 1:youthful\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "Choose the texture word."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:dry\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": "images/few_shot.jpg",
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: horn <image>\nTexture choice: 0:rough, 1:prickly\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "1"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "image",
+       "image": {
+        "image": "http://images.example.com/train2017/000000000002.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard \nTexture choice: 0:smooth, 1:youthful\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 1>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:images/few_shot.jpg"
+       },
+       {
+        "image": "processed:<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+       },
+       {
+        "image": "processed:http://images.example.com/train2017/000000000002.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": null
+  }
+ ],
+ "result": " 1 ",
+ "error": null,
+ "stdout": []
+}

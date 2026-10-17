@@ -1,0 +1,36 @@
+{
+ "selected": "Idefics2Hf",
+ "error": null,
+ "events": [
+  {
+   "call": "Idefics2ForConditionalGeneration.from_pretrained",
+   "pretrained": "HuggingFaceM4/idefics2-8b",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "HuggingFaceM4/idefics2-8b"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "HuggingFaceM4/idefics2-8b",
+   "args": [],
+   "kwargs": {
+    "do_image_splitting": false,
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "stdout": []
+}

@@ -1,0 +1,15 @@
+{
+ "function": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (en), task (taxonomic), and sub-task (yes_no_classification) doesn't exist."
+  }
+ },
+ "config": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (en), task (taxonomic), and sub-task (yes_no_classification) doesn't exist."
+  }
+ },
+ "stdout": []
+}

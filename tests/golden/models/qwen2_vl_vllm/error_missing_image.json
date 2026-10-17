@@ -1,0 +1,33 @@
+{
+ "events": [
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "max_tokens": 1024,
+    "temperature": 0,
+    "top_p": 1.0,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  }
+ ],
+ "result": null,
+ "error": {
+  "type": "FileNotFoundError",
+  "message": "The file path does not exist: images/missing.jpg"
+ },
+ "stdout": []
+}

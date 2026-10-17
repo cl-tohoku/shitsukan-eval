@@ -1,0 +1,40 @@
+{
+ "selected": "Qwen25InstructHf",
+ "error": null,
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "Qwen/Qwen2.5-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2.5-VL-7B-Instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "Qwen/Qwen2.5-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+  }
+ ],
+ "stdout": []
+}

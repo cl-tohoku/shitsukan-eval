@@ -1,0 +1,72 @@
+{
+ "events": [
+  {
+   "call": "AutoConfig.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {}
+  },
+  {
+   "call": "LlavaOnevisionForConditionalGeneration.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false,
+    "patch_size": 14,
+    "vision_feature_select_strategy": "default"
+   }
+  },
+  {
+   "call": "Tokenizer.padding_side.set",
+   "side": "left"
+  }
+ ],
+ "result": {
+  "class": "LlavaOnevisionHf",
+  "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+  "image_dir": "<tmp>/image_root",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": 14,
+  "vision_feature_select_strategy": "default",
+  "image_token": "<absent>",
+  "config": {
+   "config": "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+  },
+  "tokenizer": {
+   "tokenizer": "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+  },
+  "model": {
+   "model": "LlavaOnevisionForConditionalGeneration:llava-hf/llava-onevision-qwen2-7b-ov-hf"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

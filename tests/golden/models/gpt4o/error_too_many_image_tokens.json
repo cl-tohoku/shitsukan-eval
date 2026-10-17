@@ -1,0 +1,9 @@
+{
+ "events": [],
+ "result": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The number of image tokens (img_token_num=3) is greater than the number of input images (len(images)=1)."
+ },
+ "stdout": []
+}

@@ -1,0 +1,60 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "google/gemma-2-2b-jpn-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": "auto",
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "google/gemma-2-2b-jpn-it"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "google/gemma-2-2b-jpn-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  }
+ ],
+ "result": {
+  "class": "Gemma2InstructHf",
+  "pretrained": "google/gemma-2-2b-jpn-it",
+  "image_dir": "<absent>",
+  "device_map": "auto",
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "google/gemma-2-2b-jpn-it"
+  },
+  "tokenizer": {
+   "tokenizer": "google/gemma-2-2b-jpn-it"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:google/gemma-2-2b-jpn-it"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

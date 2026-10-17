@@ -1,0 +1,15 @@
+{
+ "function": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (en), task (perception), and sub-task (generation) doesn't exist."
+  }
+ },
+ "config": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (en), task (perception), and sub-task (generation) doesn't exist."
+  }
+ },
+ "stdout": []
+}

@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (meta-llama/Meta-Llama-3-8B) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

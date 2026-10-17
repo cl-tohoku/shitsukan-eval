@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (claude-3-5-sonnet) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

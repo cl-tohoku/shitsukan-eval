@@ -1,0 +1,15 @@
+{
+ "function": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (ja), task (taxonomic), and sub-task (unknown) doesn't exist."
+  }
+ },
+ "config": {
+  "error": {
+   "type": "ValueError",
+   "message": "Error! The selected combination of language (ja), task (taxonomic), and sub-task (unknown) doesn't exist."
+  }
+ },
+ "stdout": []
+}

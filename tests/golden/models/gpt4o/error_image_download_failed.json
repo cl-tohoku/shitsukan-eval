@@ -1,0 +1,15 @@
+{
+ "events": [
+  {
+   "call": "requests.get",
+   "url": "http://images.example.com/train2017/000000000002.jpg",
+   "kwargs": {}
+  }
+ ],
+ "result": null,
+ "error": {
+  "type": "Exception",
+  "message": "Failed to retrieve the image from URL. Status code: 404"
+ },
+ "stdout": []
+}

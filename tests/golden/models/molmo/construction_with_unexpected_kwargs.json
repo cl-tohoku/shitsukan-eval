@@ -1,0 +1,9 @@
+{
+ "events": [],
+ "result": null,
+ "error": {
+  "type": "AssertionError",
+  "message": "Unexpected kwargs: {'unexpected_option': 1}"
+ },
+ "stdout": []
+}

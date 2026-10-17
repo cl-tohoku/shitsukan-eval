@@ -1,0 +1,56 @@
+{
+ "events": [
+  {
+   "call": "MllamaForConditionalGeneration.from_pretrained",
+   "pretrained": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": "auto",
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "meta-llama/Llama-3.2-11B-Vision-Instruct"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "result": {
+  "class": "MllamaInstructHf",
+  "pretrained": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+  "image_dir": null,
+  "device_map": "auto",
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "meta-llama/Llama-3.2-11B-Vision-Instruct"
+  },
+  "tokenizer": {
+   "tokenizer": "meta-llama/Llama-3.2-11B-Vision-Instruct"
+  },
+  "model": {
+   "model": "MllamaForConditionalGeneration:meta-llama/Llama-3.2-11B-Vision-Instruct"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

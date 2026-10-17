@@ -1,0 +1,50 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "Qwen/Qwen2-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2-7B-Instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "Qwen/Qwen2-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  }
+ ],
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected combination of language (en), task (perception), and sub-task (generation) doesn't exist."
+ },
+ "stdout": [],
+ "files": {}
+}
