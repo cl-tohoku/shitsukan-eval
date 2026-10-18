@@ -13,6 +13,7 @@ from typing import Any
 
 import numpy as np
 import pytest
+import yaml
 
 from tests.fakes import torch_fake
 from tests.fakes.recorder import RECORDER, SETTINGS
@@ -174,10 +175,17 @@ def test_load_yaml_returns_the_parsed_mapping(data_utils, tmp_path):
     assert data_utils.load_yaml(str(path)) == {"generation_kwargs": {"temperature": 0.01, "do_sample": True}}
 
 
-def test_load_yaml_prints_and_returns_none_for_a_missing_file(data_utils, tmp_path, capsys):
-    """Observational record: errors are printed and hidden behind ``None``."""
-    assert data_utils.load_yaml(str(tmp_path / "missing.yaml")) is None
-    assert capsys.readouterr().out.startswith("An error occurred while reading the YAML file: ")
+def test_load_yaml_raises_for_a_missing_file(data_utils, tmp_path):
+    with pytest.raises(FileNotFoundError):
+        data_utils.load_yaml(str(tmp_path / "missing.yaml"))
+
+
+def test_load_yaml_raises_for_invalid_yaml(data_utils, tmp_path):
+    path = tmp_path / "broken.yaml"
+    path.write_text("generation_kwargs: [unclosed\n", encoding="utf-8")
+
+    with pytest.raises(yaml.YAMLError):
+        data_utils.load_yaml(str(path))
 
 
 # --- set_seed_all ------------------------------------------------------------------------

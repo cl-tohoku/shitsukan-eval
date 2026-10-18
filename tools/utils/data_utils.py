@@ -255,28 +255,25 @@ def load_dataset(filename: str) -> list[dict[str, Any]]:
     return data_list
 
 
-def load_yaml(filename: str) -> dict[str, Any] | None:
+def load_yaml(filename: str) -> Any:
     """
-    Load a YAML file and return its contents as a dictionary.
+    Load a YAML file and return its contents.
 
     Args:
         filename (str): Path to the YAML file.
 
     Returns:
-        Optional[Dict[str, Any]]: Parsed YAML data as a dictionary. Returns None if an error occurs.
+        Any: The parsed YAML document (a dictionary for the configuration files, None for an empty file).
+
+    Raises:
+        OSError: If the file cannot be opened (for example FileNotFoundError).
+        yaml.YAMLError: If the file is not valid YAML.
 
     Example usage:
     >>> yaml_data = load_yaml("config.yaml")
-    >>> if yaml_data:
-    >>>     print(yaml_data)
     """
-    try:
-        with open(filename, encoding="utf-8") as file:
-            data = yaml.safe_load(file)
-        return data
-    except Exception as e:
-        print(f"An error occurred while reading the YAML file: {e}")
-        return None
+    with open(filename, encoding="utf-8") as file:
+        return yaml.safe_load(file)
 
 
 # Function to set seeds for reproducibility
