@@ -5,7 +5,8 @@ evaluation from there (see ``python -m shitsukan_eval --help``).
 
 Every wrapper and task module is imported here eagerly, as in the scripts used
 for the paper, so all model libraries are loaded before :func:`evaluate` seeds
-the random number generators and loads the model.
+the random number generators and loads the model. vLLM is optional: where it is
+not installed, only ``--model-type vllm`` is unavailable.
 """
 
 from __future__ import annotations
@@ -230,6 +231,7 @@ def load_vllm_models(model_name: str, image_dir: str | None) -> Qwen2VLVllm:
 
     Raises:
         ValueError: If ``model_name`` does not contain ``"qwen2-vl"``.
+        ImportError: If vLLM or qwen-vl-utils is not installed.
     """
     vllm_model_config = load_yaml(VLLM_MODEL_DEFAULT_CONFIG)
     # The other wrappers only accept Hugging Face arguments.

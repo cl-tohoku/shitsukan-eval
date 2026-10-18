@@ -205,6 +205,9 @@ uv run python -m shitsukan_eval \
 > [!NOTE]
 > When evaluating Molmo, make a single GPU visible (for example `CUDA_VISIBLE_DEVICES=0`).
 
+> [!NOTE]
+> `--model-type vllm` needs vLLM and qwen-vl-utils, which `pyproject.toml` installs on Linux x86_64 only (vLLM 0.6.3 also requires the pinned torch 2.4.0). Where they are missing, the other model types still work.
+
 ### 4. Outputs
 
 For each task and sub-task, the records with the prompts and the model responses are saved to `<save_dir>/<task>/<sub_task>/<task>_<sub_task>_<lang>_<model_type>_<model>.jsonl`, where `<model>` is the last path component of `--model`.

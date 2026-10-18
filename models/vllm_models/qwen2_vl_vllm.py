@@ -1,16 +1,28 @@
-"""Wrapper for Qwen2-VL served by the vLLM inference engine."""
+"""Wrapper for Qwen2-VL served by the vLLM inference engine.
+
+vLLM and qwen-vl-utils are imported with this module when they are installed.
+pyproject.toml installs them on Linux x86_64 only, and vLLM 0.6.3 runs only with
+torch 2.4.0; where they are missing, the module still imports so that the other
+models can run, and creating :class:`Qwen2VLVllm` raises ImportError.
+"""
 
 from __future__ import annotations
 
 from typing import Any
 
-from qwen_vl_utils import process_vision_info
 from transformers import AutoProcessor
-from vllm import LLM, SamplingParams
 
 from models.hf_models.base import resolve_torch_dtype
 from models.image_loading import load_images
 from models.prompting import content_message, ensure_enough_images, remove_image_placeholders
+
+try:
+    from qwen_vl_utils import process_vision_info
+    from vllm import LLM, SamplingParams
+except ImportError as error:
+    _MISSING_DEPENDENCY: ImportError | None = error
+else:
+    _MISSING_DEPENDENCY = None
 
 END_OF_TEXT_TOKEN = "<|endoftext|>"
 # Resolution bounds for each image, passed to ``qwen_vl_utils.process_vision_info``.
@@ -93,7 +105,13 @@ class Qwen2VLVllm:
             limit_mm_per_prompt: Maximum images and videos per prompt
                 (default: ``{"image": 10, "video": 1}``).
             image_dir: Directory that relative image paths are resolved against.
+
+        Raises:
+            ImportError: If vLLM or qwen-vl-utils is not installed.
         """
+        if _MISSING_DEPENDENCY is not None:
+            message = "Qwen2VLVllm needs vllm and qwen-vl-utils; pyproject.toml installs them on Linux x86_64 only"
+            raise ImportError(message) from _MISSING_DEPENDENCY
         self.pretrained = pretrained
         self.image_dir = image_dir
         if limit_mm_per_prompt is None:
