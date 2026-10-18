@@ -257,37 +257,17 @@ def load_vllm_models(model_name: str, image_dir: str):
     # Load the model's default configuration
     vllm_model_config = load_yaml("./models/vllm_models/vllm_model_default_config.yaml")
 
-    # Normalize the model name
-    model_name_lower = model_name.lower()
-
-    # Initialize the model based on the model name
-    if "llama-3.2" in model_name_lower and "vision" in model_name_lower:
-        if "instruct" in model_name_lower:
-            model = MllamaInstructHf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-    elif "llava" in model_name_lower:
-        if "1.5" in model_name_lower or "v1.5" in model_name_lower:
-            model = LlavaHf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-        elif "next" in model_name_lower or "1.6" in model_name_lower or "v1.6" in model_name_lower:
-            model = LlavaNextHf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-        elif "onevision" in model_name_lower:
-            model = LlavaOnevisionHf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-    elif "idefics2" in model_name_lower:
-        model = Idefics2Hf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-    elif "idefics3" in model_name_lower:
-        model = Idefics3Hf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-    elif "qwen2-vl" in model_name_lower:
-        model = Qwen2VLVllm(
-            pretrained=model_name,
-            tokenizer=model_name,
-            image_dir=image_dir,
-            **vllm_model_config,
-        )
-    elif "molmo" in model_name_lower:
-        model = MolmoHf(pretrained=model_name, image_dir=image_dir, **vllm_model_config)
-    else:
+    # Only Qwen2-VL has a vLLM wrapper. The other wrappers only accept Hugging Face
+    # arguments, so any other model name is rejected here instead of failing later.
+    if "qwen2-vl" not in model_name.lower():
         raise ValueError(f"Error! The selected model ({model_name}) doesn't support vllm.")
 
-    return model
+    return Qwen2VLVllm(
+        pretrained=model_name,
+        tokenizer=model_name,
+        image_dir=image_dir,
+        **vllm_model_config,
+    )
 
 
 def load_api_models(model_name: str, image_dir: str):

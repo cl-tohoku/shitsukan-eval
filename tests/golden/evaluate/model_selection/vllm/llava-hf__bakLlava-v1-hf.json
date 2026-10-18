@@ -1,8 +1,8 @@
 {
  "selected": null,
  "error": {
-  "type": "UnboundLocalError",
-  "message": "cannot access local variable 'model' where it is not associated with a value"
+  "type": "ValueError",
+  "message": "Error! The selected model (llava-hf/bakLlava-v1-hf) doesn't support vllm."
  },
  "events": [],
  "stdout": []

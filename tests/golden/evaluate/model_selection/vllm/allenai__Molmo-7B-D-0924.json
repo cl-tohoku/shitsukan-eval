@@ -1,8 +1,8 @@
 {
  "selected": null,
  "error": {
-  "type": "AssertionError",
-  "message": "Unexpected kwargs: {'tokenizer_revision': 'main', 'tokenizer_mode': 'auto', 'tensor_parallel_size': 1, 'seed': 42, 'gpu_memory_utilization': 0.9, 'swap_space': 4, 'cpu_offload_gb': 0, 'max_seq_len_to_capture': 8192, 'limit_mm_per_prompt': {'image': 10, 'video': 1}}"
+  "type": "ValueError",
+  "message": "Error! The selected model (allenai/Molmo-7B-D-0924) doesn't support vllm."
  },
  "events": [],
  "stdout": []
