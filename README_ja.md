@@ -238,7 +238,8 @@ uv run python -m shitsukan_eval \
 - Python、NumPy、PyTorch の乱数生成器は、モデルを読み込む直前にシード 42 で初期化されます。また、各タスクは `temperature: 0.01` でサンプリングします（タスクの設定ファイルを参照）。
 - 結果はライブラリのバージョンに依存し得ます。モデルの出力に影響するパッケージは、論文の実験時（2024 年秋）に利用できたバージョンに `pyproject.toml` で固定しています: `torch==2.4.0`、`transformers==4.46.0`、`qwen-vl-utils==0.0.8`、`flash-attn==2.6.3`。
   - 以前は `transformers` を GitHub の main ブランチからインストールしていました。現在の main は transformers 5 で、`AutoModelForVision2Seq` が削除されているため、新しく作った環境では評価スクリプトを import することさえできませんでした。4.46.0 は、ラッパーが import する Idefics3 を含む最初のリリースです。
-  - その他の依存パッケージは固定していません。すべてのパッケージのバージョンを記録するため、`uv sync` で作成される `uv.lock` をコミットしてください。
+  - その他の依存パッケージは `pyproject.toml` では固定していません。すべてのパッケージのバージョンは `uv.lock` に記録されており、`uv sync` はそのバージョンをインストールします。
+  - uv は `transformers==4.46.0` が取り下げ（yanked）済みであると警告します。理由は Python 3.8 に対応していないことで、Python 3.11 には影響しません。
   - 元の実験の `uv.lock` が残っている場合は、そこに記録されたコミットに `transformers` を固定すると、実験環境を厳密に再現できます。例: `[tool.uv.sources]` に `transformers = { git = "https://github.com/huggingface/transformers.git", rev = "<commit>" }` を指定します。
 - `flash-attn` がインストールされている場合、Hugging Face のモデルは `attn_implementation="flash_attention_2"` を使用します（Llama-3.2-Vision と Molmo は eager attention を使用）。インストールされていない場合は eager attention を使用します。
 

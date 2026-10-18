@@ -238,7 +238,8 @@ The generation tasks are not scored by this library.
 - The random generators of Python, NumPy, and PyTorch are seeded with 42 right before the model is loaded, and the tasks sample with `temperature: 0.01` (see the task configuration files).
 - Results can depend on library versions. The packages that affect the model outputs are pinned in `pyproject.toml` to the versions available when the experiments of the paper were run (autumn 2024): `torch==2.4.0`, `transformers==4.46.0`, `qwen-vl-utils==0.0.8`, and `flash-attn==2.6.3`.
   - `transformers` was previously installed from its GitHub main branch. That branch is now transformers 5, which removed `AutoModelForVision2Seq`, so a newly created environment could not even import the evaluator. 4.46.0 is the first release that contains Idefics3, which the wrappers import.
-  - The other dependencies are not pinned. Commit the `uv.lock` file created by `uv sync` so that every package version is recorded.
+  - The other dependencies are not pinned in `pyproject.toml`. `uv.lock` records the versions of all packages, which `uv sync` installs.
+  - uv warns that `transformers==4.46.0` is yanked. The reason given, missing support for Python 3.8, does not affect Python 3.11.
   - If you still have the `uv.lock` of the original experiments, you can reproduce them exactly by pinning `transformers` to the commit recorded there, for example `transformers = { git = "https://github.com/huggingface/transformers.git", rev = "<commit>" }` under `[tool.uv.sources]`.
 - When `flash-attn` is installed, the Hugging Face models use `attn_implementation="flash_attention_2"` (except Llama-3.2-Vision and Molmo, which use eager attention); otherwise they use eager attention.
 
