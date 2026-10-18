@@ -11,6 +11,7 @@ from __future__ import annotations
 from types import ModuleType, SimpleNamespace
 from typing import Any
 
+from tests.fakes.module_factory import make_module
 from tests.fakes.recorder import RECORDER, RESPONDER, SETTINGS, prompt_text, snapshot
 
 
@@ -63,9 +64,5 @@ class AsyncOpenAI:
 
 def build_modules() -> dict[str, ModuleType]:
     """Return a fresh ``openai`` module."""
-    openai = ModuleType("openai")
-    openai.AsyncOpenAI = AsyncOpenAI  # type: ignore[attr-defined]
-    for name, cls in ERRORS.items():
-        setattr(openai, name, cls)
-    openai.APIError = APIError  # type: ignore[attr-defined]
+    openai = make_module("openai", AsyncOpenAI=AsyncOpenAI, APIError=APIError, **ERRORS)
     return {"openai": openai}

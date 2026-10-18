@@ -19,7 +19,7 @@ from tests.fakes.recorder import RECORDER, RESPONDER, reset_settings
 REPOSITORY_PACKAGES = ("models", "shitsukan_eval", "tools")
 
 
-def fake_modules(flash_attn_available: bool) -> dict[str, ModuleType | None]:  # noqa: FBT001
+def fake_modules(flash_attn_available: bool) -> dict[str, ModuleType | None]:
     """Return the fake modules keyed by the import name they replace."""
     modules: dict[str, ModuleType | None] = {"torch": torch_fake}
     modules.update(transformers_fake.build_modules())

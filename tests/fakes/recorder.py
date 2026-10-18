@@ -204,6 +204,6 @@ def rng_summary(torch_module: Any) -> dict[str, Any] | None:
         "numpy_random_fresh_seed_42": _numpy_state_is_fresh(),
         "torch_seed": torch_module.SEED_STATE["torch"],
         "cuda_seed": torch_module.SEED_STATE["cuda"],
-        "draws_since_torch_seed": torch_module.SEED_STATE["draws_since_seed"],
+        "draws_since_torch_seed": torch_module.DRAWS_SINCE_SEED["count"],
         "cudnn_deterministic": torch_module.backends.cudnn.deterministic,
     }

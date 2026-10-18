@@ -8,6 +8,7 @@ from types import ModuleType, SimpleNamespace
 from typing import Any
 
 from tests.fakes import torch_fake
+from tests.fakes.module_factory import make_module
 from tests.fakes.recorder import RECORDER, RESPONDER, SETTINGS, Snapshottable, rng_summary, snapshot
 from tests.fakes.transformers_fake import FakeImage
 
@@ -98,33 +99,23 @@ class tqdm:  # noqa: N801 - mirrors the real ``tqdm.tqdm`` name.
         return iter(self.iterable)
 
     @staticmethod
-    def write(text: str, file: Any = None, end: str = "\n", nolock: bool = False) -> None:  # noqa: FBT001, FBT002
+    def write(text: str, file: Any = None, end: str = "\n", nolock: bool = False) -> None:
         """Write ``text`` like the real ``tqdm.write`` (stdout unless ``file`` is given)."""
         stream = file if file is not None else sys.stdout
         stream.write(text)
         stream.write(end)
 
 
-def build_modules(flash_attn_available: bool) -> dict[str, ModuleType | None]:  # noqa: FBT001
+def build_modules(flash_attn_available: bool) -> dict[str, ModuleType | None]:
     """Return fresh fake modules; ``flash_attn`` maps to ``None`` when unavailable.
 
     A ``None`` entry in :data:`sys.modules` makes ``import flash_attn`` raise
     :class:`ImportError`, which is how the wrappers detect a missing installation.
     """
-    vllm = ModuleType("vllm")
-    vllm.LLM = LLM  # type: ignore[attr-defined]
-    vllm.SamplingParams = SamplingParams  # type: ignore[attr-defined]
-
-    qwen_vl_utils = ModuleType("qwen_vl_utils")
-    qwen_vl_utils.process_vision_info = process_vision_info  # type: ignore[attr-defined]
-
-    requests = ModuleType("requests")
-    requests.get = requests_get  # type: ignore[attr-defined]
-    requests.head = requests_head  # type: ignore[attr-defined]
-    requests.RequestException = RequestException  # type: ignore[attr-defined]
-
-    tqdm_module = ModuleType("tqdm")
-    tqdm_module.tqdm = tqdm  # type: ignore[attr-defined]
+    vllm = make_module("vllm", LLM=LLM, SamplingParams=SamplingParams)
+    qwen_vl_utils = make_module("qwen_vl_utils", process_vision_info=process_vision_info)
+    requests = make_module("requests", get=requests_get, head=requests_head, RequestException=RequestException)
+    tqdm_module = make_module("tqdm", tqdm=tqdm)
 
     return {
         "vllm": vllm,

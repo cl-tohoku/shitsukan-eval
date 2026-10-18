@@ -13,6 +13,7 @@ from types import ModuleType, SimpleNamespace
 from typing import Any
 
 from tests.fakes import torch_fake
+from tests.fakes.module_factory import make_module
 from tests.fakes.recorder import RECORDER, RESPONDER, SETTINGS, Snapshottable, prompt_text, rng_summary, snapshot, text_digest
 
 # Token ids returned by ``convert_tokens_to_ids`` for the special tokens the
@@ -315,12 +316,8 @@ MODEL_LOADER_NAMES = (
 
 def build_modules() -> dict[str, ModuleType]:
     """Return fresh ``transformers`` and ``transformers.image_utils`` modules."""
-    transformers = ModuleType("transformers")
-    image_utils = ModuleType("transformers.image_utils")
-    image_utils.load_image = load_image  # type: ignore[attr-defined]
-    transformers.image_utils = image_utils  # type: ignore[attr-defined]
-    for name in MODEL_LOADER_NAMES:
-        setattr(transformers, name, _model_loader(name))
-    for cls in (AutoConfig, AutoTokenizer, AutoProcessor, GenerationConfig):
-        setattr(transformers, cls.__name__, cls)
+    image_utils = make_module("transformers.image_utils", load_image=load_image)
+    loaders = {name: _model_loader(name) for name in MODEL_LOADER_NAMES}
+    helpers = {cls.__name__: cls for cls in (AutoConfig, AutoTokenizer, AutoProcessor, GenerationConfig)}
+    transformers = make_module("transformers", image_utils=image_utils, **loaders, **helpers)
     return {"transformers": transformers, "transformers.image_utils": image_utils}

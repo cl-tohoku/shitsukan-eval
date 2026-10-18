@@ -120,12 +120,12 @@ def manual_seed(seed: int) -> None:
     """Record a call to :func:`torch.manual_seed` and restart the draw counter."""
     RECORDER.record("torch.manual_seed", seed=seed)
     SEED_STATE["torch"] = seed
-    SEED_STATE["draws_since_seed"] = 0
+    DRAWS_SINCE_SEED["count"] = 0
 
 
 def consume_random_draw() -> None:
     """Count one sampling step, as real generation consumes the torch RNG."""
-    SEED_STATE["draws_since_seed"] += 1
+    DRAWS_SINCE_SEED["count"] += 1
 
 
 def _cuda_manual_seed_all(seed: int) -> None:
@@ -134,14 +134,15 @@ def _cuda_manual_seed_all(seed: int) -> None:
     SEED_STATE["cuda"] = seed
 
 
-def use_deterministic_algorithms(mode: bool) -> None:  # noqa: FBT001 - mirrors the real signature.
+def use_deterministic_algorithms(mode: bool) -> None:
     """Record a call to :func:`torch.use_deterministic_algorithms`."""
     RECORDER.record("torch.use_deterministic_algorithms", mode=mode)
 
 
 # Seeds most recently passed to the fake RNG functions and the number of sampling
 # steps since the last ``manual_seed``; inspected by tests to check seeding order.
-SEED_STATE: dict[str, int | None] = {"torch": None, "cuda": None, "draws_since_seed": 0}
+SEED_STATE: dict[str, int | None] = {"torch": None, "cuda": None}
+DRAWS_SINCE_SEED: dict[str, int] = {"count": 0}
 
 cuda = SimpleNamespace(manual_seed_all=_cuda_manual_seed_all)
 backends = SimpleNamespace(cudnn=SimpleNamespace(deterministic=False))
@@ -153,4 +154,5 @@ def reset() -> None:
     global use_deterministic_algorithms  # noqa: PLW0603 - the code under test assigns this attribute.
     use_deterministic_algorithms = ORIGINAL_USE_DETERMINISTIC_ALGORITHMS
     backends.cudnn.deterministic = False
-    SEED_STATE.update({"torch": None, "cuda": None, "draws_since_seed": 0})
+    SEED_STATE.update({"torch": None, "cuda": None})
+    DRAWS_SINCE_SEED["count"] = 0
