@@ -153,14 +153,27 @@ def test_load_dataset_reads_delimited_files_without_leaving_files_behind(data_ut
     assert sorted(p.name for p in tmp_path.iterdir()) == [path.name]
 
 
-def test_load_dataset_fails_for_json_files(data_utils, tmp_path):
-    """Observational record: JSON input is converted to ``data.jsonl`` but read from ``data.json.jsonl``."""
+def test_load_dataset_reads_json_arrays_without_writing_files(data_utils, tmp_path):
     path = tmp_path / "data.json"
-    path.write_text(json.dumps([{"object": "りんご", "label": 1}]), encoding="utf-8")
+    path.write_text(json.dumps([{"object": "りんご", "label": 1}, {"object": "apple", "label": None}]), encoding="utf-8")
 
-    with pytest.raises(FileNotFoundError):
-        data_utils.load_dataset(str(path))
-    assert sorted(p.name for p in tmp_path.iterdir()) == ["data.json", "data.jsonl"]
+    records = data_utils.load_dataset(str(path))
+
+    assert records == [{"object": "りんご", "label": 1.0}, {"object": "apple", "label": None}]
+    assert sorted(p.name for p in tmp_path.iterdir()) == ["data.json"]
+
+
+def test_load_dataset_matches_the_records_of_the_jsonl_converters(data_utils, tmp_path):
+    source = tmp_path / "source"
+    converted = tmp_path / "converted"
+    source.mkdir()
+    converted.mkdir()
+    path = source / "data.csv"
+    path.write_text('object,label,text\nりんご,1,"a, b ""quoted"" [x]"\n,2,\n', encoding="utf-8")
+
+    data_utils.convert_csv_to_jsonl(str(path), str(converted))
+
+    assert data_utils.load_dataset(str(path)) == data_utils.load_jsonl(str(converted / "data.csv.jsonl"))
 
 
 def test_load_dataset_rejects_unknown_extensions(data_utils, tmp_path):

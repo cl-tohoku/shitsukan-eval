@@ -7,12 +7,11 @@ text stays readable in the output files.
 from __future__ import annotations
 
 import json
-import os
 import pathlib
 import random
 import re
 from collections.abc import Callable
-from typing import Any
+from typing import Any, cast
 
 import numpy as np
 import pandas as pd
@@ -143,19 +142,19 @@ def convert_tsv_to_jsonl(filename: str, output_dir: str) -> None:
     pd.read_csv(path, sep="\t").to_json(pathlib.Path(output_dir).joinpath(path.name + ".jsonl"), orient="records", force_ascii=False, lines=True)
 
 
-_CONVERTERS_TO_JSONL: dict[str, Callable[[str, str], None]] = {
-    ".json": convert_json_to_jsonl,
-    ".csv": convert_csv_to_jsonl,
-    ".tsv": convert_tsv_to_jsonl,
+_DATAFRAME_READERS: dict[str, Callable[[pathlib.Path], pd.DataFrame]] = {
+    ".json": pd.read_json,
+    ".csv": pd.read_csv,
+    ".tsv": lambda path: pd.read_csv(path, sep="\t"),
 }
 
 
 def load_dataset(filename: str) -> list[dict[str, Any]]:
     """Load the records of a JSON Lines, JSON, CSV, or TSV file.
 
-    Non-JSONL files are converted with pandas into a temporary ``<name>.jsonl``
-    file next to the input, which is read and then deleted. Missing values become
-    ``None``.
+    JSON, CSV, and TSV files are read with pandas and converted to records the
+    same way as :func:`convert_csv_to_jsonl` and friends, so missing values become
+    ``None``. No files are written.
 
     Args:
         filename: Path ending in ``.jsonl``, ``.json``, ``.csv``, or ``.tsv``.
@@ -169,16 +168,12 @@ def load_dataset(filename: str) -> list[dict[str, Any]]:
     path = pathlib.Path(filename)
     if path.suffix == ".jsonl":
         return load_jsonl(str(path))
-    converter = _CONVERTERS_TO_JSONL.get(path.suffix)
-    if converter is None:
+    read_dataframe = _DATAFRAME_READERS.get(path.suffix)
+    if read_dataframe is None:
         raise ValueError(f"Unsupported file extension: {path.suffix}")
-    # FIXME: convert_json_to_jsonl writes "<stem>.jsonl" while "<name>.jsonl" is read
-    # here, so JSON input fails with FileNotFoundError.
-    converter(str(path), str(path.parent))
-    converted_path = path.parent.joinpath(path.name + ".jsonl")
-    records = load_jsonl(str(converted_path))
-    os.remove(str(converted_path))
-    return records
+    # Without a target path, ``to_json`` returns the JSON text.
+    records_json = cast("str", read_dataframe(path).to_json(orient="records", force_ascii=False))
+    return json.loads(records_json)
 
 
 def load_yaml(filename: str) -> Any:
