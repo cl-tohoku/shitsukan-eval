@@ -1,0 +1,370 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "4d3b59e01d001af4",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "4d3b59e01d001af4",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "2b3f37149d1cf74f",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "2b3f37149d1cf74f",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "dd8283eec5a84c9d",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "dd8283eec5a84c9d",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "16ee475a9e4e4d30",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: ",
+   "images": null,
+   "system_prompt": "0f664add6d45e6a9",
+   "few_shot_data": "16ee475a9e4e4d30",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら\n解答: ",
+   "original_model_inference": "0",
+   "model_inference": "0",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice2_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら\n解答: ",
+   "original_model_inference": "0",
+   "model_inference": "0",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice2_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: ",
+   "original_model_inference": "1",
+   "model_inference": "1",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice3_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: ",
+   "original_model_inference": "1:",
+   "model_inference": "1",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice3_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: ",
+   "original_model_inference": "3",
+   "model_inference": "3",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice4_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: ",
+   "original_model_inference": "zzz",
+   "model_inference": "-100",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice4_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい",
+    "4:つやつや"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: ",
+   "original_model_inference": "4",
+   "model_inference": "4",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice5_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい",
+    "4:つやつや"
+   ],
+   "zero_shot": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: ",
+   "original_model_inference": "1",
+   "model_inference": "1",
+   "task": "taxonomic",
+   "sub_task": "multiple_choice_classification",
+   "sub_subtask": "choice5_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "質感語: 0:つるつる, 1:ざらざら",
+  "解答: 0",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら",
+  "解答: 0",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "解答: 1",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "解答: 1",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "解答: 3",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "解答: -100",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "解答: 4",
+  "",
+  "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "解答: 1",
+  "",
+  "====================  Model Name: scripted-model    Language: ja  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------"
+ ],
+ "files": {
+  "taxonomic/multiple_choice_classification/choice2_ans1/taxonomic_multiple_choice_classification_choice2_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"0\", \"model_inference\": \"0\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"0\", \"model_inference\": \"0\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice3_ans1/taxonomic_multiple_choice_classification_choice3_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1:\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice4_ans1/taxonomic_multiple_choice_classification_choice4_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"3\", \"model_inference\": \"3\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"zzz\", \"model_inference\": \"-100\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice5_ans1/taxonomic_multiple_choice_classification_choice5_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"4\", \"model_inference\": \"4\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "taxonomic/multiple_choice_classification/taxonomic_multiple_choice_classification_ja_hf_scripted-model_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ]
+ },
+ "contents_by_digest": {
+  "0f664add6d45e6a9": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。",
+  "4d3b59e01d001af4": [
+   {
+    "user": "質感語: 0:つるつる, 1:ざらざら\n解答: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "2b3f37149d1cf74f": [
+   {
+    "user": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "dd8283eec5a84c9d": [
+   {
+    "user": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "16ee475a9e4e4d30": [
+   {
+    "user": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: ",
+    "assistant": "0",
+    "images": null
+   }
+  ]
+ }
+}

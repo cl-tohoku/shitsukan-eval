@@ -1,9 +1,17 @@
+"""Data input/output, random seeding, and answer parsing used by the evaluation.
+
+Results and scores are written as JSON Lines without ASCII escaping, so Japanese
+text stays readable in the output files.
+"""
+
+from __future__ import annotations
+
 import json
-import os
 import pathlib
 import random
 import re
-from typing import Any
+from collections.abc import Callable
+from typing import Any, cast
 
 import numpy as np
 import pandas as pd
@@ -11,38 +19,38 @@ import requests
 import torch
 import yaml
 
+CHOICE_LABEL_PATTERN = re.compile(r"\({0,1}(-1|[0-5]|[A-B]|yes|no)[.,:;)]{0,1}")
+"""Answer label at the start of a response.
 
-# DATA SAVING
+The label is ``-1``, a digit from ``0`` to ``5``, ``A``, ``B``, ``yes``, or ``no``,
+optionally preceded by ``(`` and followed by one of ``.,:;)``.
+"""
+
+UNPARSABLE_LABEL = "-100"
+"""Label returned by :func:`simple_choice_extractors` when no label is found."""
+
+IMAGE_CHECK_TIMEOUT_SECONDS = 5
+HTTP_OK = 200
+
+
+# --- Saving -------------------------------------------------------------------------------
 def save_json(filename: str, ds: dict[str, Any]) -> None:
-    """
-    Save data in JSON format.
-
-    Args:
-        filename (str): Path to the output file.
-        ds (Dict[str, Any]): Data to be saved in JSON format.
-
-    Example usage:
-    >>> save_json("output.json", {"name": "example"})
-    """
+    """Write ``ds`` to ``filename`` as indented JSON (ASCII-escaped)."""
     with open(filename, "w") as f:
         json.dump(ds, f, indent=4)
 
 
 def save_jsonl(filename: str, data_list: list[dict[str, Any]]) -> None:
-    """
-    Save data in JSONL (JSON Lines) format.
+    """Write one JSON object per line to ``filename``, creating parent directories.
 
     Args:
-        filename (str): Path to the output file.
-        data_list (List[Dict[str, Any]]): List of data (dict) to be saved.
-
-    Example usage:
-    >>> save_jsonl("output.jsonl", [{"name": "example"}])
+        filename: Output path; an existing file is overwritten.
+        data_list: Objects to write, in order.
     """
     pathlib.Path(filename).parent.mkdir(parents=True, exist_ok=True)
     with open(filename, "w", encoding="utf-8") as fo:
-        for r in data_list:
-            fo.write(json.dumps(r, ensure_ascii=False) + "\n")
+        for record in data_list:
+            fo.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
 def save_results_as_jsonl(
@@ -55,33 +63,28 @@ def save_results_as_jsonl(
     model_type: str,
     model_name: str,
 ) -> None:
-    """
-    Save evaluation results as JSONL format based on the task structure.
+    """Save evaluation records under the directory of their task.
+
+    The file is
+    ``<save_dir>/<task>/<sub_task>/<task>_<sub_task>_<lang>_<model_type>_<model_name>.jsonl``,
+    or, with a sub-subtask,
+    ``<save_dir>/<task>/<sub_task>/<sub_subtask>/<task>_<sub_task>_<sub_subtask>_<lang>_<model_type>_<model_name>.jsonl``.
 
     Args:
-        save_dir (str): Directory where the results will be saved.
-        results (List[Dict[str, Any]]): List of results (dict) to be saved.
-        task (str): Name of the task.
-        sub_task (str): Name of the sub-task.
-        sub_subtask (Optional[str]): Name of the sub-subtask (optional).
-        lang (str): Language of the evaluation.
-        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
-        model_name (str): Name of the evaluated model.
-
-    Example usage:
-    >>> save_results_as_jsonl("output", results, "perception", "generation", None, "ja", "api", "gpt-4")
+        save_dir: Root directory of the outputs.
+        results: Records to save.
+        task: Task name, such as ``"perception"``.
+        sub_task: Sub-task name, such as ``"selection"``.
+        sub_subtask: Subset name, such as ``"choice2_ans1"``, or ``None``.
+        lang: Language code.
+        model_type: ``"hf"``, ``"vllm"``, or ``"api"``.
+        model_name: Short model name.
     """
-    save_dir = pathlib.Path(save_dir)
     if sub_subtask is not None:
-        output_file = save_dir.joinpath(f"{task}/{sub_task}/{sub_subtask}/{task}_{sub_task}_{sub_subtask}_{lang}_{model_type}_{model_name}.jsonl")
+        relative_path = f"{task}/{sub_task}/{sub_subtask}/{task}_{sub_task}_{sub_subtask}_{lang}_{model_type}_{model_name}.jsonl"
     else:
-        output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}.jsonl")
-
-    pathlib.Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-
-    with open(output_file, "w", encoding="utf-8") as fo:
-        for r in results:
-            fo.write(json.dumps(r, ensure_ascii=False) + "\n")
+        relative_path = f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}.jsonl"
+    save_jsonl(str(pathlib.Path(save_dir).joinpath(relative_path)), results)
 
 
 def save_eval_scores_as_jsonl(
@@ -93,274 +96,158 @@ def save_eval_scores_as_jsonl(
     model_type: str,
     model_name: str,
 ) -> None:
-    """
-    Save evaluation scores as JSONL format.
+    """Save scores to ``<save_dir>/<task>/<sub_task>/<task>_<sub_task>_<lang>_<model_type>_<model_name>_scores.jsonl``.
 
     Args:
-        save_dir (str): Directory where the scores will be saved.
-        scores (List[Dict[str, Any]]): List of evaluation scores (dict).
-        task (str): Name of the task.
-        sub_task (str): Name of the sub-task.
-        lang (str): Language of the evaluation.
-        model_type (str): The type of the model (availabel choices: ["hf", "vllm", "api"])
-        model_name (str): Name of the evaluated model.
-
-    Example usage:
-    >>> save_eval_scores_as_jsonl("output", scores, "perception", "generation", "ja", "api", "gpt-4")
+        save_dir: Root directory of the outputs.
+        scores: Score dictionaries, one per line.
+        task: Task name.
+        sub_task: Sub-task name.
+        lang: Language code.
+        model_type: ``"hf"``, ``"vllm"``, or ``"api"``.
+        model_name: Short model name.
     """
-    save_dir = pathlib.Path(save_dir)
-    output_file = save_dir.joinpath(f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}_scores.jsonl")
-
-    pathlib.Path(output_file).parent.mkdir(parents=True, exist_ok=True)
-
-    with open(output_file, "w", encoding="utf-8") as fo:
-        for s in scores:
-            fo.write(json.dumps(s, ensure_ascii=False) + "\n")
+    relative_path = f"{task}/{sub_task}/{task}_{sub_task}_{lang}_{model_type}_{model_name}_scores.jsonl"
+    save_jsonl(str(pathlib.Path(save_dir).joinpath(relative_path)), scores)
 
 
-# DATA LOADING
-def load_json(filename: str) -> list[Any]:
-    """
-    Load data from a JSON file.
-
-    Args:
-        filename (str): Path to the JSON file.
-
-    Returns:
-        List[Any]: Loaded JSON data.
-
-    Example usage:
-    >>> data = load_json("data.json")
-    """
+# --- Loading ------------------------------------------------------------------------------
+def load_json(filename: str) -> Any:
+    """Return the parsed contents of the JSON file ``filename``."""
     with open(filename, encoding="utf-8") as f:
         return json.load(f)
 
 
 def load_jsonl(filename: str) -> list[dict[str, Any]]:
-    """
-    Load data from a JSONL (JSON Lines) file.
-
-    Args:
-        filename (str): Path to the JSONL file.
-
-    Returns:
-        List[Dict[str, Any]]: Loaded JSONL data as a list of dictionaries.
-
-    Example usage:
-    >>> data = load_jsonl("data.jsonl")
-    """
+    """Return the objects of the JSON Lines file ``filename``, one per line."""
     with open(filename, encoding="utf-8") as f:
         return [json.loads(line) for line in f]
 
 
-# DATA PROCESSING
 def convert_json_to_jsonl(filename: str, output_dir: str) -> None:
-    """
-    Convert a JSON file to JSONL format.
-
-    Args:
-        filename (str): Path to the JSON file.
-        output_dir (str): Directory where the converted JSONL file will be saved.
-
-    Example usage:
-    >>> convert_json_to_jsonl("data.json", "output")
-    """
-    filename = pathlib.Path(filename)
-    output_dir = pathlib.Path(output_dir)
-    save_filename = output_dir.joinpath(filename.stem + ".jsonl")
-    # load json file
-    df = pd.read_json(filename)
-    # save as jsonl file
-    df.to_json(save_filename, orient="records", force_ascii=False, lines=True)
+    """Convert a JSON array of objects into ``<output_dir>/<stem>.jsonl`` with pandas."""
+    path = pathlib.Path(filename)
+    pd.read_json(path).to_json(pathlib.Path(output_dir).joinpath(path.stem + ".jsonl"), orient="records", force_ascii=False, lines=True)
 
 
 def convert_csv_to_jsonl(filename: str, output_dir: str) -> None:
-    """
-    Convert a CSV file to JSONL format.
-
-    Args:
-        filename (str): Path to the CSV file.
-        output_dir (str): Directory where the converted JSONL file will be saved.
-
-    Example usage:
-    >>> convert_csv_to_jsonl("data.csv", "output")
-    """
-    filename = pathlib.Path(filename)
-    output_dir = pathlib.Path(output_dir)
-    save_filename = output_dir.joinpath(filename.name + ".jsonl")
-    # load json file
-    df = pd.read_csv(filename)
-    # save as jsonl file
-    df.to_json(save_filename, orient="records", force_ascii=False, lines=True)
+    """Convert a CSV file into ``<output_dir>/<name>.jsonl`` (for example ``data.csv.jsonl``) with pandas."""
+    path = pathlib.Path(filename)
+    pd.read_csv(path).to_json(pathlib.Path(output_dir).joinpath(path.name + ".jsonl"), orient="records", force_ascii=False, lines=True)
 
 
 def convert_tsv_to_jsonl(filename: str, output_dir: str) -> None:
-    """
-    Convert a TSV file to JSONL format.
+    """Convert a TSV file into ``<output_dir>/<name>.jsonl`` (for example ``data.tsv.jsonl``) with pandas."""
+    path = pathlib.Path(filename)
+    pd.read_csv(path, sep="\t").to_json(pathlib.Path(output_dir).joinpath(path.name + ".jsonl"), orient="records", force_ascii=False, lines=True)
 
-    Args:
-        filename (str): Path to the TSV file.
-        output_dir (str): Directory where the converted JSONL file will be saved.
 
-    Example usage:
-    >>> convert_tsv_to_jsonl("data.tsv", "output")
-    """
-    filename = pathlib.Path(filename)
-    output_dir = pathlib.Path(output_dir)
-    save_filename = output_dir.joinpath(filename.name + ".jsonl")
-    # load json file
-    df = pd.read_csv(filename, sep="\t")
-    # save as jsonl file
-    df.to_json(save_filename, orient="records", force_ascii=False, lines=True)
+_DATAFRAME_READERS: dict[str, Callable[[pathlib.Path], pd.DataFrame]] = {
+    ".json": pd.read_json,
+    ".csv": pd.read_csv,
+    ".tsv": lambda path: pd.read_csv(path, sep="\t"),
+}
 
 
 def load_dataset(filename: str) -> list[dict[str, Any]]:
-    """
-    Load a dataset from a file (JSON, CSV, or JSONL format).
+    """Load the records of a JSON Lines, JSON, CSV, or TSV file.
+
+    JSON, CSV, and TSV files are read with pandas and converted to records the
+    same way as :func:`convert_csv_to_jsonl` and friends, so missing values become
+    ``None``. No files are written.
 
     Args:
-        filename (str): Path to the dataset file.
+        filename: Path ending in ``.jsonl``, ``.json``, ``.csv``, or ``.tsv``.
 
     Returns:
-        List[Dict[str, Any]]: Loaded dataset.
+        The records in file order.
 
     Raises:
-        ValueError: If the file extension is unsupported.
-
-    Example usage:
-    >>> data = load_dataset("data.json")
+        ValueError: If the extension is not supported.
     """
-    filename = pathlib.Path(filename)
-
-    if filename.suffix == ".json":
-        convert_json_to_jsonl(str(filename), str(filename.parent))
-        tmp_save_filename = filename.parent.joinpath(filename.name + ".jsonl")
-        data_list = load_jsonl(str(tmp_save_filename))
-        os.remove(str(tmp_save_filename))
-    elif filename.suffix == ".csv":
-        convert_csv_to_jsonl(str(filename), str(filename.parent))
-        tmp_save_filename = filename.parent.joinpath(filename.name + ".jsonl")
-        data_list = load_jsonl(str(tmp_save_filename))
-        os.remove(str(tmp_save_filename))
-    elif filename.suffix == ".tsv":
-        convert_tsv_to_jsonl(str(filename), str(filename.parent))
-        tmp_save_filename = filename.parent.joinpath(filename.name + ".jsonl")
-        data_list = load_jsonl(str(tmp_save_filename))
-        os.remove(str(tmp_save_filename))
-    elif filename.suffix == ".jsonl":
-        data_list = load_jsonl(str(filename))
-    else:
-        raise ValueError(f"Unsupported file extension: {filename.suffix}")
-
-    return data_list
+    path = pathlib.Path(filename)
+    if path.suffix == ".jsonl":
+        return load_jsonl(str(path))
+    read_dataframe = _DATAFRAME_READERS.get(path.suffix)
+    if read_dataframe is None:
+        raise ValueError(f"Unsupported file extension: {path.suffix}")
+    # Without a target path, ``to_json`` returns the JSON text.
+    records_json = cast("str", read_dataframe(path).to_json(orient="records", force_ascii=False))
+    return json.loads(records_json)
 
 
-def load_yaml(filename: str) -> dict[str, Any] | None:
-    """
-    Load a YAML file and return its contents as a dictionary.
-
-    Args:
-        filename (str): Path to the YAML file.
+def load_yaml(filename: str) -> Any:
+    """Return the parsed contents of the YAML file ``filename``.
 
     Returns:
-        Optional[Dict[str, Any]]: Parsed YAML data as a dictionary. Returns None if an error occurs.
+        The YAML document: a dictionary for the configuration files, ``None`` for
+        an empty file.
 
-    Example usage:
-    >>> yaml_data = load_yaml("config.yaml")
-    >>> if yaml_data:
-    >>>     print(yaml_data)
+    Raises:
+        OSError: If the file cannot be opened (for example FileNotFoundError).
+        yaml.YAMLError: If the file is not valid YAML.
     """
-    try:
-        with open(filename, encoding="utf-8") as file:
-            data = yaml.safe_load(file)
-        return data
-    except Exception as e:
-        print(f"An error occurred while reading the YAML file: {e}")
-        return None
+    with open(filename, encoding="utf-8") as file:
+        return yaml.safe_load(file)
 
 
-# Function to set seeds for reproducibility
+# --- Seeding ------------------------------------------------------------------------------
 def set_seed_all(seed: int = 42) -> None:
-    """
-    Set the seed for random number generators to ensure reproducibility.
+    """Seed Python's, NumPy's, and PyTorch's (CPU and CUDA) global generators with ``seed``.
 
-    Args:
-        seed (int): The seed value to use for all random generators. Defaults to 42.
-
-    Example usage:
-    >>> set_seed_all(123)
+    Also makes cuDNN choose deterministic algorithms. PyTorch's global
+    deterministic mode (``torch.use_deterministic_algorithms``) is not enabled:
+    earlier versions of this function assigned ``True`` to that attribute instead
+    of calling it, so the published results were produced without it, and
+    enabling it can change results or make some CUDA operations fail.
     """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
-    torch.use_deterministic_algorithms = True
 
 
-# URL UTILITIES
+# --- URLs ---------------------------------------------------------------------------------
 def is_url(path: str) -> bool:
-    """
-    Check if a given path is a URL.
+    """Return whether ``path`` starts with ``http://`` or ``https://``.
 
-    Args:
-        path (str): The path or URL to check.
-
-    Returns:
-        bool: True if the path is a URL, False otherwise.
-
-    Example usage:
-    >>> is_url("http://example.com/image.jpg")
-    True
-    >>> is_url("/path/to/image.jpg")
-    False
+    Example:
+        >>> is_url("http://images.cocodataset.org/train2017/000000000071.jpg")
+        True
+        >>> is_url("images/coco/train2017/000000000071.jpg")
+        False
     """
     return path.startswith(("http://", "https://"))
 
 
 def check_image_exists(url: str) -> bool:
-    """
-    Check if an image exists at the given URL.
-
-    Args:
-        url (str): The URL of the image to check.
-
-    Returns:
-        bool: True if the image exists, False otherwise.
-
-    Example usage:
-    >>> check_image_exists("http://example.com/image.jpg")
-    True
-    """
+    """Return whether a ``HEAD`` request to ``url`` answers with HTTP 200 (``False`` on request errors)."""
     try:
-        response = requests.head(url, timeout=5)
-        return response.status_code == 200
+        response = requests.head(url, timeout=IMAGE_CHECK_TIMEOUT_SECONDS)
     except requests.RequestException:
         return False
+    return response.status_code == HTTP_OK
 
 
-# DATA POSTPROCESSING
+# --- Answer parsing -----------------------------------------------------------------------
 def simple_choice_extractors(answer: str) -> str:
-    """
-    Extract a choice label from the answer string using a regular expression.
+    """Return the answer label at the start of ``answer`` (after stripping whitespace).
 
-    Args:
-        answer (str): The answer string to extract the label from.
+    Only the beginning of the answer is examined (see :data:`CHOICE_LABEL_PATTERN`).
 
     Returns:
-        str: Extracted label if found, "-100" otherwise.
+        The label, or ``"-100"`` if the answer does not start with one.
 
-    Example usage:
-    >>> simple_choice_extractors("(1) Some answer")
-    '1'
-    >>> simple_choice_extractors("Invalid")
-    "-100"
+    Example:
+        >>> simple_choice_extractors("(1) つやつや")
+        '1'
+        >>> simple_choice_extractors("10")
+        '1'
+        >>> simple_choice_extractors("The answer is 1")
+        '-100'
     """
-    predicted_answer = answer.strip()
-    pattern = re.compile(r"\({0,1}(-1|[0-5]|[A-B]|yes|no)[.,:;)]{0,1}")
-    extracted_predicted_answer = pattern.match(predicted_answer)
-
-    if extracted_predicted_answer:
-        return extracted_predicted_answer.group(1)
-    else:
-        return "-100"
+    match = CHOICE_LABEL_PATTERN.match(answer.strip())
+    if match:
+        return match.group(1)
+    return UNPARSABLE_LABEL

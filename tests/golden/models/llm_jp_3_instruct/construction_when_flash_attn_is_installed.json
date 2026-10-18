@@ -1,0 +1,64 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "llm-jp/llm-jp-3-13b-instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "llm-jp/llm-jp-3-13b-instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "llm-jp/llm-jp-3-13b-instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  }
+ ],
+ "result": {
+  "class": "LlmJp3InstructHf",
+  "pretrained": "llm-jp/llm-jp-3-13b-instruct",
+  "image_dir": "<absent>",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "llm-jp/llm-jp-3-13b-instruct"
+  },
+  "tokenizer": {
+   "tokenizer": "llm-jp/llm-jp-3-13b-instruct"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:llm-jp/llm-jp-3-13b-instruct"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

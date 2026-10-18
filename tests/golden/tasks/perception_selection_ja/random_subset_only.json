@@ -1,0 +1,121 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "2f2e30298b2561e6",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "2f2e30298b2561e6",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "-1",
+   "response": "-1",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "random",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "0",
+   "response": "0",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "random",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: -1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 0",
+  "",
+  "====================  Model Name: scripted-model    Language: ja  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: random",
+  "- Accuracy: 0.5",
+  "----------------------------------------"
+ ],
+ "files": {
+  "perception/selection/perception_selection_ja_hf_scripted-model_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/random/perception_selection_random_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"-1\", \"response\": \"-1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"0\", \"response\": \"0\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ]
+ },
+ "contents_by_digest": {
+  "2f2e30298b2561e6": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。\nただし、該当する選択肢がない場合は\"-1\"と答えてください。",
+  "6cd63f23b5f7ac96": [
+   {
+    "user": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+    "assistant": "0",
+    "images": null
+   }
+  ]
+ }
+}

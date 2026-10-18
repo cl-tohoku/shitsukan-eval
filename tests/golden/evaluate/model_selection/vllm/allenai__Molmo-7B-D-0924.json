@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (allenai/Molmo-7B-D-0924) doesn't support vllm."
+ },
+ "events": [],
+ "stdout": []
+}

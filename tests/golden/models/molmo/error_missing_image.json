@@ -1,0 +1,9 @@
+{
+ "events": [],
+ "result": null,
+ "error": {
+  "type": "FileNotFoundError",
+  "message": "The file path does not exist: images/missing.jpg"
+ },
+ "stdout": []
+}

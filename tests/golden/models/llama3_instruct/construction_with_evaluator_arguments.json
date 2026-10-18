@@ -1,0 +1,64 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "e10ca381b1ccc5cf9db52e371f3b6651576caee0a630b452e2816b2d404d4b65"
+  }
+ ],
+ "result": {
+  "class": "Llama3InstructHf",
+  "pretrained": "meta-llama/Meta-Llama-3.1-8B-Instruct",
+  "image_dir": "<absent>",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  },
+  "tokenizer": {
+   "tokenizer": "meta-llama/Meta-Llama-3.1-8B-Instruct"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:meta-llama/Meta-Llama-3.1-8B-Instruct"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

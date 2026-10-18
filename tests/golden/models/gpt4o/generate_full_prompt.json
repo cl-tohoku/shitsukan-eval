@@ -1,0 +1,102 @@
+{
+ "events": [
+  {
+   "call": "requests.get",
+   "url": "http://images.example.com/train2017/000000000002.jpg",
+   "kwargs": {}
+  },
+  {
+   "call": "AsyncOpenAI",
+   "api_key_provided": false,
+   "kwargs": {}
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "system",
+      "content": "Choose the texture word."
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nTexture choice: 0:smooth, 1:dry\nAnswer: "
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "content": [
+       {
+        "type": "text",
+        "text": "0"
+       }
+      ]
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "image_url",
+        "image_url": {
+         "url": "data:image/jpeg;base64,ZmV3LXNob3QtaW1hZ2UtYnl0ZXM="
+        }
+       },
+       {
+        "type": "text",
+        "text": "Word: horn <image>\nTexture choice: 0:rough, 1:prickly\nAnswer: "
+       }
+      ]
+     },
+     {
+      "role": "assistant",
+      "content": [
+       {
+        "type": "text",
+        "text": "1"
+       }
+      ]
+     },
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "image_url",
+        "image_url": {
+         "url": "data:image/jpeg;base64,bG9jYWwtaW1hZ2UtYnl0ZXM="
+        }
+       },
+       {
+        "type": "image_url",
+        "image_url": {
+         "url": "data:image/jpeg;base64,Ynl0ZXMtb2Y6aHR0cDovL2ltYWdlcy5leGFtcGxlLmNvbS90cmFpbjIwMTcvMDAwMDAwMDAwMDAyLmpwZw=="
+        }
+       },
+       {
+        "type": "text",
+        "text": "Word: skateboard <image>\nTexture choice: 0:smooth, 1:youthful\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_completion_tokens": 1024,
+    "model": "gpt-4o-2024-08-06",
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42
+   }
+  }
+ ],
+ "result": " 1 ",
+ "error": null,
+ "stdout": []
+}

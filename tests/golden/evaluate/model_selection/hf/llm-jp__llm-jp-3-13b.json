@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (llm-jp/llm-jp-3-13b) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

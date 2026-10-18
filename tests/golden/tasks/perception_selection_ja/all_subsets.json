@@ -1,0 +1,547 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "bae661e1cc088b5a",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "bae661e1cc088b5a",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "d284da880679d160",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "d284da880679d160",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "6eebe3ce76ff56b2",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "9ae6414764843f00",
+   "few_shot_data": "6eebe3ce76ff56b2",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "system_prompt": "2f2e30298b2561e6",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "images": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "system_prompt": "2f2e30298b2561e6",
+   "few_shot_data": "6cd63f23b5f7ac96",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: ",
+   "original_response": "0",
+   "response": "0",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice2_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: ",
+   "original_response": "1.",
+   "response": "1",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice2_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "(2) つやつや",
+   "response": "2",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice3_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "A",
+   "response": "A",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice3_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: ",
+   "original_response": "yes",
+   "response": "yes",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice4_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: ",
+   "original_response": "3:",
+   "response": "3",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice4_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい",
+    "4:つやつや"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: ",
+   "original_response": " 4 ",
+   "response": "4",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice5_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ",
+    "3:かたい",
+    "4:つやつや"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: ",
+   "original_response": "no",
+   "response": "no",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "choice5_ans1",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 0,
+   "image": [
+    "images/coco/train2017/000000000071.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/train2017/000000000071.jpg"
+   ],
+   "object": "りんご",
+   "correct_ids": [],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "-1",
+   "response": "-1",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "random",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "image": [
+    "images/coco/val2017/000000000139.jpg"
+   ],
+   "image_url": [
+    "http://images.example.com/images/coco/val2017/000000000139.jpg"
+   ],
+   "object": "スケートボード",
+   "correct_ids": [],
+   "all_ids_with_shitsukan": [
+    "0:つるつる",
+    "1:ざらざら",
+    "2:ふわふわ"
+   ],
+   "zero_shot": "Word: スケートボード\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+   "original_response": "zzz",
+   "response": "-100",
+   "task": "perception",
+   "sub_task": "selection",
+   "sub_subtask": "random",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら",
+  "Answer: 0",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら",
+  "Answer: 1",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: 2",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: A",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "Answer: yes",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい",
+  "Answer: 3",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "Answer: 4",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや",
+  "Answer: no",
+  "",
+  "Word: りんご",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: -1",
+  "",
+  "Word: スケートボード",
+  "Texture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ",
+  "Answer: -100",
+  "",
+  "====================  Model Name: scripted-model    Language: ja  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 1",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0",
+  "----------------------------------------",
+  "- Sub-SubTask: random",
+  "- Accuracy: 0.5",
+  "----------------------------------------"
+ ],
+ "files": {
+  "perception/selection/choice2_ans1/perception_selection_choice2_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"0\", \"response\": \"0\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら\\nAnswer: \", \"original_response\": \"1.\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/choice3_ans1/perception_selection_choice3_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"(2) つやつや\", \"response\": \"2\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"A\", \"response\": \"A\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/choice4_ans1/perception_selection_choice4_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"yes\", \"response\": \"yes\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\nAnswer: \", \"original_response\": \"3:\", \"response\": \"3\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/choice5_ans1/perception_selection_choice5_ans1_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \" 4 \", \"response\": \"4\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\nAnswer: \", \"original_response\": \"no\", \"response\": \"no\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/perception_selection_ja_hf_scripted-model_scores.jsonl": [
+   "{\"accuracy\": 1, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ],
+  "perception/selection/random/perception_selection_random_ja_hf_scripted-model.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: りんご\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"-1\", \"response\": \"-1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"Word: スケートボード\\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\\nAnswer: \", \"original_response\": \"zzz\", \"response\": \"-100\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ]
+ },
+ "contents_by_digest": {
+  "9ae6414764843f00": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。",
+  "bae661e1cc088b5a": [
+   {
+    "user": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら\nAnswer: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "6cd63f23b5f7ac96": [
+   {
+    "user": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ\nAnswer: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "d284da880679d160": [
+   {
+    "user": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\nAnswer: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "6eebe3ce76ff56b2": [
+   {
+    "user": "Word: りんご\nTexture choice: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\nAnswer: ",
+    "assistant": "0",
+    "images": null
+   }
+  ],
+  "2f2e30298b2561e6": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の単語から想起される質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。\nただし、該当する選択肢がない場合は\"-1\"と答えてください。"
+ }
+}

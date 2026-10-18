@@ -1,0 +1,175 @@
+{
+ "events": [
+  {
+   "call": "AsyncOpenAI",
+   "api_key_provided": false,
+   "kwargs": {}
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "max_completion_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42,
+    "temperature": 0.0,
+    "top_p": 1.0
+   }
+  },
+  {
+   "call": "asyncio.sleep",
+   "seconds": 10
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "max_completion_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42,
+    "temperature": 0.0,
+    "top_p": 1.0
+   }
+  },
+  {
+   "call": "asyncio.sleep",
+   "seconds": 20
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "max_completion_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42,
+    "temperature": 0.0,
+    "top_p": 1.0
+   }
+  },
+  {
+   "call": "asyncio.sleep",
+   "seconds": 40
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "max_completion_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42,
+    "temperature": 0.0,
+    "top_p": 1.0
+   }
+  },
+  {
+   "call": "asyncio.sleep",
+   "seconds": 80
+  },
+  {
+   "call": "chat.completions.create",
+   "kwargs": {
+    "messages": [
+     {
+      "role": "user",
+      "content": [
+       {
+        "type": "text",
+        "text": "Word: apple\nAnswer: "
+       }
+      ]
+     }
+    ],
+    "model": "gpt-4o-2024-08-06",
+    "max_completion_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "logit_bias": null,
+    "logprobs": false,
+    "top_logprobs": null,
+    "seed": 42,
+    "temperature": 0.0,
+    "top_p": 1.0
+   }
+  }
+ ],
+ "result": null,
+ "error": {
+  "type": "APIStatusError",
+  "message": "fake APIStatusError"
+ },
+ "stdout": [
+  "Error received: fake APIStatusError",
+  "Waiting for 10 seconds before retrying...",
+  "Error received: fake APIStatusError",
+  "Waiting for 20 seconds before retrying...",
+  "Error received: fake APIStatusError",
+  "Waiting for 40 seconds before retrying...",
+  "Error received: fake APIStatusError",
+  "Waiting for 80 seconds before retrying..."
+ ]
+}

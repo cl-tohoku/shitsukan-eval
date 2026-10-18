@@ -1,0 +1,80 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "「りんご」という単語は、どのような質感を持っているように感じますか？\n回答: ",
+   "images": null,
+   "system_prompt": "6199dd3ccdce0bbc",
+   "few_shot_data": "71cd94f04c1d1706",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "「スケートボード」という単語は、どのような質感を持っているように感じますか？\n回答: ",
+   "images": null,
+   "system_prompt": "6199dd3ccdce0bbc",
+   "few_shot_data": "71cd94f04c1d1706",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "object": "りんご",
+   "shitsukan_list": [
+    "つるつる"
+   ],
+   "zero_shot": "「りんご」という単語は、どのような質感を持っているように感じますか？\n回答: ",
+   "original_response": "かたい, つめたい, ひかる",
+   "task": "commonsense",
+   "sub_task": "generation",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "object": "スケートボード",
+   "shitsukan_list": [
+    "つるつる"
+   ],
+   "zero_shot": "「スケートボード」という単語は、どのような質感を持っているように感じますか？\n回答: ",
+   "original_response": "やわらかい",
+   "task": "commonsense",
+   "sub_task": "generation",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "「りんご」という単語は、どのような質感を持っているように感じますか？",
+  "回答: かたい, つめたい, ひかる",
+  "",
+  "「スケートボード」という単語は、どのような質感を持っているように感じますか？",
+  "回答: やわらかい",
+  ""
+ ],
+ "files": {},
+ "contents_by_digest": {
+  "6199dd3ccdce0bbc": "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n提示された「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n回答は質感を表す表現を3個「,」で分けて書いてください。\nその際、3個とも出来るだけ違う観点の表現にしてください。\nまた、似た表現（きらきら・きらんきらんなど）にならないようにしてください。",
+  "71cd94f04c1d1706": [
+   {
+    "user": "【例】\n「馬」という単語は、どのような質感を持っているように感じますか？",
+    "assistant": "回答: つやつや, 温かい, 柔らかい",
+    "images": null
+   }
+  ]
+ }
+}

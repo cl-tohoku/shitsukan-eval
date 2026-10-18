@@ -1,0 +1,60 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForVision2Seq.from_pretrained",
+   "pretrained": "HuggingFaceM4/Idefics3-8B-Llama3",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "HuggingFaceM4/Idefics3-8B-Llama3"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "HuggingFaceM4/Idefics3-8B-Llama3",
+   "args": [],
+   "kwargs": {
+    "do_image_splitting": true,
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "result": {
+  "class": "Idefics3Hf",
+  "pretrained": "HuggingFaceM4/Idefics3-8B-Llama3",
+  "image_dir": "<tmp>/image_root",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "HuggingFaceM4/Idefics3-8B-Llama3"
+  },
+  "tokenizer": {
+   "tokenizer": "HuggingFaceM4/Idefics3-8B-Llama3"
+  },
+  "model": {
+   "model": "AutoModelForVision2Seq:HuggingFaceM4/Idefics3-8B-Llama3"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

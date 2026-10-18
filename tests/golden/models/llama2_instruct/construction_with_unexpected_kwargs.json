@@ -1,0 +1,9 @@
+{
+ "events": [],
+ "result": null,
+ "error": {
+  "type": "TypeError",
+  "message": "HfTextChatModel.__init__() got an unexpected keyword argument 'unexpected_option'"
+ },
+ "stdout": []
+}

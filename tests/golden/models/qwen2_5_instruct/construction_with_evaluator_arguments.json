@@ -1,0 +1,64 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "Qwen/Qwen2.5-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2.5-7B-Instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "Qwen/Qwen2.5-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f"
+  }
+ ],
+ "result": {
+  "class": "Qwen25InstructHf",
+  "pretrained": "Qwen/Qwen2.5-7B-Instruct",
+  "image_dir": "<absent>",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "Qwen/Qwen2.5-7B-Instruct"
+  },
+  "tokenizer": {
+   "tokenizer": "Qwen/Qwen2.5-7B-Instruct"
+  },
+  "model": {
+   "model": "AutoModelForCausalLM:Qwen/Qwen2.5-7B-Instruct"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

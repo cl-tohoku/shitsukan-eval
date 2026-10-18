@@ -1,0 +1,42 @@
+{
+ "events": [
+  {
+   "call": "Tokenizer.encode",
+   "text": "abcd",
+   "kwargs": {
+    "add_special_tokens": false
+   }
+  },
+  {
+   "call": "Tokenizer.encode",
+   "text": "abcd",
+   "kwargs": {
+    "add_special_tokens": true
+   }
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": [
+    1,
+    2,
+    3
+   ],
+   "kwargs": {}
+  }
+ ],
+ "result": {
+  "encoded": [
+   97,
+   98,
+   99,
+   100
+  ],
+  "encoded_left_truncated": [
+   99,
+   100
+  ],
+  "decoded": "decoded text"
+ },
+ "error": null,
+ "stdout": []
+}

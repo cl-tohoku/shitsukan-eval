@@ -1,0 +1,102 @@
+{
+ "events": [
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 1>",
+   "images": null,
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.05,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": [
+     2,
+     151643
+    ]
+   },
+   "rng": null
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "result": " 1 ",
+ "error": null,
+ "stdout": []
+}

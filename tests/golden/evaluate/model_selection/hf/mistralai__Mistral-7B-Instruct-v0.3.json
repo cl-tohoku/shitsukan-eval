@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (mistralai/Mistral-7B-Instruct-v0.3) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

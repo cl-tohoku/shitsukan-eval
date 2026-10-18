@@ -1,0 +1,1837 @@
+{
+ "events": [
+  {
+   "call": "LLM",
+   "kwargs": {
+    "model": "Qwen/Qwen2-VL-7B-Instruct",
+    "tokenizer": "Qwen/Qwen2-VL-7B-Instruct",
+    "revision": "main",
+    "tokenizer_revision": "main",
+    "tokenizer_mode": "auto",
+    "trust_remote_code": false,
+    "tensor_parallel_size": 1,
+    "dtype": "torch.bfloat16",
+    "quantization": null,
+    "seed": 42,
+    "gpu_memory_utilization": 0.9,
+    "swap_space": 4,
+    "cpu_offload_gb": 0,
+    "enforce_eager": null,
+    "max_context_len_to_capture": null,
+    "max_seq_len_to_capture": 8192,
+    "limit_mm_per_prompt": {
+     "image": 10,
+     "video": 1
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 1>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/train2017/000000000071.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 2>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/val2017/000000000139.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 3>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/train2017/000000000071.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 4>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/val2017/000000000139.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 3,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 5>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/train2017/000000000071.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 4,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 6>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/val2017/000000000139.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 5,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 7>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/train2017/000000000071.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 6,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 8>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/val2017/000000000139.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 7,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\"."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\"."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/train2017/000000000071.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 9>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/train2017/000000000071.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 8,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "SamplingParams",
+   "kwargs": {
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "max_tokens": 1024,
+    "n": 1,
+    "presence_penalty": 0,
+    "frequency_penalty": 0,
+    "repetition_penalty": 1.0,
+    "logit_bias": null,
+    "logprobs": false,
+    "seed": 42,
+    "stop_token_ids": [
+     2,
+     151643
+    ]
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\"."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "process_vision_info",
+   "conversations": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\"."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image",
+       "image": {
+        "image": "image_root/images/coco/val2017/000000000139.jpg"
+       },
+       "min_pixels": 50176,
+       "max_pixels": 1003520
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: "
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "call": "LLM.generate",
+   "prompts": [
+    {
+     "prompt": "<prompt 10>",
+     "multi_modal_data": {
+      "image": [
+       {
+        "image": "processed:image_root/images/coco/val2017/000000000139.jpg"
+       }
+      ]
+     }
+    }
+   ],
+   "sampling_params": {
+    "SamplingParams": {
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "max_tokens": 1024,
+     "n": 1,
+     "presence_penalty": 0,
+     "frequency_penalty": 0,
+     "repetition_penalty": 1.0,
+     "logit_bias": null,
+     "logprobs": false,
+     "seed": 42,
+     "stop_token_ids": [
+      2,
+      151643
+     ]
+    }
+   },
+   "kwargs": {
+    "use_tqdm": false
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 9,
+    "cudnn_deterministic": true
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "====================  Model Name: Qwen2-VL-7B-Instruct    Language: en  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: random",
+  "- Accuracy: 0",
+  "----------------------------------------"
+ ],
+ "files": {
+  "perception/selection/choice2_ans1/perception_selection_choice2_ans1_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/choice3_ans1/perception_selection_choice3_ans1_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/choice4_ans1/perception_selection_choice4_ans1_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/choice5_ans1/perception_selection_choice5_ans1_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/perception_selection_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/perception_selection_en_vllm_Qwen2-VL-7B-Instruct_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ],
+  "perception/selection/random/perception_selection_random_en_vllm_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ]
+ }
+}

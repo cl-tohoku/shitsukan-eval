@@ -1,0 +1,34 @@
+{
+ "events": [],
+ "result": {
+  "class": "GPT4o",
+  "pretrained": "gpt-4o",
+  "image_dir": null,
+  "device_map": "<absent>",
+  "use_cache": "<absent>",
+  "batch_size_per_gpu": "<absent>",
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<image>",
+  "config": {
+   "AttributeError": "'GPT4o' object has no attribute 'config'"
+  },
+  "tokenizer": {
+   "AttributeError": "'GPT4o' object has no attribute 'tokenizer'"
+  },
+  "model": {
+   "AttributeError": "'GPT4o' object has no attribute 'model'"
+  },
+  "eot_token_id": {
+   "AttributeError": "'GPT4o' object has no attribute 'eot_token_id'"
+  },
+  "batch_size": {
+   "AttributeError": "'GPT4o' object has no attribute 'batch_size'"
+  },
+  "device": {
+   "AttributeError": "'GPT4o' object has no attribute 'device'"
+  }
+ },
+ "error": null,
+ "stdout": []
+}

@@ -1,0 +1,9 @@
+{
+ "events": [],
+ "result": null,
+ "error": {
+  "type": "TypeError",
+  "message": "IdeficsFamilyHf.__init__() got an unexpected keyword argument 'unexpected_option'"
+ },
+ "stdout": []
+}

@@ -1,0 +1,1533 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "Qwen/Qwen2-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2-7B-Instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "Qwen/Qwen2-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:つるつる, B:破壊\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 1>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:高性能, B:ふわふわ\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 2>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:ざらざら, B:元気\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 3>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する英単語 (\"yes\" もしくは \"no\") を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: つやつや\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "yes"
+    },
+    {
+     "role": "user",
+     "content": "質感語: つるつる\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 4>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 3,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する英単語 (\"yes\" もしくは \"no\") を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: つやつや\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "yes"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 高性能\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 5>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 4,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する英単語 (\"yes\" もしくは \"no\") を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: つやつや\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "yes"
+    },
+    {
+     "role": "user",
+     "content": "質感語: ふわふわ\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 6>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 5,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 7>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 6,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 8>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 7,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 9>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 8,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 10>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 9,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 11>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 10,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 12>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 11,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 13>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 12,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する半角数字を使って解答してください。"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "0"
+    },
+    {
+     "role": "user",
+     "content": "質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "793202280c0910ab26bc6eb57c8212c2417324c6d8c4efd0d10d59092ab3e3eb"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 14>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 13,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "====================  Model Name: Qwen2-7B-Instruct    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.3333333333",
+  "----------------------------------------",
+  "====================  Model Name: Qwen2-7B-Instruct    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.6666666667",
+  "----------------------------------------",
+  "====================  Model Name: Qwen2-7B-Instruct    Language: ja  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------"
+ ],
+ "files": {
+  "taxonomic/a_b_classification/taxonomic_a_b_classification_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"A:つるつる\", \"B:破壊\"], \"zero_shot\": \"質感語:\\nA:つるつる, B:破壊\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"A:高性能\", \"B:ふわふわ\"], \"zero_shot\": \"質感語:\\nA:高性能, B:ふわふわ\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 2, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"A:ざらざら\", \"B:元気\"], \"zero_shot\": \"質感語:\\nA:ざらざら, B:元気\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/a_b_classification/taxonomic_a_b_classification_ja_hf_Qwen2-7B-Instruct_scores.jsonl": [
+   "{\"accuracy\": 0.3333333333, \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice2_ans1/taxonomic_multiple_choice_classification_choice2_ans1_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice3_ans1/taxonomic_multiple_choice_classification_choice3_ans1_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice4_ans1/taxonomic_multiple_choice_classification_choice4_ans1_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/choice5_ans1/taxonomic_multiple_choice_classification_choice5_ans1_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/taxonomic_multiple_choice_classification_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:つるつる\", \"1:ざらざら\", \"2:ふわふわ\", \"3:かたい\", \"4:つやつや\"], \"zero_shot\": \"質感語: 0:つるつる, 1:ざらざら, 2:ふわふわ, 3:かたい, 4:つやつや\\n解答: \", \"original_model_inference\": \"1\", \"model_inference\": \"1\", \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/multiple_choice_classification/taxonomic_multiple_choice_classification_ja_hf_Qwen2-7B-Instruct_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"accuracy\": 0.5, \"task\": \"taxonomic\", \"sub_task\": \"multiple_choice_classification\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/yes_no_classification/taxonomic_yes_no_classification_ja_hf_Qwen2-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"shitsukan\": \"つるつる\", \"label\": 1, \"label_str\": \"yes\", \"zero_shot\": \"質感語: つるつる\\n解答: \", \"original_model_inference\": \"yes\", \"model_inference\": \"yes\", \"task\": \"taxonomic\", \"sub_task\": \"yes_no_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 1, \"shitsukan\": \"高性能\", \"label\": 0, \"label_str\": \"no\", \"zero_shot\": \"質感語: 高性能\\n解答: \", \"original_model_inference\": \"yes\", \"model_inference\": \"yes\", \"task\": \"taxonomic\", \"sub_task\": \"yes_no_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}",
+   "{\"id\": 2, \"shitsukan\": \"ふわふわ\", \"label\": 1, \"label_str\": \"yes\", \"zero_shot\": \"質感語: ふわふわ\\n解答: \", \"original_model_inference\": \"yes\", \"model_inference\": \"yes\", \"task\": \"taxonomic\", \"sub_task\": \"yes_no_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ],
+  "taxonomic/yes_no_classification/taxonomic_yes_no_classification_ja_hf_Qwen2-7B-Instruct_scores.jsonl": [
+   "{\"accuracy\": 0.6666666667, \"task\": \"taxonomic\", \"sub_task\": \"yes_no_classification\", \"lang\": \"ja\", \"model_name\": \"Qwen2-7B-Instruct\"}"
+  ]
+ }
+}

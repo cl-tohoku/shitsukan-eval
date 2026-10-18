@@ -1,0 +1,345 @@
+{
+ "events": [
+  {
+   "call": "Qwen2VLForConditionalGeneration.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "Qwen/Qwen2-VL-7B-Instruct"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "Qwen/Qwen2-VL-7B-Instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "本タスクは「画像」に写っている「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n提示された「画像」に写っている「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n回答は質感を表す表現を3個「,」で分けて書いてください。\nその際、3個とも出来るだけ違う観点の表現にしてください。\nまた、似た表現（きらきら・きらんきらんなど）にならないようにしてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "【例】\n「馬」という単語は、どのような質感を持っているように感じますか？"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "回答: つやつや, 温かい, 柔らかい"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "「りんご」という単語は、どのような質感を持っているように感じますか？\n回答: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 1>",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": [
+     2,
+     151643
+    ]
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "本タスクは「画像」に写っている「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n提示された「画像」に写っている「オブジェクト」に対し、できる限り一般的だと考えられる質感を述べて下さい。\n回答は質感を表す表現を3個「,」で分けて書いてください。\nその際、3個とも出来るだけ違う観点の表現にしてください。\nまた、似た表現（きらきら・きらんきらんなど）にならないようにしてください。"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "【例】\n「馬」という単語は、どのような質感を持っているように感じますか？"
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "回答: つやつや, 温かい, 柔らかい"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "「スケートボード」という単語は、どのような質感を持っているように感じますか？\n回答: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 2>",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": [
+     2,
+     151643
+    ]
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [],
+ "files": {
+  "perception/generation/perception_generation_ja_hf_Qwen2-VL-7B-Instruct.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"object\": \"りんご\", \"shitsukan_list\": [\"かたい\", \"つめたい\"], \"zero_shot\": \"「りんご」という単語は、どのような質感を持っているように感じますか？\\n回答: \", \"original_response\": \"かたい, つめたい, ひかる\", \"task\": \"perception\", \"sub_task\": \"generation\", \"lang\": \"ja\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"object\": \"スケートボード\", \"shitsukan_list\": [\"かたい\", \"つめたい\"], \"zero_shot\": \"「スケートボード」という単語は、どのような質感を持っているように感じますか？\\n回答: \", \"original_response\": \"かたい, つめたい, ひかる\", \"task\": \"perception\", \"sub_task\": \"generation\", \"lang\": \"ja\", \"model_name\": \"Qwen2-VL-7B-Instruct\"}"
+  ]
+ }
+}

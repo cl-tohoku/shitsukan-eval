@@ -1,0 +1,118 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "質感語: つるつる\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: 高性能\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語: ふわふわ\n解答: ",
+   "images": null,
+   "system_prompt": "e5028ddfc2e725b5",
+   "few_shot_data": "cbbe711f400eaa26",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "shitsukan": "つるつる",
+   "label": 1,
+   "label_str": "yes",
+   "zero_shot": "質感語: つるつる\n解答: ",
+   "original_model_inference": "yes",
+   "model_inference": "yes",
+   "task": "taxonomic",
+   "sub_task": "yes_no_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "shitsukan": "高性能",
+   "label": 0,
+   "label_str": "no",
+   "zero_shot": "質感語: 高性能\n解答: ",
+   "original_model_inference": "No",
+   "model_inference": "-100",
+   "task": "taxonomic",
+   "sub_task": "yes_no_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 2,
+   "shitsukan": "ふわふわ",
+   "label": 1,
+   "label_str": "yes",
+   "zero_shot": "質感語: ふわふわ\n解答: ",
+   "original_model_inference": "no.",
+   "model_inference": "no",
+   "task": "taxonomic",
+   "sub_task": "yes_no_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "質感語: つるつる",
+  "解答: yes",
+  "",
+  "質感語: 高性能",
+  "解答: -100",
+  "",
+  "質感語: ふわふわ",
+  "解答: no",
+  "",
+  "====================  Model Name: scripted-model    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.3333333333",
+  "----------------------------------------"
+ ],
+ "files": {
+  "taxonomic/yes_no_classification/taxonomic_yes_no_classification_ja_hf_scripted-model_scores.jsonl": [
+   "{\"accuracy\": 0.3333333333, \"task\": \"taxonomic\", \"sub_task\": \"yes_no_classification\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ]
+ },
+ "contents_by_digest": {
+  "e5028ddfc2e725b5": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応する英単語 (\"yes\" もしくは \"no\") を使って解答してください。",
+  "cbbe711f400eaa26": [
+   {
+    "user": "質感語: つやつや\n解答: ",
+    "assistant": "yes",
+    "images": null
+   }
+  ]
+ }
+}

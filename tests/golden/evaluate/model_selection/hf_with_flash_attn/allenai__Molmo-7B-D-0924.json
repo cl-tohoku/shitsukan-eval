@@ -1,0 +1,34 @@
+{
+ "selected": "MolmoHf",
+ "error": null,
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "auto",
+    "device_map": "auto",
+    "trust_remote_code": true,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "allenai/Molmo-7B-D-0924"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": true
+   }
+  }
+ ],
+ "stdout": []
+}

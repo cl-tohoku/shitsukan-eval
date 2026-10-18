@@ -1,0 +1,48 @@
+{
+ "selected": "LlavaOnevisionHf",
+ "error": null,
+ "events": [
+  {
+   "call": "AutoConfig.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {}
+  },
+  {
+   "call": "LlavaOnevisionForConditionalGeneration.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "llava-hf/llava-onevision-qwen2-7b-ov-hf"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "llava-hf/llava-onevision-qwen2-7b-ov-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false,
+    "patch_size": 16,
+    "vision_feature_select_strategy": "full"
+   }
+  },
+  {
+   "call": "Tokenizer.padding_side.set",
+   "side": "left"
+  }
+ ],
+ "stdout": []
+}

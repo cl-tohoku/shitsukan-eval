@@ -1,0 +1,60 @@
+{
+ "events": [
+  {
+   "call": "Idefics2ForConditionalGeneration.from_pretrained",
+   "pretrained": "HuggingFaceM4/idefics2-8b",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "HuggingFaceM4/idefics2-8b"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "HuggingFaceM4/idefics2-8b",
+   "args": [],
+   "kwargs": {
+    "do_image_splitting": false,
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  }
+ ],
+ "result": {
+  "class": "Idefics2Hf",
+  "pretrained": "HuggingFaceM4/idefics2-8b",
+  "image_dir": "<tmp>/image_root",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": "<absent>",
+  "vision_feature_select_strategy": "<absent>",
+  "image_token": "<absent>",
+  "config": {
+   "config": "HuggingFaceM4/idefics2-8b"
+  },
+  "tokenizer": {
+   "tokenizer": "HuggingFaceM4/idefics2-8b"
+  },
+  "model": {
+   "model": "Idefics2ForConditionalGeneration:HuggingFaceM4/idefics2-8b"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (llava-hf/bakLlava-v1-hf) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

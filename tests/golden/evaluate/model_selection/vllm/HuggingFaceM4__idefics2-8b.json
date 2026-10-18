@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (HuggingFaceM4/idefics2-8b) doesn't support vllm."
+ },
+ "events": [],
+ "stdout": []
+}

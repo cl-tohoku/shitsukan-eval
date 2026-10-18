@@ -1,0 +1,9 @@
+{
+ "selected": null,
+ "error": {
+  "type": "ValueError",
+  "message": "Error! The selected model (Qwen/Qwen2.5-7B) doesn't exist."
+ },
+ "events": [],
+ "stdout": []
+}

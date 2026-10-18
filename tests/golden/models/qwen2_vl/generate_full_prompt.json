@@ -1,0 +1,180 @@
+{
+ "events": [
+  {
+   "call": "Processor.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": [
+      {
+       "type": "text",
+       "text": "Choose the texture word."
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "text",
+       "text": "Word: apple\nTexture choice: 0:smooth, 1:dry\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "0"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: horn <image>\nTexture choice: 0:rough, 1:prickly\nAnswer: "
+      }
+     ]
+    },
+    {
+     "role": "assistant",
+     "content": [
+      {
+       "type": "text",
+       "text": "1"
+      }
+     ]
+    },
+    {
+     "role": "user",
+     "content": [
+      {
+       "type": "image"
+      },
+      {
+       "type": "image"
+      },
+      {
+       "type": "text",
+       "text": "Word: skateboard \nTexture choice: 0:smooth, 1:youthful\nAnswer: "
+      }
+     ]
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+  },
+  {
+   "call": "load_image",
+   "image": "http://images.example.com/train2017/000000000002.jpg"
+  },
+  {
+   "call": "Processor.__call__",
+   "text": "<prompt 1>",
+   "images": [
+    {
+     "image": "<tmp>/image_root/images/coco/train2017/000000000001.jpg"
+    },
+    {
+     "image": "http://images.example.com/train2017/000000000002.jpg"
+    }
+   ],
+   "kwargs": {
+    "padding": true,
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tokenizer.convert_tokens_to_ids",
+   "token": "<|endoftext|>"
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "pixel_values": {
+     "tensor": "pixel_values",
+     "shape": [
+      1,
+      3,
+      336,
+      336
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": [
+     2,
+     151643
+    ]
+   },
+   "rng": null
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Processor.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "result": " 1 ",
+ "error": null,
+ "stdout": []
+}

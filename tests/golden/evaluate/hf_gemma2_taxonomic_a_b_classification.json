@@ -1,0 +1,352 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "google/gemma-2-9b-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "google/gemma-2-9b-it"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "google/gemma-2-9b-it",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。\n\n質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:つるつる, B:破壊\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 1>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。\n\n質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:高性能, B:ふわふわ\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 2>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "user",
+     "content": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。\n\n質感語:\nA:つやつや, B:仲良し\n解答: "
+    },
+    {
+     "role": "assistant",
+     "content": "A"
+    },
+    {
+     "role": "user",
+     "content": "質感語:\nA:ざらざら, B:元気\n解答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "ecd6ae513fe103f0eb62e8ab5bfa8d0fe45c1074fa398b089c93a7e70c15cfd6"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 3>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [],
+   "kwargs": {
+    "input_ids": {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "attention_mask": {
+     "tensor": "attention_mask",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "====================  Model Name: gemma-2-9b-it    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.3333333333",
+  "----------------------------------------"
+ ],
+ "files": {
+  "taxonomic/a_b_classification/taxonomic_a_b_classification_ja_hf_gemma-2-9b-it.jsonl": [
+   "{\"id\": 0, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"A:つるつる\", \"B:破壊\"], \"zero_shot\": \"質感語:\\nA:つるつる, B:破壊\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"gemma-2-9b-it\"}",
+   "{\"id\": 1, \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"A:高性能\", \"B:ふわふわ\"], \"zero_shot\": \"質感語:\\nA:高性能, B:ふわふわ\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"gemma-2-9b-it\"}",
+   "{\"id\": 2, \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"A:ざらざら\", \"B:元気\"], \"zero_shot\": \"質感語:\\nA:ざらざら, B:元気\\n解答: \", \"original_model_inference\": \"B\", \"model_inference\": \"B\", \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"gemma-2-9b-it\"}"
+  ],
+  "taxonomic/a_b_classification/taxonomic_a_b_classification_ja_hf_gemma-2-9b-it_scores.jsonl": [
+   "{\"accuracy\": 0.3333333333, \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"gemma-2-9b-it\"}"
+  ]
+ }
+}

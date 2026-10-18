@@ -1,0 +1,72 @@
+{
+ "events": [
+  {
+   "call": "AutoConfig.from_pretrained",
+   "pretrained": "llava-hf/llava-v1.6-mistral-7b-hf",
+   "args": [],
+   "kwargs": {}
+  },
+  {
+   "call": "LlavaNextForConditionalGeneration.from_pretrained",
+   "pretrained": "llava-hf/llava-v1.6-mistral-7b-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "flash_attention_2"
+   },
+   "rng": null
+  },
+  {
+   "call": "Model.eval",
+   "model": "llava-hf/llava-v1.6-mistral-7b-hf"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "llava-hf/llava-v1.6-mistral-7b-hf",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false,
+    "patch_size": 16,
+    "vision_feature_select_strategy": "full"
+   }
+  },
+  {
+   "call": "Tokenizer.padding_side.set",
+   "side": "left"
+  }
+ ],
+ "result": {
+  "class": "LlavaNextHf",
+  "pretrained": "llava-hf/llava-v1.6-mistral-7b-hf",
+  "image_dir": "<tmp>/image_root",
+  "device_map": {
+   "": 0
+  },
+  "use_cache": true,
+  "batch_size_per_gpu": 1,
+  "patch_size": 16,
+  "vision_feature_select_strategy": "full",
+  "image_token": "<absent>",
+  "config": {
+   "config": "llava-hf/llava-v1.6-mistral-7b-hf"
+  },
+  "tokenizer": {
+   "tokenizer": "llava-hf/llava-v1.6-mistral-7b-hf"
+  },
+  "model": {
+   "model": "LlavaNextForConditionalGeneration:llava-hf/llava-v1.6-mistral-7b-hf"
+  },
+  "eot_token_id": 2,
+  "batch_size": 1,
+  "device": "device(cuda)"
+ },
+ "error": null,
+ "stdout": []
+}

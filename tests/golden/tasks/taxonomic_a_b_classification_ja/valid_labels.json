@@ -1,0 +1,133 @@
+{
+ "events": [
+  {
+   "call": "generate_response",
+   "text": "質感語:\nA:つるつる, B:破壊\n解答: ",
+   "images": null,
+   "system_prompt": "0ef07bf6ac8190f4",
+   "few_shot_data": "d1958d86c3e74cdf",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語:\nA:高性能, B:ふわふわ\n解答: ",
+   "images": null,
+   "system_prompt": "0ef07bf6ac8190f4",
+   "few_shot_data": "d1958d86c3e74cdf",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  },
+  {
+   "call": "generate_response",
+   "text": "質感語:\nA:ざらざら, B:元気\n解答: ",
+   "images": null,
+   "system_prompt": "0ef07bf6ac8190f4",
+   "few_shot_data": "d1958d86c3e74cdf",
+   "gen_kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1
+   }
+  }
+ ],
+ "result": [
+  {
+   "id": 0,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "A:つるつる",
+    "B:破壊"
+   ],
+   "zero_shot": "質感語:\nA:つるつる, B:破壊\n解答: ",
+   "original_model_inference": "A",
+   "model_inference": "A",
+   "task": "taxonomic",
+   "sub_task": "a_b_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 1,
+   "correct_ids": [
+    1
+   ],
+   "all_ids_with_shitsukan": [
+    "A:高性能",
+    "B:ふわふわ"
+   ],
+   "zero_shot": "質感語:\nA:高性能, B:ふわふわ\n解答: ",
+   "original_model_inference": "A",
+   "model_inference": "A",
+   "task": "taxonomic",
+   "sub_task": "a_b_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  },
+  {
+   "id": 2,
+   "correct_ids": [
+    0
+   ],
+   "all_ids_with_shitsukan": [
+    "A:ざらざら",
+    "B:元気"
+   ],
+   "zero_shot": "質感語:\nA:ざらざら, B:元気\n解答: ",
+   "original_model_inference": "C?",
+   "model_inference": "-100",
+   "task": "taxonomic",
+   "sub_task": "a_b_classification",
+   "lang": "ja",
+   "model_name": "scripted-model"
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "質感語:",
+  "A:つるつる, B:破壊",
+  "解答: A",
+  "",
+  "質感語:",
+  "A:高性能, B:ふわふわ",
+  "解答: A",
+  "",
+  "質感語:",
+  "A:ざらざら, B:元気",
+  "解答: -100",
+  "",
+  "====================  Model Name: scripted-model    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.3333333333",
+  "----------------------------------------"
+ ],
+ "files": {
+  "taxonomic/a_b_classification/taxonomic_a_b_classification_ja_hf_scripted-model_scores.jsonl": [
+   "{\"accuracy\": 0.3333333333, \"task\": \"taxonomic\", \"sub_task\": \"a_b_classification\", \"lang\": \"ja\", \"model_name\": \"scripted-model\"}"
+  ]
+ },
+ "contents_by_digest": {
+  "0ef07bf6ac8190f4": "質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど)\n以下の選択肢のうち、質感語として正しいものを1つ選び解答してください。\n解答の際には、選択肢に対応するアルファベット (\"A\" もしくは \"B\") だけを使って解答してください。",
+  "d1958d86c3e74cdf": [
+   {
+    "user": "質感語:\nA:つやつや, B:仲良し\n解答: ",
+    "assistant": "A",
+    "images": null
+   }
+  ]
+ }
+}
