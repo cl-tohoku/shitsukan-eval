@@ -236,6 +236,7 @@ uv run pre-commit run --all-files
 
 The tests in `tests/characterization` compare the prompts, generation settings, outputs, and scores with golden records in `tests/golden`, which were recorded from the original implementation.
 Update them with `UPDATE_GOLDEN=1 uv run pytest` only for intentional behavior changes, and review the diff.
+`tests/unit/test_environment.py` checks that the installed `transformers` provides every class the wrappers import (it is skipped where `transformers` is not installed).
 The ty hook runs `uv check --frozen`, which uses the versions in `uv.lock`; run `uv sync` once before the first commit.
 
 ## Citation

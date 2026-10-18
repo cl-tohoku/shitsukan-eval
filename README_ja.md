@@ -236,6 +236,7 @@ uv run pre-commit run --all-files
 
 `tests/characterization` のテストは、プロンプト、生成設定、出力、スコアを `tests/golden` のゴールデンレコードと比較します。ゴールデンレコードは元の実装から記録したものです。
 意図した挙動の変更に限り `UPDATE_GOLDEN=1 uv run pytest` で更新し、差分を確認してください。
+`tests/unit/test_environment.py` は、インストールされている `transformers` がラッパーの import するクラスをすべて提供しているかを確認します（`transformers` がインストールされていない環境ではスキップされます）。
 ty のフックは `uv.lock` のバージョンを使う `uv check --frozen` を実行するため、最初のコミットの前に一度 `uv sync` を実行してください。
 
 ## 引用
