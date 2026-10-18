@@ -3,6 +3,9 @@ __pycache__
 .ipynb_checkpoints
 
 # project specific
+# Local files of the coding agents (Claude Code, Codex)
+.claude/
+.agents/
 output/
 outputs/
 results/
