@@ -181,13 +181,21 @@ def reset_settings() -> None:
 reset_settings()
 
 _FRESH_PYTHON_STATE = random.Random(42).getstate()
-_FRESH_NUMPY_STATE = np.random.RandomState(42).get_state()
+# Use the dictionary form of the state: the type stubs of numpy 1.26 declare that
+# get_state() without arguments returns a dictionary, but it returns a tuple.
+_FRESH_NUMPY_STATE = np.random.RandomState(42).get_state(legacy=False)
 
 
 def _numpy_state_is_fresh() -> bool:
     """Return whether NumPy's global RNG is exactly in the state after ``seed(42)``."""
-    current = np.random.get_state()
-    return current[0] == _FRESH_NUMPY_STATE[0] and np.array_equal(current[1], _FRESH_NUMPY_STATE[1]) and current[2:] == _FRESH_NUMPY_STATE[2:]
+    current = np.random.get_state(legacy=False)
+    return (
+        current["bit_generator"] == _FRESH_NUMPY_STATE["bit_generator"]
+        and np.array_equal(current["state"]["key"], _FRESH_NUMPY_STATE["state"]["key"])
+        and current["state"]["pos"] == _FRESH_NUMPY_STATE["state"]["pos"]
+        and current["has_gauss"] == _FRESH_NUMPY_STATE["has_gauss"]
+        and current["gauss"] == _FRESH_NUMPY_STATE["gauss"]
+    )
 
 
 def rng_summary(torch_module: Any) -> dict[str, Any] | None:
