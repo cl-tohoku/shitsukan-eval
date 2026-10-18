@@ -1,0 +1,1399 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "auto",
+    "device_map": "auto",
+    "trust_remote_code": true,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "allenai/Molmo-7B-D-0924"
+  },
+  {
+   "call": "AutoProcessor.from_pretrained",
+   "pretrained": "allenai/Molmo-7B-D-0924",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": true
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: \n0\n\nWord: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough\nAnswer: \n0\n\nWord: skateboard\nTexture choice: 0:smooth, 1:rough\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: \n0\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: \n0\n\nWord: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 3,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: \n0\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 4,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: \n0\n\nWord: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 5,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: \n0\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 6,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: \n0\n\nWord: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 7,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/train2017/000000000071.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\".\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: \n0\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/train2017/000000000071.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 8,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "load_image",
+   "image": "image_root/images/coco/val2017/000000000139.jpg"
+  },
+  {
+   "call": "Processor.process",
+   "text": "The essence of an object refers to the following:\n- Physical properties (gloss, transparency, etc.)\n- Condition (dry, frozen, etc.)\n- Impression (beautiful, ugly, etc.)\nSelect and answer one correct word that represents the essence of the object recalled from the following words.\nPlease be sure to answer with the number that corresponds to your choice.\nIf there is no applicable option, please answer \"-1\".\n\nWord: apple\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: \n0\n\nWord: skateboard\nTexture choice: 0:smooth, 1:rough, 2:fluffy\nAnswer: ",
+   "images": [
+    {
+     "image": "image_root/images/coco/val2017/000000000139.jpg"
+    }
+   ],
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "input_ids",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "input_ids",
+   "dim": 0
+  },
+  {
+   "call": "Tensor.to",
+   "tensor": "images",
+   "args": [
+    "device(cuda:0)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "Tensor.unsqueeze",
+   "tensor": "images",
+   "dim": 0
+  },
+  {
+   "call": "torch.autocast",
+   "kwargs": {
+    "device_type": "cuda",
+    "enabled": true,
+    "dtype": "torch.bfloat16"
+   }
+  },
+  {
+   "call": "GenerationConfig",
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "stop_strings": "<|endoftext|>",
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   }
+  },
+  {
+   "call": "Model.generate_from_batch",
+   "batch": {
+    "input_ids": {
+     "tensor": "input_ids.unsqueeze(0)",
+     "shape": [
+      1,
+      9
+     ]
+    },
+    "images": {
+     "tensor": "images.unsqueeze(0)",
+     "shape": [
+      1,
+      1,
+      576,
+      588
+     ]
+    }
+   },
+   "generation_config": {
+    "GenerationConfig": {
+     "max_new_tokens": 1024,
+     "do_sample": true,
+     "temperature": 0.01,
+     "top_p": 1.0,
+     "num_beams": 1,
+     "use_cache": true,
+     "stop_strings": "<|endoftext|>",
+     "pad_token_id": 0,
+     "eos_token_id": 2
+    }
+   },
+   "kwargs": {
+    "tokenizer": {
+     "tokenizer": "allenai/Molmo-7B-D-0924"
+    }
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 9,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": "0, 9:"
+  },
+  {
+   "call": "Tokenizer.decode",
+   "token_ids": {
+    "tensor": "generated_ids[0, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "====================  Model Name: Molmo-7B-D-0924    Language: en  ====================",
+  "----------------------------------------",
+  "- Sub-SubTask: choice2_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice3_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice4_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: choice5_ans1",
+  "- Accuracy: 0.5",
+  "----------------------------------------",
+  "- Sub-SubTask: random",
+  "- Accuracy: 0",
+  "----------------------------------------"
+ ],
+ "files": {
+  "perception/selection/choice2_ans1/perception_selection_choice2_ans1_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/choice3_ans1/perception_selection_choice3_ans1_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/choice4_ans1/perception_selection_choice4_ans1_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/choice5_ans1/perception_selection_choice5_ans1_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/perception_selection_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [0], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [1], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\", \"3:hard\", \"4:glossy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy, 3:hard, 4:glossy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/perception_selection_en_hf_Molmo-7B-D-0924_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice2_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice3_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice4_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"accuracy\": 0.5, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"choice5_ans1\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"accuracy\": 0, \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ],
+  "perception/selection/random/perception_selection_random_en_hf_Molmo-7B-D-0924.jsonl": [
+   "{\"id\": 0, \"image\": [\"images/coco/train2017/000000000071.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/train2017/000000000071.jpg\"], \"object\": \"apple\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: apple\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}",
+   "{\"id\": 1, \"image\": [\"images/coco/val2017/000000000139.jpg\"], \"image_url\": [\"http://images.example.com/images/coco/val2017/000000000139.jpg\"], \"object\": \"skateboard\", \"correct_ids\": [], \"all_ids_with_shitsukan\": [\"0:smooth\", \"1:rough\", \"2:fluffy\"], \"zero_shot\": \"Word: skateboard\\nTexture choice: 0:smooth, 1:rough, 2:fluffy\\nAnswer: \", \"original_response\": \"1\", \"response\": \"1\", \"task\": \"perception\", \"sub_task\": \"selection\", \"sub_subtask\": \"random\", \"lang\": \"en\", \"model_name\": \"Molmo-7B-D-0924\"}"
+  ]
+ }
+}

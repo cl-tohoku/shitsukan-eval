@@ -1,0 +1,443 @@
+{
+ "events": [
+  {
+   "call": "AutoModelForCausalLM.from_pretrained",
+   "pretrained": "llm-jp/llm-jp-3-13b-instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "torch_dtype": "torch.bfloat16",
+    "device_map": {
+     "": 0
+    },
+    "trust_remote_code": false,
+    "low_cpu_mem_usage": true,
+    "attn_implementation": "eager"
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Model.eval",
+   "model": "llm-jp/llm-jp-3-13b-instruct"
+  },
+  {
+   "call": "AutoTokenizer.from_pretrained",
+   "pretrained": "llm-jp/llm-jp-3-13b-instruct",
+   "args": [],
+   "kwargs": {
+    "revision": "main",
+    "trust_remote_code": false
+   }
+  },
+  {
+   "call": "Tokenizer.chat_template.set",
+   "sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n以下のモノと質感の組み合わせは、自然で一般的ですか？\n* 示された単語が質感に当たらない場合は「5.その他：質感ではない」を選択してください。"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: つるつる\n\n回答: "
+    },
+    {
+     "role": "assistant",
+     "content": "1"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: つるつる\n\n選択肢:\n1.完全に自然\n2.一般的だが、他もあり得る\n3.あり得るが一般的ではない\n4.不自然\n5.その他：質感ではない\n\n回答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 1>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [
+    {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    }
+   ],
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n以下のモノと質感の組み合わせは、自然で一般的ですか？\n* 示された単語が質感に当たらない場合は「5.その他：質感ではない」を選択してください。"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: つるつる\n\n回答: "
+    },
+    {
+     "role": "assistant",
+     "content": "1"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nスケートボード: ざらざら\n\n選択肢:\n1.完全に自然\n2.一般的だが、他もあり得る\n3.あり得るが一般的ではない\n4.不自然\n5.その他：質感ではない\n\n回答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 2>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [
+    {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    }
+   ],
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 1,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n以下のモノと質感の組み合わせは、自然で一般的ですか？\n* 示された単語が質感に当たらない場合は「5.その他：質感ではない」を選択してください。"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: つるつる\n\n回答: "
+    },
+    {
+     "role": "assistant",
+     "content": "1"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: ふわふわ\n\n選択肢:\n1.完全に自然\n2.一般的だが、他もあり得る\n3.あり得るが一般的ではない\n4.不自然\n5.その他：質感ではない\n\n回答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 3>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [
+    {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    }
+   ],
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 2,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  },
+  {
+   "call": "Tokenizer.apply_chat_template",
+   "conversation": [
+    {
+     "role": "system",
+     "content": "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n質感とは、下記のようなものを指します。\n・物性（光沢感・透明感など）\n・状態（乾燥・凍結など）\n・印象（美しい・醜いなど）\n\n以下のモノと質感の組み合わせは、自然で一般的ですか？\n* 示された単語が質感に当たらない場合は「5.その他：質感ではない」を選択してください。"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nりんご: つるつる\n\n回答: "
+    },
+    {
+     "role": "assistant",
+     "content": "1"
+    },
+    {
+     "role": "user",
+     "content": "組み合わせ:\nスケートボード: かたい\n\n選択肢:\n1.完全に自然\n2.一般的だが、他もあり得る\n3.あり得るが一般的ではない\n4.不自然\n5.その他：質感ではない\n\n回答: "
+    }
+   ],
+   "kwargs": {
+    "tokenize": false,
+    "add_generation_prompt": true
+   },
+   "chat_template_sha256": "239c19bf188d474e3d48a7289472ce097807e03db57ea5f73bf6628cb2575324"
+  },
+  {
+   "call": "Tokenizer.__call__",
+   "text": "<prompt 4>",
+   "kwargs": {
+    "return_tensors": "pt"
+   }
+  },
+  {
+   "call": "BatchFeature.to",
+   "args": [
+    "device(cuda)"
+   ],
+   "kwargs": {}
+  },
+  {
+   "call": "torch.no_grad.enter"
+  },
+  {
+   "call": "Model.generate",
+   "args": [
+    {
+     "tensor": "input_ids",
+     "shape": [
+      1,
+      9
+     ]
+    }
+   ],
+   "kwargs": {
+    "max_new_tokens": 1024,
+    "do_sample": true,
+    "temperature": 0.01,
+    "top_p": 1.0,
+    "num_beams": 1,
+    "use_cache": true,
+    "pad_token_id": 0,
+    "eos_token_id": 2
+   },
+   "rng": {
+    "python_random_fresh_seed_42": true,
+    "numpy_random_fresh_seed_42": true,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 3,
+    "cudnn_deterministic": true
+   }
+  },
+  {
+   "call": "Tensor.__getitem__",
+   "tensor": "generated_ids",
+   "index": ":, 9:"
+  },
+  {
+   "call": "torch.no_grad.exit"
+  },
+  {
+   "call": "Tokenizer.batch_decode",
+   "sequences": {
+    "tensor": "generated_ids[:, 9:]",
+    "shape": [
+     1,
+     12
+    ]
+   },
+   "kwargs": {
+    "skip_special_tokens": true,
+    "clean_up_tokenization_spaces": false
+   }
+  }
+ ],
+ "error": null,
+ "stdout": [
+  "====================  Model Name: llm-jp-3-13b-instruct    Language: ja  ====================",
+  "----------------------------------------",
+  "- Accuracy: 0.5",
+  "- Average Distance: 0.5",
+  "----------------------------------------"
+ ],
+ "files": {
+  "commonsense/classification/commonsense_classification_ja_hf_llm-jp-3-13b-instruct.jsonl": [
+   "{\"id\": 0, \"object\": \"りんご\", \"shitsukan\": \"つるつる\", \"naturalness\": 2, \"naturalness_by_worker\": [5, 2, 2, 4, 3], \"zero_shot\": \"組み合わせ:\\nりんご: つるつる\\n\\n選択肢:\\n1.完全に自然\\n2.一般的だが、他もあり得る\\n3.あり得るが一般的ではない\\n4.不自然\\n5.その他：質感ではない\\n\\n回答: \", \"original_model_inference\": \"2\", \"model_inference\": \"2\", \"task\": \"commonsense\", \"sub_task\": \"classification\", \"lang\": \"ja\", \"model_name\": \"llm-jp-3-13b-instruct\", \"distribution_distance\": 0}",
+   "{\"id\": 1, \"object\": \"スケートボード\", \"shitsukan\": \"ざらざら\", \"naturalness\": 1, \"naturalness_by_worker\": [1, 1, 1, 1, 1], \"zero_shot\": \"組み合わせ:\\nスケートボード: ざらざら\\n\\n選択肢:\\n1.完全に自然\\n2.一般的だが、他もあり得る\\n3.あり得るが一般的ではない\\n4.不自然\\n5.その他：質感ではない\\n\\n回答: \", \"original_model_inference\": \"2\", \"model_inference\": \"2\", \"task\": \"commonsense\", \"sub_task\": \"classification\", \"lang\": \"ja\", \"model_name\": \"llm-jp-3-13b-instruct\", \"distribution_distance\": 1}",
+   "{\"id\": 2, \"object\": \"りんご\", \"shitsukan\": \"ふわふわ\", \"naturalness\": 3, \"naturalness_by_worker\": [3, 3, 3, 3, 3], \"zero_shot\": \"組み合わせ:\\nりんご: ふわふわ\\n\\n選択肢:\\n1.完全に自然\\n2.一般的だが、他もあり得る\\n3.あり得るが一般的ではない\\n4.不自然\\n5.その他：質感ではない\\n\\n回答: \", \"original_model_inference\": \"2\", \"model_inference\": \"2\", \"task\": \"commonsense\", \"sub_task\": \"classification\", \"lang\": \"ja\", \"model_name\": \"llm-jp-3-13b-instruct\", \"distribution_distance\": 1}",
+   "{\"id\": 3, \"object\": \"スケートボード\", \"shitsukan\": \"かたい\", \"naturalness\": 2, \"naturalness_by_worker\": [1, 2, 2, 3, 5], \"zero_shot\": \"組み合わせ:\\nスケートボード: かたい\\n\\n選択肢:\\n1.完全に自然\\n2.一般的だが、他もあり得る\\n3.あり得るが一般的ではない\\n4.不自然\\n5.その他：質感ではない\\n\\n回答: \", \"original_model_inference\": \"2\", \"model_inference\": \"2\", \"task\": \"commonsense\", \"sub_task\": \"classification\", \"lang\": \"ja\", \"model_name\": \"llm-jp-3-13b-instruct\", \"distribution_distance\": 0}"
+  ],
+  "commonsense/classification/commonsense_classification_ja_hf_llm-jp-3-13b-instruct_scores.jsonl": [
+   "{\"accuracy\": 0.5, \"average_distance\": 0.5, \"task\": \"commonsense\", \"sub_task\": \"classification\", \"lang\": \"ja\", \"model_name\": \"llm-jp-3-13b-instruct\"}"
+  ]
+ }
+}

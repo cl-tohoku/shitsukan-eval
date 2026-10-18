@@ -11,6 +11,7 @@ implementation.
 from __future__ import annotations
 
 import asyncio
+import copy
 from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
@@ -344,6 +345,34 @@ def test_generate_response_effect_on_the_callers_generation_kwargs(case_name, im
     observed = _observe(generate_twice, capsys, tmp_path)
 
     check_golden(f"models/{case_name}/gen_kwargs_after_two_calls", observed)
+
+
+@pytest.mark.parametrize("case_name", list(CASES))
+def test_generate_response_with_empty_images_empty_system_prompt_and_plain_few_shots(case_name, import_fresh, image_dir, capsys, tmp_path):
+    model = _build(case_name, import_fresh, image_dir)
+    RESPONDER.script([RESPONSE])
+    few_shots_without_images_key = [{"user": "Word: apple\nAnswer: ", "assistant": "0"}]
+
+    observed = _observe(
+        lambda: model.generate_response(text="Word: horn\nAnswer: ", images=[], system_prompt="", few_shot_data=few_shots_without_images_key),
+        capsys,
+        tmp_path,
+    )
+
+    check_golden(f"models/{case_name}/generate_edge_inputs", observed)
+
+
+@pytest.mark.parametrize("case_name", list(CASES))
+def test_generate_response_leaves_its_inputs_unchanged(case_name, import_fresh, image_dir):
+    model = _build(case_name, import_fresh, image_dir)
+    RESPONDER.script([RESPONSE])
+    images = [LOCAL_IMAGE, REMOTE_IMAGE]
+    few_shot_data = copy.deepcopy(FEW_SHOT_DATA)
+
+    model.generate_response(text=TEXT_WITH_IMAGE_TOKEN, images=images, system_prompt=SYSTEM_PROMPT, few_shot_data=few_shot_data)
+
+    assert images == [LOCAL_IMAGE, REMOTE_IMAGE]
+    assert few_shot_data == FEW_SHOT_DATA
 
 
 @pytest.mark.parametrize("case_name", [*HF_CASES, "qwen2_vl_vllm"])
