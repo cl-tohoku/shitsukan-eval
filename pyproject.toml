@@ -25,7 +25,10 @@ dependencies = [
     "wandb >=0.17.4",
     "torchinfo >=1.8.0",
     "torchviz >=0.0.2",
-    "transformers",
+    # Pinned to the release closest to the experiments of the paper (autumn 2024).
+    # 4.46.0 is the first release with Idefics3; transformers 5 removed
+    # AutoModelForVision2Seq, which the Idefics3 wrapper imports.
+    "transformers ==4.46.0",
     "openai >=1.35.14",
     "datasets >=2.20.0",
     "evaluate >=0.4.2",
@@ -47,7 +50,8 @@ dependencies = [
     "tiktoken>=0.7.0",
     "tabulate>=0.9.0",
     "vllm >=0.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
-    "qwen-vl-utils >=0.0.8; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    # Resizes the images for Qwen2-VL with vLLM; 0.0.8 was current from 2024-09 to 2025-01.
+    "qwen-vl-utils ==0.0.8; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "mistral-common >=1.4.4; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "opencv-contrib-python>=4.10.0.84",
 ]
@@ -55,9 +59,10 @@ dependencies = [
 # Development tools, installed by `uv sync` (skip them with `uv sync --no-dev`).
 # flash-attn is listed here as in the original setup; when it is installed, the
 # Hugging Face wrappers default to attn_implementation="flash_attention_2".
+# 2.6.3 was the latest release until 2024-11-12.
 [dependency-groups]
 dev = [
-    "flash-attn >=2.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "flash-attn ==2.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
     "jupyterlab>=4.2.5",
     "pre-commit>=4.0.0",
     "pytest>=8.3.0",
@@ -66,9 +71,6 @@ dev = [
     "ruff==0.17.1",
     "ty==0.0.89",
 ]
-
-[tool.uv.sources]
-transformers = { git = "https://github.com/huggingface/transformers.git" }
 
 [tool.uv]
 find-links = [

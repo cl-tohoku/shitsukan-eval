@@ -254,8 +254,8 @@ class Qwen2VLVllm:
         message += Qwen2VLVllm.create_zero_shot_prompt({"user": text, "images": visuals})
 
         prompt = self._processor.apply_chat_template(message, tokenize=False, add_generation_prompt=True)
-        # Indexing instead of unpacking: process_vision_info is annotated with three
-        # return values but returns (images, videos) unless video kwargs are requested.
+        # Index the results instead of unpacking them: newer qwen-vl-utils releases
+        # annotate three return values but return (images, videos) by default.
         vision_inputs = process_vision_info(message)
         image_inputs, video_inputs = vision_inputs[0], vision_inputs[1]
         multi_modal_data = {}
