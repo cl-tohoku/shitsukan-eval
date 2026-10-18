@@ -59,10 +59,11 @@ dependencies = [
 # Development tools, installed by `uv sync` (skip them with `uv sync --no-dev`).
 # flash-attn is listed here as in the original setup; when it is installed, the
 # Hugging Face wrappers default to attn_implementation="flash_attention_2".
-# 2.6.3 was the latest release until 2024-11-12.
+# 2.6.3 was the latest release until 2024-11-12. It is installed from a prebuilt
+# wheel for CPython 3.11 (see [tool.uv.sources]).
 [dependency-groups]
 dev = [
-    "flash-attn ==2.6.3; sys_platform == 'linux' and platform_machine == 'x86_64'",
+    "flash-attn ==2.6.3; sys_platform == 'linux' and platform_machine == 'x86_64' and python_version == '3.11'",
     "jupyterlab>=4.2.5",
     "pre-commit>=4.0.0",
     "pytest>=8.3.0",
@@ -77,6 +78,14 @@ find-links = [
     "https://download.pytorch.org/whl/cu121/torch",
     "https://download.pytorch.org/whl/cu121/torchvision",
 ]
+
+# PyPI has only the source distribution of flash-attn. Its setup.py imports torch
+# without declaring it as a build dependency, so the isolated build that uv runs
+# to read the metadata fails, and uv needs that metadata even to lock the project
+# (`uv sync --no-dev` failed as well). Use the wheel that this setup.py downloads
+# for torch 2.4, CUDA 12, and CPython 3.11 instead; nothing is built.
+[tool.uv.sources]
+flash-attn = { url = "https://github.com/Dao-AILab/flash-attention/releases/download/v2.6.3/flash_attn-2.6.3+cu123torch2.4cxx11abiFALSE-cp311-cp311-linux_x86_64.whl" }
 
 [tool.ruff]
 exclude = [".git", ".mypy_cache", ".ruff_cache", ".venv", "third_party"]

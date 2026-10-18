@@ -122,11 +122,11 @@ git clone https://github.com/cl-tohoku/shitsukan-eval.git
 cd $HOME/shitsukan-eval
 uv python install 3.11
 uv python pin 3.11
-uv sync --no-dev
-uv sync --dev --no-build-isolation
+uv sync
 ```
 
-2 回目の `uv sync` では開発用ツールもインストールされます。Linux x86_64 では `flash-attn` も含まれ、ビルド分離なしでビルドされるため、先に PyTorch がインストールされている必要があります。
+`uv sync` では開発用ツールもインストールされます。Linux x86_64 の CPython 3.11 では `flash-attn` も含まれ、torch 2.4 と CUDA 12 向けのビルド済み wheel からインストールされます（`pyproject.toml` の `[tool.uv.sources]` を参照）。
+評価に必要なパッケージだけをインストールする場合は、代わりに `uv sync --no-dev` を実行してください。この場合、Hugging Face のモデルは eager attention を使用します（[再現性に関する注意](#再現性に関する注意)を参照）。
 
 OpenAI のモデルを評価する場合は、API キーを設定してください。
 

@@ -122,11 +122,11 @@ git clone https://github.com/cl-tohoku/shitsukan-eval.git
 cd $HOME/shitsukan-eval
 uv python install 3.11
 uv python pin 3.11
-uv sync --no-dev
-uv sync --dev --no-build-isolation
+uv sync
 ```
 
-The second `uv sync` also installs the development tools, including `flash-attn` on Linux x86_64 (built without build isolation, so PyTorch must already be installed).
+`uv sync` also installs the development tools. On Linux x86_64 with CPython 3.11, they include `flash-attn`, which is installed from its prebuilt wheel for torch 2.4 and CUDA 12 (see `[tool.uv.sources]` in `pyproject.toml`).
+To install only the packages that the evaluation needs, run `uv sync --no-dev` instead; the Hugging Face models then use eager attention (see [Reproducibility Notes](#reproducibility-notes)).
 
 To evaluate OpenAI models, set your API key:
 
