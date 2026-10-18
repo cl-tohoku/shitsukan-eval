@@ -124,7 +124,7 @@ class HfVisionChatModel(HfModelWrapper):
             few_shot_data: Examples with ``"user"``, ``"assistant"``, and optional
                 ``"images"`` entries.
             gen_kwargs: Settings for ``generate``. Missing keys are filled with the
-                defaults (1024 new tokens, sampling with temperature 0.05, ...).
+                defaults (1024 new tokens, sampling with temperature 0.05, ...). The dictionary is not modified.
 
         Returns:
             The generated text without the prompt.
@@ -133,7 +133,8 @@ class HfVisionChatModel(HfModelWrapper):
             ValueError: If ``text`` has more ``<image>`` placeholders than images.
             FileNotFoundError: If a local image does not exist.
         """
-        gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
+        # Work on a copy: the tasks pass the same dictionary for every record.
+        gen_kwargs = dict(gen_kwargs) if gen_kwargs is not None else {}
         text = self._prepare_text(text, images)
         messages = self.build_messages(text, images, system_prompt, few_shot_data)
         prompt = self._render_prompt(messages)

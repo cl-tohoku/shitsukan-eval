@@ -229,7 +229,7 @@ class Qwen2VLVllm:
             gen_kwargs: Sampling settings. ``transformers``-style keys are
                 translated (see :meth:`rename_key_for_vllm`) and missing keys are
                 filled from :data:`DEFAULT_SAMPLING_KWARGS`; generation stops at
-                the EOS token or ``<|endoftext|>``.
+                the EOS token or ``<|endoftext|>``. The dictionary is not modified.
 
         Returns:
             The generated text.
@@ -238,7 +238,8 @@ class Qwen2VLVllm:
             ValueError: If ``text`` has more ``<image>`` placeholders than images.
             FileNotFoundError: If a local image does not exist.
         """
-        gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
+        # Work on a copy: the tasks pass the same dictionary for every record.
+        gen_kwargs = dict(gen_kwargs) if gen_kwargs is not None else {}
         if gen_kwargs.get("max_new_tokens", None):
             gen_kwargs = Qwen2VLVllm.rename_key_for_vllm(gen_kwargs)
 

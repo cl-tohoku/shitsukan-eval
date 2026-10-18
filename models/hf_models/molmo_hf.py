@@ -144,7 +144,7 @@ class MolmoHf(HfModelWrapper):
             few_shot_data: Examples with ``"user"`` and ``"assistant"`` texts.
             gen_kwargs: Settings for ``GenerationConfig``. Missing keys are filled
                 with the defaults (1024 new tokens, sampling with temperature 0.05,
-                stopping at ``<|endoftext|>``, ...).
+                stopping at ``<|endoftext|>``, ...). The dictionary is not modified.
 
         Returns:
             The generated text without the prompt.
@@ -153,7 +153,8 @@ class MolmoHf(HfModelWrapper):
             ValueError: If ``text`` has more ``<image>`` placeholders than images.
             FileNotFoundError: If a local image does not exist.
         """
-        gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
+        # Work on a copy: the tasks pass the same dictionary for every record.
+        gen_kwargs = dict(gen_kwargs) if gen_kwargs is not None else {}
         if images is not None:
             ensure_enough_images(text, images)
             text = remove_image_placeholders(text)

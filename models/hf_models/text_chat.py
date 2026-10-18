@@ -134,12 +134,13 @@ class HfTextChatModel(HfModelWrapper):
             system_prompt: Task instructions placed before the examples.
             few_shot_data: Examples with ``"user"`` and ``"assistant"`` texts.
             gen_kwargs: Settings for ``generate``. Missing keys are filled with the
-                defaults (1024 new tokens, sampling with temperature 0.05, ...).
+                defaults (1024 new tokens, sampling with temperature 0.05, ...). The dictionary is not modified.
 
         Returns:
             The generated text without the prompt.
         """
-        gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
+        # Work on a copy: the tasks pass the same dictionary for every record.
+        gen_kwargs = dict(gen_kwargs) if gen_kwargs is not None else {}
         messages = self.build_messages(text, system_prompt, few_shot_data)
         prompt = self._tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
         inputs = self._tokenizer(text=prompt, return_tensors="pt").to(self._device)

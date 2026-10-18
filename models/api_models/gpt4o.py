@@ -236,7 +236,7 @@ class GPT4o:
                 ``"images"`` entries.
             gen_kwargs: Request settings. ``transformers``-style keys are
                 translated (see :meth:`rename_key_for_openai_api`) and missing keys
-                are filled from :data:`DEFAULT_REQUEST_KWARGS`.
+                are filled from :data:`DEFAULT_REQUEST_KWARGS`. The dictionary is not modified.
 
         Returns:
             The answer text.
@@ -245,7 +245,8 @@ class GPT4o:
             ValueError: If ``text`` has more ``<image>`` placeholders than images,
                 or if the model is not found.
         """
-        gen_kwargs = gen_kwargs if gen_kwargs is not None else {}
+        # Work on a copy: the tasks pass the same dictionary for every record.
+        gen_kwargs = dict(gen_kwargs) if gen_kwargs is not None else {}
         if gen_kwargs.get("max_new_tokens", None):
             gen_kwargs = GPT4o.rename_key_for_openai_api(gen_kwargs)
 
