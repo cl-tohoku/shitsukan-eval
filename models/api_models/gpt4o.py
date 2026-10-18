@@ -195,8 +195,9 @@ class GPT4o:
     async def _async_batch_run_chatgpt(self, messages: list[list[dict[str, Any]]], **gen_kwargs: Any) -> list[str]:
         """Send one chat request per message list concurrently and return the answers in order."""
         client = AsyncOpenAI(api_key=API_KEY)
+        # The messages are plain dictionaries rather than the client's TypedDict message types.
         requests_in_flight = [
-            GPT4o.retry_on_error(openai_call=lambda conversation=conversation: client.chat.completions.create(messages=conversation, **gen_kwargs))
+            GPT4o.retry_on_error(openai_call=lambda conversation=conversation: client.chat.completions.create(messages=cast("Any", conversation), **gen_kwargs))
             for conversation in messages
         ]
         completions = await asyncio.gather(*requests_in_flight)

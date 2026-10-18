@@ -107,7 +107,8 @@ class Qwen2VLVllm:
             tokenizer_mode=tokenizer_mode,
             trust_remote_code=trust_remote_code,
             tensor_parallel_size=tensor_parallel_size,
-            dtype=resolve_torch_dtype(dtype),
+            # A dtype name is converted to the torch dtype, which vLLM accepts as well.
+            dtype=resolve_torch_dtype(dtype),  # ty: ignore[invalid-argument-type]
             quantization=quantization,
             seed=seed,
             gpu_memory_utilization=gpu_memory_utilization,
@@ -253,7 +254,10 @@ class Qwen2VLVllm:
         message += Qwen2VLVllm.create_zero_shot_prompt({"user": text, "images": visuals})
 
         prompt = self._processor.apply_chat_template(message, tokenize=False, add_generation_prompt=True)
-        image_inputs, video_inputs = process_vision_info(message)
+        # Indexing instead of unpacking: process_vision_info is annotated with three
+        # return values but returns (images, videos) unless video kwargs are requested.
+        vision_inputs = process_vision_info(message)
+        image_inputs, video_inputs = vision_inputs[0], vision_inputs[1]
         multi_modal_data = {}
         if image_inputs is not None:
             multi_modal_data["image"] = image_inputs

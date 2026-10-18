@@ -8,15 +8,20 @@ default generation settings, accessors, and the generate-then-decode step.
 
 from __future__ import annotations
 
+import importlib
 from typing import Any
 
 import torch
 
 
 def _detect_attn_implementation() -> str:
-    """Return ``"flash_attention_2"`` if the ``flash_attn`` package imports, else ``"eager"``."""
+    """Return ``"flash_attention_2"`` if the ``flash_attn`` package imports, else ``"eager"``.
+
+    The package is optional (it is only installed on Linux x86_64), so it is
+    imported by name: an installation that fails to import also selects ``"eager"``.
+    """
     try:
-        import flash_attn  # noqa: F401, PLC0415 - imported only to probe the installation.
+        importlib.import_module("flash_attn")
     except ImportError:
         return "eager"
     return "flash_attention_2"
