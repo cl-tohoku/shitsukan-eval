@@ -2,6 +2,7 @@
 
 shitsukan-eval
 ===========================
+
 <h3>人間の知覚とモデル（LLM / LVLM）の整合性評価</h3>
 
 [📄 論文](https://aclanthology.org/2025.coling-main.757/) &nbsp;&nbsp;|&nbsp;&nbsp; [🤗 データセット](https://huggingface.co/datasets/tohoku-nlp/Shitsukan) &nbsp;&nbsp;|&nbsp;&nbsp; [🇬🇧 English](README.md)
@@ -39,7 +40,6 @@ shitsukan-eval
 <details>
 <summary><b>現在対応している API の LLM / LVLM は以下のとおりです。</b></summary>
 <li><a href="https://platform.openai.com/docs/models/gpt-4o">GPT-4o</a></li>
-<li>（🚧 ここに本リポジトリの説明を追加予定 🚧）</li>
 </details>
 
 <br>
@@ -54,7 +54,6 @@ shitsukan-eval
 <li><a href="https://arxiv.org/abs/2408.00118">Gemma 2</a></li>
 <li><a href="https://qwen2.org/qwen2-5/">Qwen 2.5</a></li>
 <li><a href="https://llmc.nii.ac.jp/topics/post-707/">LLM-jp-3</a></li>
-<li>（🚧 ここに本リポジトリの説明を追加予定 🚧）</li>
 </details>
 
 <br>
@@ -69,14 +68,12 @@ shitsukan-eval
 <li><a href="https://www.arxiv.org/abs/2408.12637">Idefics3</a></li>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
 <li><a href="https://www.arxiv.org/abs/2409.17146">Molmo</a></li>
-<li>（🚧 ここに本リポジトリの説明を追加予定 🚧）</li>
 </details>
 
 <br>
 
 <details>
 <summary><b>現在対応している vLLM の LLM は以下のとおりです。</b></summary>
-<li>（🚧 ここに本リポジトリの説明を追加予定 🚧）</li>
 </details>
 
 <br>
@@ -84,7 +81,6 @@ shitsukan-eval
 <details>
 <summary><b>現在対応している vLLM の LVLM は以下のとおりです。</b></summary>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
-<li>（🚧 ここに本リポジトリの説明を追加予定 🚧）</li>
 </details>
 
 <br>
@@ -95,7 +91,7 @@ shitsukan-eval
 使用するラッパーは、`--model` の値を小文字にした文字列に含まれる部分文字列で決まります。上から順に判定し、最初に一致した規則が使われます。
 
 | `--model-type` | モデル名に含まれる部分文字列 | ラッパー |
-|---|---|---|
+| --- | --- | --- |
 | `hf` | `llama-3.2` と `vision`（さらに `instruct`） | Llama-3.2-Vision（`MllamaInstructHf`） |
 | `hf` | `llava` と `1.5` / `next` または `1.6` / `onevision` | LLaVA-1.5 / LLaVA-NeXT / LLaVA-OneVision |
 | `hf` | `idefics2` / `idefics3` / `qwen2-vl` / `molmo` | Idefics2 / Idefics3 / Qwen2-VL / Molmo |
@@ -285,7 +281,3 @@ ty のフックは `uv.lock` のバージョンを使う `uv check --frozen` を
     pages = "11428--11444",
 }
 ```
-
-## 謝辞
-
-（🚧 ここに本リポジトリの説明を追加予定 🚧）

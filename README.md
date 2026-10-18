@@ -2,6 +2,7 @@
 
 shitsukan-eval
 ===========================
+
 <h3>Evaluating Model (LLM / LVLM) Alignment with Human Perception</h3>
 
 [📄 Paper](https://aclanthology.org/2025.coling-main.757/) &nbsp;&nbsp;|&nbsp;&nbsp; [🤗 Dataset](https://huggingface.co/datasets/tohoku-nlp/Shitsukan) &nbsp;&nbsp;|&nbsp;&nbsp; [🇯🇵 日本語](README_ja.md)
@@ -39,7 +40,6 @@ We plan to add some **breaking changes** in the future to improve the usability 
 <details>
 <summary><b>The currently supported API LLMs/LVLMs are as follows:</b></summary>
 <li><a href="https://platform.openai.com/docs/models/gpt-4o">GPT-4o</a></li>
-<li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
@@ -54,7 +54,6 @@ We plan to add some **breaking changes** in the future to improve the usability 
 <li><a href="https://arxiv.org/abs/2408.00118">Gemma 2</a></li>
 <li><a href="https://qwen2.org/qwen2-5/">Qwen 2.5</a></li>
 <li><a href="https://llmc.nii.ac.jp/topics/post-707/">LLM-jp-3</a></li>
-<li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
@@ -69,14 +68,12 @@ We plan to add some **breaking changes** in the future to improve the usability 
 <li><a href="https://www.arxiv.org/abs/2408.12637">Idefics3</a></li>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
 <li><a href="https://www.arxiv.org/abs/2409.17146">Molmo</a></li>
-<li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
 
 <details>
 <summary><b>The currently supported vLLM LLMs are as follows:</b></summary>
-<li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
@@ -84,7 +81,6 @@ We plan to add some **breaking changes** in the future to improve the usability 
 <details>
 <summary><b>The currently supported vLLM LVLMs are as follows:</b></summary>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
-<li>(🚧 Here: Add description for this repo 🚧)</li>
 </details>
 
 <br>
@@ -95,7 +91,7 @@ We plan to add some **breaking changes** in the future to improve the usability 
 The wrapper is chosen from substrings of the lowercase `--model` value; the first matching rule wins.
 
 | `--model-type` | Substrings in the model name | Wrapper |
-|---|---|---|
+| --- | --- | --- |
 | `hf` | `llama-3.2` and `vision` (and `instruct`) | Llama-3.2-Vision (`MllamaInstructHf`) |
 | `hf` | `llava` and `1.5` / `next` or `1.6` / `onevision` | LLaVA-1.5 / LLaVA-NeXT / LLaVA-OneVision |
 | `hf` | `idefics2` / `idefics3` / `qwen2-vl` / `molmo` | Idefics2 / Idefics3 / Qwen2-VL / Molmo |
@@ -285,7 +281,3 @@ The ty hook runs `uv check --frozen`, which uses the versions in `uv.lock`; run 
     pages = "11428--11444",
 }
 ```
-
-## Acknowledgement
-
-(🚧 Here: Add description for this repo 🚧)
