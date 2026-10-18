@@ -128,6 +128,24 @@ uv sync
 `uv sync` では開発用ツールもインストールされます。Linux x86_64 の CPython 3.11 では `flash-attn` も含まれ、torch 2.4 と CUDA 12 向けのビルド済み wheel からインストールされます（`pyproject.toml` の `[tool.uv.sources]` を参照）。
 評価に必要なパッケージだけをインストールする場合は、代わりに `uv sync --no-dev` を実行してください。この場合、Hugging Face のモデルは eager attention を使用します（[再現性に関する注意](#再現性に関する注意)を参照）。
 
+#### Compute Capability が 9.0 より大きい GPU（Blackwell）
+
+固定した `torch==2.4.0+cu121` には、Compute Capability 5.0 から 9.0 向けのカーネルしか含まれていません。
+これより新しい GPU（例: RTX PRO 6000 Blackwell、Compute Capability 12.0）では `CUDA error: no kernel image is available for execution on the device` で失敗し、vLLM 0.6.3 と flash-attn 2.6.3 も動作しません。
+このような GPU で Hugging Face のモデルを実行するには、CUDA 12.8 向けの torch 2.7.1（CUDA 12.8 以降に対応した NVIDIA ドライバが必要）と、`uv.lock` に記録されたバージョンのその他のパッケージで、別の環境を作成してください。
+
+```bash
+uv venv .venv-blackwell --python 3.11
+uv export --no-dev --no-hashes --prune torch --prune torchvision --prune vllm -o .venv-blackwell/requirements.txt
+uv pip install --python .venv-blackwell -r .venv-blackwell/requirements.txt \
+    torch==2.7.1+cu128 torchvision==0.22.1+cu128 \
+    --find-links https://download.pytorch.org/whl/cu128/torch \
+    --find-links https://download.pytorch.org/whl/cu128/torchvision
+```
+
+評価は `uv run python -m shitsukan_eval` ではなく `.venv-blackwell/bin/python -m shitsukan_eval` で実行してください。`uv run` は `.venv` の固定した環境を使用します。
+この環境には vLLM（`--model-type vllm` は使用できません）も flash-attn（Hugging Face のモデルは eager attention を使用します）も含まれないため、出力が固定した環境と異なる場合があります。
+
 OpenAI のモデルを評価する場合は、API キーを設定してください。
 
 ```bash

@@ -148,6 +148,8 @@ celerybeat.pid
 # Environments
 .env
 .venv
+# Environment for Blackwell GPUs (see the README)
+.venv-blackwell
 env/
 venv/
 ENV/

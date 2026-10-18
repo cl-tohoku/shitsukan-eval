@@ -128,6 +128,24 @@ uv sync
 `uv sync` also installs the development tools. On Linux x86_64 with CPython 3.11, they include `flash-attn`, which is installed from its prebuilt wheel for torch 2.4 and CUDA 12 (see `[tool.uv.sources]` in `pyproject.toml`).
 To install only the packages that the evaluation needs, run `uv sync --no-dev` instead; the Hugging Face models then use eager attention (see [Reproducibility Notes](#reproducibility-notes)).
 
+#### GPUs with a compute capability above 9.0 (Blackwell)
+
+The pinned `torch==2.4.0+cu121` has kernels for compute capabilities 5.0 to 9.0 only.
+On newer GPUs, for example the RTX PRO 6000 Blackwell (compute capability 12.0), it fails with `CUDA error: no kernel image is available for execution on the device`, and vLLM 0.6.3 and flash-attn 2.6.3 cannot run there either.
+To run the Hugging Face models on such GPUs, create a separate environment with torch 2.7.1 for CUDA 12.8 (which needs an NVIDIA driver for CUDA 12.8 or later) and the other packages at the versions in `uv.lock`:
+
+```bash
+uv venv .venv-blackwell --python 3.11
+uv export --no-dev --no-hashes --prune torch --prune torchvision --prune vllm -o .venv-blackwell/requirements.txt
+uv pip install --python .venv-blackwell -r .venv-blackwell/requirements.txt \
+    torch==2.7.1+cu128 torchvision==0.22.1+cu128 \
+    --find-links https://download.pytorch.org/whl/cu128/torch \
+    --find-links https://download.pytorch.org/whl/cu128/torchvision
+```
+
+Then run the evaluation with `.venv-blackwell/bin/python -m shitsukan_eval` instead of `uv run python -m shitsukan_eval`, which uses the pinned environment in `.venv`.
+This environment has neither vLLM (`--model-type vllm` is unavailable) nor flash-attn (the Hugging Face models use eager attention), so its outputs can differ from those of the pinned environment.
+
 To evaluate OpenAI models, set your API key:
 
 ```bash
