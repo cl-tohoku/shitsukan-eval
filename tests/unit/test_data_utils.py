@@ -202,9 +202,10 @@ def test_set_seed_all_seeds_python_numpy_and_torch(data_utils):
     assert torch_fake.backends.cudnn.deterministic is True
 
 
-def test_set_seed_all_overwrites_torch_use_deterministic_algorithms(data_utils):
-    """Observational record: the function is replaced by ``True`` instead of being called."""
+def test_set_seed_all_leaves_torch_deterministic_mode_untouched(data_utils):
+    original_function = torch_fake.use_deterministic_algorithms
+
     data_utils.set_seed_all(42)
 
-    assert torch_fake.use_deterministic_algorithms is True
+    assert torch_fake.use_deterministic_algorithms is original_function
     assert all(event["call"] != "torch.use_deterministic_algorithms" for event in RECORDER.events)

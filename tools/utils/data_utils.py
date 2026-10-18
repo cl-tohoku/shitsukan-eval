@@ -200,15 +200,17 @@ def load_yaml(filename: str) -> Any:
 def set_seed_all(seed: int = 42) -> None:
     """Seed Python's, NumPy's, and PyTorch's (CPU and CUDA) global generators with ``seed``.
 
-    Also makes cuDNN choose deterministic algorithms.
+    Also makes cuDNN choose deterministic algorithms. PyTorch's global
+    deterministic mode (``torch.use_deterministic_algorithms``) is not enabled:
+    earlier versions of this function assigned ``True`` to that attribute instead
+    of calling it, so the published results were produced without it, and
+    enabling it can change results or make some CUDA operations fail.
     """
     random.seed(seed)
     np.random.seed(seed)
     torch.manual_seed(seed)
     torch.cuda.manual_seed_all(seed)
     torch.backends.cudnn.deterministic = True
-    # FIXME: this replaces the function with True instead of calling it.
-    torch.use_deterministic_algorithms = True
 
 
 # --- URLs ---------------------------------------------------------------------------------
