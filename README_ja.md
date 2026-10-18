@@ -33,7 +33,6 @@ shitsukan-eval
 - [再現性に関する注意](#再現性に関する注意)
 - [開発](#開発)
 - [引用](#引用)
-- [謝辞](#謝辞)
 
 ## 対応モデル
 
@@ -68,12 +67,6 @@ shitsukan-eval
 <li><a href="https://www.arxiv.org/abs/2408.12637">Idefics3</a></li>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
 <li><a href="https://www.arxiv.org/abs/2409.17146">Molmo</a></li>
-</details>
-
-<br>
-
-<details>
-<summary><b>現在対応している vLLM の LLM は以下のとおりです。</b></summary>
 </details>
 
 <br>

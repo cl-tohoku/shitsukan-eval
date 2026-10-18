@@ -33,7 +33,6 @@ We plan to add some **breaking changes** in the future to improve the usability 
 - [Reproducibility Notes](#reproducibility-notes)
 - [Development](#development)
 - [Citation](#citation)
-- [Acknowledgement](#acknowledgement)
 
 ## Supported Models
 
@@ -68,12 +67,6 @@ We plan to add some **breaking changes** in the future to improve the usability 
 <li><a href="https://www.arxiv.org/abs/2408.12637">Idefics3</a></li>
 <li><a href="https://arxiv.org/abs/2409.12191">Qwen2-VL</a></li>
 <li><a href="https://www.arxiv.org/abs/2409.17146">Molmo</a></li>
-</details>
-
-<br>
-
-<details>
-<summary><b>The currently supported vLLM LLMs are as follows:</b></summary>
 </details>
 
 <br>
