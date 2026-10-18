@@ -1,30 +1,30 @@
-default_stages: [commit]
+# Checks run before every commit after `uv run pre-commit install`.
+# Run them on the whole repository with `uv run pre-commit run --all-files`.
+default_install_hook_types: [pre-commit]
+default_stages: [pre-commit]
 repos:
-  - repo: https://github.com/astral-sh/uv-pre-commit
-    # uv version.
-    rev: 0.4.14
-    hooks:
-    # Compile requirements
-    - id: pip-compile
-      name: pip-compile requirements.in
-      args: [requirements.in, -o, requirements.txt]
-    - id: pip-compile
-      name: pip-compile requirements-dev.in
-      args: [requirements-dev.in, -o, requirements-dev.txt]
-      files: ^requirements-dev\.(in|txt)$
-
   - repo: https://github.com/astral-sh/ruff-pre-commit
-    rev: v0.5.2
+    # Keep in sync with the ruff version in pyproject.toml.
+    rev: v0.17.1
     hooks:
-    # Run the linter.
-    - id: ruff
-      name: Ruff check
-      # types_or: [ python, pyi, jupyter ]
-      description: "Run 'ruff check' for extremely fast Python linting"
-      args: [ --fix ]
-    # Run the formatter.
-    - id: ruff-format
-      name: Ruff format
-      # types_or: [ python, pyi, jupyter ]
-      description: "Run 'ruff format' for extremely fast Python formatting"
+      # Lint, including the Google-style docstring rules, and apply safe fixes.
+      - id: ruff-check
+        args: [--fix]
+      # Format Python files (and Python code blocks in Markdown).
+      - id: ruff-format
 
+  - repo: https://github.com/astral-sh/ty-pre-commit
+    # Keep in sync with the ty version in pyproject.toml.
+    rev: v0.0.89
+    hooks:
+      # Type-check the whole project in the uv-managed environment (`uv check`).
+      # --frozen installs the versions recorded in uv.lock and never re-resolves
+      # dependencies during a commit; run `uv sync` once to create uv.lock.
+      - id: ty
+        args: [--frozen]
+
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      # Detect hard-coded secrets, such as API keys, in the staged changes.
+      - id: gitleaks
