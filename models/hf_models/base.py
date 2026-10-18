@@ -40,11 +40,6 @@ def resolve_torch_dtype(dtype: str | torch.dtype | None) -> str | torch.dtype | 
     return dtype
 
 
-def reject_unexpected_kwargs(kwargs: dict[str, Any]) -> None:
-    """Fail when a wrapper received keyword arguments it does not support."""
-    assert kwargs == {}, f"Unexpected kwargs: {kwargs}"
-
-
 def apply_default_generation_kwargs(gen_kwargs: dict[str, Any], use_cache: bool) -> None:
     """Fill in the generation settings shared by the ``transformers`` wrappers.
 

@@ -7,7 +7,7 @@ from typing import Any, ClassVar
 import torch
 from transformers import AutoProcessor
 
-from models.hf_models.base import BEST_FIT_ATTN_IMPLEMENTATION, reject_unexpected_kwargs, resolve_torch_dtype
+from models.hf_models.base import BEST_FIT_ATTN_IMPLEMENTATION, resolve_torch_dtype
 from models.hf_models.vision_chat import HfVisionChatModel
 from models.prompting import ensure_enough_images
 
@@ -44,7 +44,6 @@ class IdeficsFamilyHf(HfVisionChatModel):
         device_map: str | dict[str, Any] = "",
         use_cache: bool = True,
         do_image_splitting: bool | None = None,
-        **kwargs: Any,
     ) -> None:
         """Load the model and the processor.
 
@@ -64,12 +63,7 @@ class IdeficsFamilyHf(HfVisionChatModel):
             use_cache: Default for the ``use_cache`` generation setting.
             do_image_splitting: Whether the processor splits images into sub-images
                 (default: :attr:`default_do_image_splitting`).
-            **kwargs: Must be empty; present so that unsupported options fail loudly.
-
-        Raises:
-            AssertionError: If unsupported keyword arguments are given.
         """
-        reject_unexpected_kwargs(kwargs)
         pretrained = pretrained if pretrained is not None else self.default_pretrained
         do_image_splitting = do_image_splitting if do_image_splitting is not None else self.default_do_image_splitting
         super().__init__(pretrained, image_dir=image_dir, device=device, device_map=device_map, batch_size=int(batch_size), use_cache=use_cache)

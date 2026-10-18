@@ -7,7 +7,7 @@ from typing import Any
 import torch
 from transformers import AutoProcessor, MllamaForConditionalGeneration
 
-from models.hf_models.base import BEST_FIT_ATTN_IMPLEMENTATION, reject_unexpected_kwargs, resolve_torch_dtype
+from models.hf_models.base import BEST_FIT_ATTN_IMPLEMENTATION, resolve_torch_dtype
 from models.hf_models.vision_chat import HfVisionChatModel
 from models.prompting import content_message
 from tools.utils.data_utils import set_seed_all
@@ -41,7 +41,6 @@ class MllamaInstructHf(HfVisionChatModel):
         attn_implementation: str | None = BEST_FIT_ATTN_IMPLEMENTATION,
         device_map: str | dict[str, Any] = "auto",
         use_cache: bool = True,
-        **kwargs: Any,
     ) -> None:
         """Load the model and the processor.
 
@@ -60,12 +59,7 @@ class MllamaInstructHf(HfVisionChatModel):
                 support FlashAttention-2.
             device_map: Device placement passed to ``from_pretrained``.
             use_cache: Default for the ``use_cache`` generation setting.
-            **kwargs: Must be empty; present so that unsupported options fail loudly.
-
-        Raises:
-            AssertionError: If unsupported keyword arguments are given.
         """
-        reject_unexpected_kwargs(kwargs)
         pretrained = pretrained if pretrained is not None else self.default_pretrained
         super().__init__(pretrained, image_dir=image_dir, device=device, device_map=device_map, batch_size=batch_size, use_cache=use_cache)
 

@@ -74,7 +74,6 @@ class Qwen2VLVllm:
         max_seq_len_to_capture: int = 8192,
         limit_mm_per_prompt: dict[str, int] | None = None,
         image_dir: str | None = None,
-        **kwargs: Any,
     ) -> None:
         """Start the vLLM engine and load the processor.
 
@@ -98,12 +97,7 @@ class Qwen2VLVllm:
             limit_mm_per_prompt: Maximum images and videos per prompt
                 (default: ``{"image": 10, "video": 1}``).
             image_dir: Directory that relative image paths are resolved against.
-            **kwargs: Must be empty; present so that unsupported options fail loudly.
-
-        Raises:
-            AssertionError: If unsupported keyword arguments are given.
         """
-        assert kwargs == {}, f"Unexpected kwargs: {kwargs}"
         self.pretrained = pretrained
         self.image_dir = image_dir
         if limit_mm_per_prompt is None:

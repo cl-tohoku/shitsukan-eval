@@ -11,7 +11,6 @@ from models.hf_models.base import (
     BEST_FIT_ATTN_IMPLEMENTATION,
     HfModelWrapper,
     apply_default_generation_kwargs,
-    reject_unexpected_kwargs,
     resolve_torch_dtype,
 )
 from models.prompting import text_message
@@ -50,7 +49,6 @@ class HfTextChatModel(HfModelWrapper):
         attn_implementation: str | None = BEST_FIT_ATTN_IMPLEMENTATION,
         device_map: str | dict[str, Any] = "auto",
         use_cache: bool = True,
-        **kwargs: Any,
     ) -> None:
         """Load the model and the tokenizer.
 
@@ -66,12 +64,7 @@ class HfTextChatModel(HfModelWrapper):
             attn_implementation: ``"flash_attention_2"`` or ``"eager"``.
             device_map: Device placement passed to ``from_pretrained``.
             use_cache: Default for the ``use_cache`` generation setting.
-            **kwargs: Must be empty; present so that unsupported options fail loudly.
-
-        Raises:
-            AssertionError: If unsupported keyword arguments are given.
         """
-        reject_unexpected_kwargs(kwargs)
         pretrained = pretrained if pretrained is not None else self.default_pretrained
         super().__init__(pretrained, device=device, device_map=device_map, batch_size=batch_size, use_cache=use_cache)
 

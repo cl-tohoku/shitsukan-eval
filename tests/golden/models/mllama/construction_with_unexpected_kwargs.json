@@ -2,8 +2,8 @@
  "events": [],
  "result": null,
  "error": {
-  "type": "AssertionError",
-  "message": "Unexpected kwargs: {'unexpected_option': 1}"
+  "type": "TypeError",
+  "message": "MllamaInstructHf.__init__() got an unexpected keyword argument 'unexpected_option'"
  },
  "stdout": []
 }
