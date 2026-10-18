@@ -4,8 +4,8 @@ Paths to the YAML configurations are relative to the repository root, so run the
 evaluation from there (see ``python -m shitsukan_eval --help``).
 
 Every wrapper and task module is imported here eagerly, as in the scripts used
-for the paper: importing them loads the model libraries and seeds the random
-number generators, so the random state is the same when a model is loaded.
+for the paper, so all model libraries are loaded before :func:`evaluate` seeds
+the random number generators and loads the model.
 """
 
 from __future__ import annotations
@@ -45,8 +45,8 @@ from shitsukan_eval.tasks.taxonomic.multiple_choice_classification.taxonomic_mul
 from shitsukan_eval.tasks.taxonomic.yes_no_classification.taxonomic_yes_no_classification_ja import taxonomic_yes_no_classification_ja
 from tools.utils.data_utils import load_yaml, save_results_as_jsonl, set_seed_all
 
-# Set a global random seed for reproducibility.
-set_seed_all(42)
+SEED = 42
+"""Seed of Python's, NumPy's, and PyTorch's generators, set before each model is loaded."""
 
 TaskFunction = Callable[..., list[dict[str, Any]]]
 
@@ -265,6 +265,8 @@ def evaluate(
 ) -> None:
     """Evaluate one model on every combination of ``tasks`` and ``sub_tasks``.
 
+    The random number generators are seeded with :data:`SEED` right before the
+    model is loaded, so repeated calls in one process start from the same state.
     The model is loaded once. Each task writes its records to
     ``<save_dir>/<task>/<sub_task>/<task>_<sub_task>_<lang>_<model_type>_<model>.jsonl``
     (where ``<model>`` is the last path component of ``model_name``); tasks with
@@ -291,6 +293,7 @@ def evaluate(
     loader = MODEL_LOADERS.get(model_type)
     if loader is None:
         raise ValueError(f"Error! The selected model_type ({model_type}) isn't available.") from None
+    set_seed_all(SEED)
     model = loader(model_name, image_dir)
 
     simple_model_name = pathlib.Path(model_name).name

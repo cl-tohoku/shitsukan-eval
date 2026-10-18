@@ -15,10 +15,7 @@ from scipy import stats
 
 from shitsukan_eval.tasks.common import PretrainedChatModel, Record, RunInfo, print_score_report
 from shitsukan_eval.tasks.commonsense.classification.commonsense_classification import classify_naturalness, naturalness_accuracy
-from tools.utils.data_utils import save_eval_scores_as_jsonl, set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
+from tools.utils.data_utils import save_eval_scores_as_jsonl
 
 TASK_DESCRIPTION_FOR_COMMONSENSE_CLASSIFICATION_JA = (
     "本タスクは「画像」に対する質感ではなく、「オブジェクト」がもつ印象から連想される質感について述べていただきます。\n"

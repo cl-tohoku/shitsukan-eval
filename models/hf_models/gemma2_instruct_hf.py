@@ -5,10 +5,6 @@ from __future__ import annotations
 from typing import Any
 
 from models.hf_models.text_chat import HfTextChatModel
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 GEMMA2_CHAT_TEMPLATE = "{{ bos_token }}{% if messages[0]['role'] == 'system' %}{{ raise_exception('System role not supported') }}{% endif %}{% for message in messages %}{% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}{{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}{% endif %}{% if (message['role'] == 'assistant') %}{% set role = 'model' %}{% else %}{% set role = message['role'] %}{% endif %}{{ '<start_of_turn>' + role + '\n' + message['content'] | trim + '<end_of_turn>\n' }}{% endfor %}{% if add_generation_prompt %}{{'<start_of_turn>model\n'}}{% endif %}"
 """Gemma 2 instruct chat template (no system role); installed when the tokenizer has none."""

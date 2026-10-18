@@ -6,10 +6,6 @@ from typing import Any
 
 from shitsukan_eval.tasks.common import ChatModel, Record
 from shitsukan_eval.tasks.perception.selection.perception_selection import run_perception_selection
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 # Instructions for the subsets that have exactly one correct choice.
 TASK_DESCRIPTION_FOR_PERCEPTION_SELECTION_EN = (

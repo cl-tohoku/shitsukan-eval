@@ -3,10 +3,6 @@
 from __future__ import annotations
 
 from models.hf_models.text_chat import HfTextChatModel
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 LLAMA2_CHAT_TEMPLATE = "{% if messages[0]['role'] == 'system' %}{% set loop_messages = messages[1:] %}{% set system_message = messages[0]['content'] %}{% else %}{% set loop_messages = messages %}{% set system_message = false %}{% endif %}{% for message in loop_messages %}{% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}{{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}{% endif %}{% if loop.index0 == 0 and system_message != false %}{% set content = '<<SYS>>\\n' + system_message + '\\n<</SYS>>\\n\\n' + message['content'] %}{% else %}{% set content = message['content'] %}{% endif %}{% if message['role'] == 'user' %}{{ bos_token + '[INST] ' + content.strip() + ' [/INST]' }}{% elif message['role'] == 'assistant' %}{{ ' '  + content.strip() + ' ' + eos_token }}{% endif %}{% endfor %}"
 """Llama 2 chat template (``[INST]`` / ``<<SYS>>`` format); installed when the tokenizer has none."""

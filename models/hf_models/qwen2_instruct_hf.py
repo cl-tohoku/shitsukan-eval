@@ -3,10 +3,6 @@
 from __future__ import annotations
 
 from models.hf_models.text_chat import HfTextChatModel
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 QWEN2_CHAT_TEMPLATE = "{% for message in messages %}{% if loop.first and messages[0]['role'] != 'system' %}{{ '<|im_start|>system\nYou are a helpful assistant.<|im_end|>\n' }}{% endif %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}{% if add_generation_prompt %}{{ '<|im_start|>assistant\n' }}{% endif %}"
 """Qwen2 instruct chat template (ChatML format); installed when the tokenizer has none."""

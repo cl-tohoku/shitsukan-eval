@@ -15,6 +15,7 @@ from typing import Any
 
 import pytest
 
+from tests.fakes import torch_fake
 from tests.fakes.recorder import RECORDER, RESPONDER, SETTINGS
 from tests.fixture_data import write_dataset, write_images
 from tests.golden import check_golden, collect_files, text_lines, to_record
@@ -24,6 +25,14 @@ CONFIG_GLOBS = ("shitsukan_eval/tasks/**/*.yaml", "models/**/*.yaml")
 # Seeding calls are excluded from the compared events: the seeding contract is
 # checked through the RNG summaries recorded when models are loaded and sampled.
 SEEDING_CALLS = {"torch.manual_seed", "torch.cuda.manual_seed_all", "torch.use_deterministic_algorithms"}
+FRESHLY_SEEDED = {
+    "python_random_fresh_seed_42": True,
+    "numpy_random_fresh_seed_42": True,
+    "torch_seed": 42,
+    "cuda_seed": 42,
+    "draws_since_torch_seed": 0,
+    "cudnn_deterministic": True,
+}
 
 
 # (marker found in the prompt, well-formed answer for that task), checked in order:
@@ -270,3 +279,26 @@ def test_task_lookup(lang, task, sub_task, import_fresh, workspace, capsys):
     observed["stdout"] = text_lines(capsys.readouterr().out)
 
     check_golden(f"evaluate/task_lookup/{lang}__{task}__{sub_task}", to_record(observed))
+
+
+def test_importing_the_evaluator_does_not_seed_the_rngs(import_fresh):
+    import_fresh("shitsukan_eval.evaluator")
+
+    assert torch_fake.SEED_STATE["torch"] is None
+    assert all(event["call"] not in SEEDING_CALLS for event in RECORDER.events)
+
+
+def test_evaluate_reseeds_the_rngs_before_loading_the_model_on_every_call(import_fresh, workspace, capsys):
+    evaluator = import_fresh("shitsukan_eval.evaluator")
+    SETTINGS["record_rng_state"] = True
+    RESPONDER.use_rule(answer_like_a_model)
+    arguments = EVALUATION_SCENARIOS["hf_text_model_taxonomic_tasks"]
+
+    for run in range(2):
+        RECORDER.reset()
+        evaluator.evaluate(save_dir=str(workspace / f"outputs_{run}"), **arguments)
+        loading = next(event for event in RECORDER.events if event["call"].endswith(".from_pretrained") and event["rng"] is not None)
+        first_generation = next(event for event in RECORDER.events if event["call"] == "Model.generate")
+
+        assert loading["rng"] == FRESHLY_SEEDED, f"run {run}: {loading['rng']}"
+        assert first_generation["rng"] == FRESHLY_SEEDED, f"run {run}: {first_generation['rng']}"

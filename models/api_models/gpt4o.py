@@ -18,10 +18,7 @@ import requests
 from openai import APIConnectionError, APIStatusError, AsyncOpenAI, RateLimitError
 
 from models.prompting import IMAGE_PLACEHOLDER, content_message, ensure_enough_images, text_message
-from tools.utils.data_utils import is_url, set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
+from tools.utils.data_utils import is_url
 
 T = TypeVar("T")
 

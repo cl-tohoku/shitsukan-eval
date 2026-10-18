@@ -9,10 +9,6 @@ from transformers import AutoProcessor, Qwen2VLForConditionalGeneration
 
 from models.hf_models.base import BEST_FIT_ATTN_IMPLEMENTATION, resolve_torch_dtype
 from models.hf_models.vision_chat import HfVisionChatModel
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 END_OF_TEXT_TOKEN = "<|endoftext|>"
 

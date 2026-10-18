@@ -15,10 +15,6 @@ from models.hf_models.base import (
 )
 from models.image_loading import load_images
 from models.prompting import ensure_enough_images, remove_image_placeholders
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 END_OF_TEXT_TOKEN = "<|endoftext|>"
 

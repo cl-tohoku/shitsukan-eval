@@ -5,10 +5,6 @@ from __future__ import annotations
 from transformers import LlavaForConditionalGeneration
 
 from models.hf_models.llava_family import LlavaFamilyHf
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 
 class LlavaHf(LlavaFamilyHf):

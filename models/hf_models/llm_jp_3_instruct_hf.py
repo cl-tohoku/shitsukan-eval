@@ -5,10 +5,6 @@ from __future__ import annotations
 from typing import Any
 
 from models.hf_models.text_chat import HfTextChatModel
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 LLM_JP_3_CHAT_TEMPLATE = "{{bos_token}}{% for message in messages %}{% if message['role'] == 'user' %}{{ '\n\n### 指示:\n' + message['content'] }}{% elif message['role'] == 'system' %}{{ message['content'] }}{% elif message['role'] == 'assistant' %}{{ '\n\n### 応答:\n' + message['content'] + eos_token }}{% endif %}{% if loop.last and add_generation_prompt %}{{ '\n\n### 応答:\n' }}{% endif %}{% endfor %}"
 """LLM-jp-3 chat template, modified so that the system prompt can be set per request; always installed."""

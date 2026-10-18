@@ -11,10 +11,6 @@ from vllm import LLM, SamplingParams
 from models.hf_models.base import resolve_torch_dtype
 from models.image_loading import load_images
 from models.prompting import content_message, ensure_enough_images, remove_image_placeholders
-from tools.utils.data_utils import set_seed_all
-
-# Importing this module seeds the global RNGs, as every module of the original scripts did.
-set_seed_all(42)
 
 END_OF_TEXT_TOKEN = "<|endoftext|>"
 # Resolution bounds for each image, passed to ``qwen_vl_utils.process_vision_info``.
